@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyPlan · 나의 라이프 플래너</title>
+<meta name="description" content="목표·일정·자산·공모주·라이프 플랜을 한 곳에서 관리하는 개인 대시보드">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 30'%3E%3Cpath d='M4 26 L14 5 L23 18 L32 5 L42 26' fill='none' stroke='%234f7cf7' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5fa;--card:#fff;--tx:#1a2233;--mut:#7a8499;--bd:#e8ecf3;--soft:#f5f7fb;--pri:#3b7cf5;--pri2:#eaf1fe;--grn:#20a464;--org:#f97316;--pur:#8b5cf6;--red:#e5484d;--amb:#b54708;--sh:0 2px 12px rgba(31,52,94,.06)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+svg.i{width:1em;height:1em;flex:none;vertical-align:-.15em}
+.app{display:flex;min-height:100vh}
+/* sidebar */
+aside{width:130px;flex:none;background:linear-gradient(180deg,#24314f,#182139);color:#c4cde0;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:20px 10px 18px;z-index:30}
+.logo{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:26px;color:#fff;font-weight:700;font-size:15px;text-decoration:none}
+.side-nav{display:flex;flex-direction:column;gap:6px}
+.side-nav a{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;color:#c4cde0;text-decoration:none;font-size:13.5px;white-space:nowrap}
+.side-nav a svg{font-size:17px}
+.side-nav a:hover{background:rgba(255,255,255,.06)}
+.side-nav a.on{background:var(--pri);color:#fff;box-shadow:0 4px 12px rgba(59,124,245,.35)}
+.me{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;font-size:13px;cursor:pointer}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#5b8ff9,#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.7);font-size:14px}
+.me small{color:#8f9bb5;font-size:11px}
+/* main */
+.main{flex:1;min-width:0;padding:22px 26px 30px}
+.topbar{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.tb-l{flex:1;min-width:0}
+.tb-l h1{margin:0;font-size:23px;font-weight:800;letter-spacing:-.3px}
+.tb-l p{margin:4px 0 0;color:var(--mut)}
+.tb-r{display:flex;align-items:center;gap:10px}
+.search{position:relative;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:22px;padding:8px 14px;width:250px;box-shadow:var(--sh)}
+.search input{border:0;outline:0;background:transparent;flex:1;min-width:0}
+.search>svg{color:var(--mut);font-size:17px}
+.cbtn{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);font-size:19px}
+.badge{position:absolute;top:4px;right:4px;min-width:17px;height:17px;border-radius:9px;background:var(--red);color:#fff;font-size:10px;font-style:normal;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff}
+.badge.on{display:flex}
+.rel{position:relative}
+.dd{position:absolute;top:calc(100% + 8px);right:0;width:330px;max-height:420px;overflow:auto;background:#fff;border:1px solid var(--bd);border-radius:14px;box-shadow:0 14px 40px rgba(20,30,60,.16);z-index:40;display:none;padding:6px}
+.dd.on{display:block}
+.dd .di{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:9px;cursor:pointer}
+.dd .di:hover{background:var(--soft)}
+.dd .dh{font-size:11px;color:var(--mut);padding:8px 10px 2px;font-weight:500}
+.dd .de{padding:18px;text-align:center;color:var(--mut)}
+/* cards */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;box-shadow:var(--sh);margin-bottom:16px;min-width:0}
+.card h3{margin:0 0 12px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .sp{flex:1}
+.ch{display:flex;align-items:center;margin-bottom:12px}
+.ch h3{margin:0;flex:1}
+.ch a,.more-link{color:var(--mut);font-size:12.5px;cursor:pointer;text-decoration:none}
+.ch a:hover{color:var(--pri)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{border:1px solid var(--bd);background:#fff;border-radius:9px;padding:7px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn:hover{background:var(--soft)}
+.btn.p{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:500}
+.btn.p:hover{background:#2f6be0}
+.btn.s{padding:4px 9px;font-size:12px}
+.btn.d{color:var(--red)}
+.btn.ghost{border-color:transparent;background:transparent}
+.ib{width:30px;height:30px;border-radius:8px;border:0;background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:16px;color:var(--tx)}
+.ib:hover{background:var(--soft)}
+.seg,.seg2{display:inline-flex;gap:4px;background:var(--soft);border-radius:10px;padding:3px}
+.seg button,.seg2 button{border:0;background:transparent;padding:6px 16px;border-radius:8px;cursor:pointer;color:var(--mut)}
+.seg button.on,.seg2 button.on{background:var(--pri);color:#fff;box-shadow:0 2px 6px rgba(59,124,245,.3)}
+.mut{color:var(--mut)}.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pos{color:var(--red)}.neg{color:#1570ef}
+.tag{font-size:11px;padding:1px 8px;border-radius:10px;background:var(--soft);color:var(--mut);white-space:nowrap;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.bar{height:7px;border-radius:4px;background:#edf1f7;overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:4px;background:var(--pri)}
+.empty{padding:18px;text-align:center;color:var(--mut)}
+/* home */
+.home-top{display:grid;grid-template-columns:1fr 1fr 1fr 1.25fr;gap:16px;margin-bottom:16px}
+.kcard{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:20px;box-shadow:var(--sh);display:flex;gap:16px;align-items:flex-start;cursor:pointer}
+.kcard.peach{background:linear-gradient(135deg,#fff6ef,#ffeee2);border-color:#fde3cf}
+.kic{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}
+.kb{flex:1;min-width:0}
+.kl{font-size:13px;color:#4a5468;font-weight:500}
+.kv{font-size:32px;font-weight:800;letter-spacing:-.5px;margin:2px 0 8px;line-height:1.2}
+.kv small{font-size:17px;font-weight:700;margin-left:2px}
+.kv .of{font-size:18px;color:var(--tx)}
+.kfoot{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#4a5468}
+.kfoot .bar{flex:1}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;background:#fff;border:1px solid #fbd5bb;color:#c2410c;border-radius:14px;padding:3px 10px}
+.hero{position:relative;border-radius:16px;overflow:hidden;min-height:128px;box-shadow:var(--sh);cursor:pointer}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hq{position:relative;padding:20px 22px;font-family:'Nanum Pen Script',cursive;color:#1d2433}
+.hq .q{font-size:27px;line-height:1.15;white-space:pre-line}
+.hq .qs{font-size:18px;margin-top:8px;color:#2a3142}
+.home-main{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:start}
+.hr2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:16px}
+.mg{display:flex;gap:12px;align-items:center;padding:9px 0;cursor:pointer}
+.mg .gi{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.mg .gb{flex:1;min-width:0}
+.mg .gt{font-weight:500;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg .gd{font-size:11.5px;color:var(--mut)}
+.mg .gp{display:flex;align-items:center;gap:8px;margin-top:5px}
+.mg .gp .bar{flex:1;height:6px}
+.mg .gp span{font-size:12px;width:34px;text-align:right}
+.sumrow{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13.5px}
+.sumrow svg{color:var(--pri);font-size:17px}
+.sumrow b{margin-left:auto;font-weight:700}
+.donut{display:flex;justify-content:center;margin-top:12px}
+/* todo */
+.todo{list-style:none;margin:0;padding:0}
+.todo li{display:flex;align-items:center;gap:8px;padding:6px 2px}
+.todo label{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}
+.todo input{appearance:none;-webkit-appearance:none;width:19px;height:19px;border-radius:50%;border:1.6px solid #b8c1d1;margin:0;flex:none;cursor:pointer;display:grid;place-content:center;background:#fff}
+.todo input:checked{background:var(--pri);border-color:var(--pri)}
+.todo input:checked::after{content:'';width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)}
+.todo li.done .tt{text-decoration:line-through;color:var(--mut)}
+.todo .tx{border:0;background:none;color:var(--mut);cursor:pointer;font-size:16px;opacity:0;padding:0 4px}
+.todo li:hover .tx{opacity:1}
+.tadd input{width:100%;border:1px dashed var(--bd);border-radius:9px;padding:7px 10px;margin-top:6px;background:var(--soft);outline:none}
+.tadd input:focus{border-style:solid;border-color:var(--pri);background:#fff}
+/* week chart */
+.wchart{display:flex;align-items:flex-end;gap:8px;height:120px;padding-top:6px}
+.wchart .wc{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;min-width:0}
+.wchart .bp{flex:1;display:flex;align-items:flex-end;gap:3px;width:100%;justify-content:center}
+.wchart .bp i{width:40%;max-width:16px;border-radius:4px 4px 0 0;display:block}
+.wchart .bp i.a{background:#dbe7fd}.wchart .bp i.b{background:var(--pri)}
+.wchart .wl{font-size:11.5px;margin-top:5px;text-align:center;line-height:1.3}
+.wchart .wl small{display:block;color:var(--mut);font-size:10.5px}
+.lg{display:flex;gap:12px;font-size:12px;color:var(--mut)}
+.lg span{display:inline-flex;align-items:center;gap:5px}
+/* calendar card */
+.cal-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.cal-top .ct{display:flex;align-items:center;gap:7px;font-weight:700;font-size:15px}
+.cal-nav{display:flex;align-items:center;gap:2px;margin-left:16px}
+.ym{border:0;background:transparent;font-weight:700;font-size:16px;cursor:pointer;padding:4px 8px;border-radius:8px;display:inline-flex;align-items:center;gap:4px}
+.ym:hover{background:var(--soft)}
+.cal-top .sp{flex:1}
+.tg{border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.tg-row{display:grid}
+.tg-head>div{padding:6px 2px;text-align:center;font-size:12px;color:#4a5468;border-left:1px solid var(--bd);border-bottom:1px solid var(--bd);cursor:pointer}
+.tg-head>div:first-child{border-left:0;cursor:default}
+.tg-head b{display:block;font-size:13px;font-weight:500;color:var(--tx)}
+.tg-head .today{background:#eaf1fe;color:var(--pri)}.tg-head .today b{color:var(--pri);font-weight:700}
+.tg-head .sun,.tg-head .sun b{color:#e5484d}.tg-head .sat,.tg-head .sat b{color:#3e63dd}
+.tg-all>div{border-left:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:3px;min-height:26px}
+.tg-all>div:first-child{border-left:0;font-size:11px;color:var(--mut);display:flex;align-items:center;justify-content:center}
+.tg-all .today{background:#f3f7ff}
+.tg-scroll{overflow-y:auto;position:relative}
+.tg-body{display:grid;position:relative}
+.tg-gut{position:relative}
+.tg-gut div{position:absolute;right:8px;font-size:11px;color:var(--mut);transform:translateY(-50%)}
+.tg-gut div:first-child{display:none}
+.tg-col{position:relative;border-left:1px solid var(--bd);cursor:copy}
+.tg-col.today{background:#f3f7ff}
+.tev{position:absolute;border-radius:6px;border-left:3px solid;padding:3px 6px;font-size:11.5px;overflow:hidden;cursor:pointer;line-height:1.3;color:#1a2233}
+.tev b{font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tev span{display:block;color:#4a5468;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tev.done{opacity:.5}.tev.done b{text-decoration:line-through}
+.tev:hover{filter:brightness(.97);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.nowline{position:absolute;left:0;right:0;height:2px;background:var(--red);z-index:2;pointer-events:none}
+.nowline::before{content:'';position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.chip{display:block;font-size:11px;padding:1px 6px;border-radius:5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-left:3px solid;cursor:pointer;color:#1a2233}
+.chip.done{text-decoration:line-through;opacity:.55}
+.mcal{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.mcal .dow{padding:6px;text-align:center;font-size:12px;color:#4a5468;background:var(--soft);border-bottom:1px solid var(--bd)}
+.mcal .d{padding:4px;border-top:1px solid var(--bd);border-left:1px solid var(--bd);cursor:pointer;overflow:hidden;min-width:0}
+.mcal .d:nth-child(7n+1){border-left:0}
+.mcal .d:hover{background:var(--soft)}
+.mcal .d.out{opacity:.4}
+.mcal .d .n{font-size:12px;font-weight:500;display:inline-block;min-width:22px;text-align:center;border-radius:11px;margin-bottom:2px}
+.mcal .d.today{background:#f3f7ff}
+.mcal .d.today .n{background:var(--pri);color:#fff}
+.mcal .sun .n,.mcal .dow.sun{color:#e5484d}.mcal .sat .n,.mcal .dow.sat{color:#3e63dd}
+.mcal .more{font-size:11px;color:var(--mut)}
+/* lists, tables */
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--bd)}
+.list li:last-child{border-bottom:0}
+.sgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
+.ggrid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.goal{display:flex;gap:10px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--bd)}
+.goal:last-child{border-bottom:0}
+.goal .body{flex:1;min-width:0}
+.goal .t{font-weight:500}
+.goal.done .t{text-decoration:line-through;color:var(--mut)}
+.goal input[type=range]{width:100%;accent-color:var(--pri)}
+textarea.note{width:100%;min-height:120px;border:1px solid var(--bd);border-radius:10px;padding:10px;background:#fff;resize:vertical}
+.calhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:16px 18px;box-shadow:var(--sh)}
+.kpi .l{font-size:12.5px;color:var(--mut)}.kpi .v{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--mut)}
+.stack{display:flex;height:16px;border-radius:8px;overflow:hidden;background:var(--soft);margin:6px 0 10px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:middle}
+th{font-size:12px;color:var(--mut);font-weight:500;background:var(--soft);white-space:nowrap}
+th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--soft)}
+tfoot td{font-weight:700;border-bottom:0}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:150px;padding-top:10px;border-bottom:1px solid var(--bd)}
+.bars .b{flex:1;min-width:14px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bars .b i{display:block;width:100%;max-width:36px;background:var(--pri);border-radius:5px 5px 0 0}
+.bars .b i.n{background:var(--red)}
+.bars .b small{font-size:10px;color:var(--mut);margin-top:2px;white-space:nowrap}
+.st{font-size:11px;padding:2px 8px;border-radius:10px;white-space:nowrap;font-weight:500}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.filters button{border:1px solid var(--bd);background:#fff;border-radius:14px;padding:3px 11px;font-size:12px;cursor:pointer}
+.filters button.on{background:var(--tx);color:#fff;border-color:var(--tx)}
+.heat{display:grid;grid-auto-flow:column;grid-auto-columns:14px;grid-template-rows:repeat(7,14px);gap:3px;overflow-x:auto;padding-bottom:4px}
+.heat i{width:14px;height:14px;border-radius:3px;background:#edf1f7;display:block}
+/* modal */
+#modal{position:fixed;inset:0;background:rgba(10,14,22,.45);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:40px 12px;overflow-y:auto}
+#modal.on{display:flex}
+.mbox{background:#fff;border-radius:16px;width:100%;max-width:560px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mbox h2{margin:0 0 14px;font-size:17px;display:flex;align-items:center}
+.mbox h2 .x{margin-left:auto;border:0;background:none;font-size:22px;cursor:pointer;color:var(--mut)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mut);grid-column:span 2}
+.form label.h{grid-column:span 1}
+.form label.ck{flex-direction:row;align-items:center;gap:8px;color:var(--tx);font-size:14px}
+.form input:not([type=checkbox]),.form select,.form textarea{border:1px solid var(--bd);border-radius:9px;padding:8px 10px;background:#fff;color:var(--tx);font-size:14px;width:100%}
+.form textarea{min-height:64px;resize:vertical}
+.form .hint{font-size:11px;color:var(--mut)}
+.mfoot{display:flex;gap:8px;margin-top:16px}
+.mfoot .sp{flex:1}
+.pk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pk button{padding:10px;border:1px solid var(--bd);border-radius:10px;background:#fff;cursor:pointer}
+.pk button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+#loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:60;flex-direction:column;gap:8px;text-align:center;padding:20px}
+#loading.off{display:none}
+.spin{width:28px;height:28px;border:3px solid var(--bd);border-top-color:var(--pri);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#auth{position:fixed;inset:0;z-index:58;display:none;background:linear-gradient(135deg,#dfeafb,#c9dcf7 50%,#b8d0f5)}
+#auth.on{display:flex}
+.au-hero{position:relative;flex:1.35;min-width:0;overflow:hidden;color:#fff}
+.au-bg{position:absolute;inset:0;width:100%;height:100%}
+.au-logo{position:absolute;top:38px;left:48px;display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700;letter-spacing:-.3px}
+.au-copy{position:absolute;top:22%;left:48px;right:30px}
+.au-copy h1{margin:0;font-size:clamp(28px,3.1vw,42px);line-height:1.38;font-weight:700;letter-spacing:-.5px;text-shadow:0 2px 14px rgba(0,20,60,.3)}
+.au-copy em{font-style:normal;color:#8fd0ff}
+.au-hr{display:block;width:34px;height:2px;background:#fff;margin:24px 0 20px;opacity:.85}
+.au-copy p{margin:0;font-size:clamp(15px,1.3vw,18px);line-height:1.7;opacity:.95;text-shadow:0 1px 8px rgba(0,20,60,.35)}
+.au-feats{position:absolute;left:48px;bottom:44px;display:flex;gap:0}
+.au-feats>div{display:flex;flex-direction:column;gap:4px;padding:0 34px;border-left:1px solid rgba(255,255,255,.35)}
+.au-feats>div:first-child{padding-left:0;border-left:0}
+.au-feats svg{font-size:30px;margin-bottom:6px}
+.au-feats b{font-size:16px}.au-feats span{font-size:13px;opacity:.85}
+.au-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:30px;min-width:360px}
+.au-card{width:100%;max-width:420px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);border-radius:24px;padding:42px 40px 30px;text-align:center;box-shadow:0 24px 60px rgba(40,70,130,.18)}
+.au-brand{font-size:30px;font-weight:800;color:#18213a;margin-top:4px;letter-spacing:-.5px}
+.au-sub{color:#5d6880;margin:8px 0 26px;font-size:15px}
+.au-form{display:flex;flex-direction:column;gap:12px;text-align:left}
+.au-in{display:flex;align-items:center;gap:10px;background:#eef2f8;border:1.5px solid transparent;border-radius:12px;padding:0 14px;height:50px;color:#6b768c;transition:border-color .15s,background .15s}
+.au-in:focus-within{border-color:#4f86f7;background:#fff}
+.au-in>svg{font-size:19px}
+.au-in input{flex:1;border:0;outline:0;background:transparent;font-size:15px;color:#1a2233;min-width:0}
+.au-eye{border:0;background:none;color:#6b768c;cursor:pointer;font-size:19px;display:flex;padding:4px}
+.au-btn{height:52px;border:0;border-radius:12px;background:linear-gradient(90deg,#3d7cf6,#5aa2fa);color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(61,124,246,.35);margin-top:4px}
+.au-btn:hover{filter:brightness(1.05)}
+.au-err{color:#e5484d;font-size:13px;min-height:0}
+.au-err:empty{display:none}
+.au-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#4a5468;margin-top:4px}
+.au-row label{display:flex;align-items:center;gap:7px;cursor:pointer}
+.au-row input{width:16px;height:16px;accent-color:#3d7cf6}
+.au-row a,.au-foot a{color:#3d7cf6;cursor:pointer;font-weight:500;text-decoration:none}
+.au-row a{color:#4a5468;font-weight:400}
+.au-foot{border-top:1px solid #e3e8f0;margin-top:22px;padding-top:18px;font-size:13.5px;color:#4a5468}
+.au-note{margin:0 0 4px;font-size:13.5px;color:#4a5468;text-align:center;line-height:1.6}
+
+.ltl{position:relative;display:flex;border-radius:12px;overflow:visible;height:58px;margin-top:6px}
+.lseg{color:#fff;padding:8px 10px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;cursor:pointer;min-width:0;border-right:2px solid #fff}
+.lseg:first-child{border-radius:12px 0 0 12px}.lseg:last-child{border-radius:0 12px 12px 0;border-right:0}
+.lseg b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lseg small{font-size:11px;opacity:.9;white-space:nowrap}
+.lnow{position:absolute;top:-6px;bottom:-6px;width:0;border-left:2.5px solid #1a2233;z-index:2;pointer-events:none}
+.lnow span{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:3px;background:#1a2233;color:#fff;font-size:11px;padding:1px 7px;border-radius:8px;white-space:nowrap}
+.lpin{position:absolute;bottom:-4px;width:9px;height:9px;border-radius:50%;background:#fff;border:2.5px solid #1a2233;transform:translateX(-50%);cursor:pointer;z-index:3}
+.lpin.done{background:#20a464;border-color:#20a464}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.lgrid .card{margin-bottom:0}
+.lstage.cur{box-shadow:0 0 0 2px var(--pri),var(--sh)}
+.lstage.past{opacity:.75}
+.ltheme{background:var(--soft);border-radius:9px;padding:8px 10px;font-size:12.5px;margin:10px 0 8px;color:#4a5468}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a2233;color:#fff;padding:9px 18px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:70}
+#toast.on{opacity:1}
+.banner{background:#fffaeb;color:#93370d;border:1px solid #fedf89;border-radius:12px;padding:9px 14px;margin-bottom:14px;font-size:13px;display:none}
+#status{font-size:11px;color:#8f9bb5;text-align:center;margin-top:4px}
+#status.err{color:#fda29b}
+/* responsive */
+@media (max-width:1280px){.home-top{grid-template-columns:1fr 1fr 1fr}.hero{grid-column:1/-1;min-height:110px}}
+@media (max-width:1100px){.home-main{grid-template-columns:1fr}.hl{display:grid;grid-template-columns:1fr 1fr;gap:16px}.hl .card{margin-bottom:0}.home-main .hl{margin-bottom:0}.sgrid{grid-template-columns:1fr}}
+
+/* ----- 화면 모드: html.m = 모바일, html.t = 중간(태블릿·좁은 PC) ----- */
+html.t aside{width:70px;padding:16px 8px}
+html.t .logo{font-size:0;margin-bottom:20px}
+html.t .side-nav a{justify-content:center;padding:10px 0}
+html.t .side-nav a span{display:none}
+html.t .side-nav a svg{font-size:20px}
+html.t .me .avatar{width:38px;height:38px;font-size:12px}
+html.t #myname,html.t #status{display:none}
+html.t .main{padding:18px 18px 28px}
+html.t .search{width:200px}
+html.t .home-top{grid-template-columns:1fr 1fr}
+html.t .home-top .hero{grid-column:1/-1}
+html.t .home-main{grid-template-columns:1fr}
+html.t .hl{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+html.t .hl .card{margin-bottom:0}
+html.t .sgrid{grid-template-columns:1fr}
+html.t .au-panel{min-width:340px;padding:20px}
+html.t .au-card{padding:34px 28px 26px}
+html.t .au-feats>div{padding:0 18px}
+html.t .au-logo,html.t .au-copy,html.t .au-feats{left:32px}
+@media (max-width:820px){html.t .au-feats{display:none}html.t .au-copy h1{font-size:24px}html.t .au-copy p{font-size:14px}html.t .fgrid,html.t .ggrid{grid-template-columns:1fr}}
+@media (max-width:640px){html.t .tb-l h1{font-size:19px}html.t .topbar{flex-wrap:wrap}html.t .tb-r{width:100%}html.t .search{flex:1;width:auto}html.t .home-top,html.t .hl,html.t .hr2{grid-template-columns:1fr}html.t .au-hero{display:none}}
+html.m .app{flex-direction:column}
+html.m aside{position:fixed;bottom:0;top:auto;left:0;right:0;width:100%;height:64px;flex-direction:row;padding:4px 2px calc(4px + env(safe-area-inset-bottom));height:calc(64px + env(safe-area-inset-bottom));background:#1d2840}
+html.m .logo,html.m .me{display:none}
+html.m .side-nav{flex-direction:row;justify-content:space-around;width:100%;gap:0}
+html.m .side-nav a{flex:1;min-width:0;flex-direction:column;gap:2px;font-size:10px;padding:6px 0;justify-content:center}
+html.m .side-nav a svg{font-size:19px}
+html.m .side-nav a .ln{display:none}
+html.m .side-nav a .ls{display:block}
+html.m .main{padding:14px 12px 84px}
+html.m .topbar{flex-wrap:wrap;gap:10px;margin-bottom:12px}
+html.m .tb-l h1{font-size:19px}
+html.m .tb-r{width:100%}
+html.m .search{flex:1;width:auto}
+html.m .home-top{grid-template-columns:1fr 1fr;gap:10px}
+html.m .home-top .kcard{padding:14px;flex-direction:column;gap:8px}
+html.m .home-top .kcard:nth-child(3){grid-column:1/-1;flex-direction:row}
+html.m .home-top .hero{grid-column:1/-1;min-height:104px}
+html.m .kic{width:40px;height:40px;font-size:20px}
+html.m .kv{font-size:24px;margin-bottom:4px}
+html.m .home-main,html.m .sgrid,html.m .hr2,html.m .fgrid,html.m .ggrid,html.m .hl{grid-template-columns:1fr!important}
+html.m .hl{display:block}
+html.m .card{padding:15px;border-radius:14px;margin-bottom:12px}
+html.m .cal-nav{margin-left:0}
+html.m .cal-top .ct{display:none}
+html.m .kpis{grid-template-columns:1fr 1fr;gap:10px}
+html.m .lgrid{grid-template-columns:1fr}
+html.m .form{grid-template-columns:1fr}
+html.m .form label.h{grid-column:span 2}
+html.m #modal{padding:0;align-items:flex-end}
+html.m .mbox{border-radius:18px 18px 0 0;max-height:92vh;overflow-y:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+html.m #auth{background:#1d2b4a}
+html.m .au-hero{position:absolute;inset:0}
+html.m .au-copy,html.m .au-feats{display:none}
+html.m .au-logo{top:22px;left:22px;font-size:20px}
+html.m .au-panel{position:relative;flex:1;min-width:0;padding:80px 16px 24px;overflow-y:auto}
+html.m .au-card{padding:32px 22px 24px}
+html.m.forced body{max-width:520px;margin:0 auto;box-shadow:0 0 0 1px var(--bd)}
+html.m.forced aside{left:50%;right:auto;transform:translateX(-50%);max-width:520px}
+.side-nav a .ls{display:none}
+.vseg{display:flex;gap:8px;flex-wrap:wrap}
+.vseg button{flex:1;min-width:120px;border:1.5px solid var(--bd);background:#fff;border-radius:12px;padding:12px;cursor:pointer;text-align:left}
+.vseg button b{display:block;font-size:14px}.vseg button span{font-size:12px;color:var(--mut)}
+.vseg button.on{border-color:var(--pri);background:var(--pri2)}
+</style>
+</head>
+<body>
+<div id="auth">
+  <div class="au-hero">
+    <svg class="au-bg" viewBox="0 0 800 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="ask" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5fa8"/><stop offset=".35" stop-color="#6d9ad3"/><stop offset=".55" stop-color="#b9cde3"/><stop offset=".66" stop-color="#f4cf9e"/><stop offset=".72" stop-color="#f7a55c"/></linearGradient>
+        <radialGradient id="asun" cx="560" cy="455" r="170" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff6d8"/><stop offset=".12" stop-color="#ffe2a1" stop-opacity=".95"/><stop offset=".45" stop-color="#ffc277" stop-opacity=".35"/><stop offset="1" stop-color="#ffb46a" stop-opacity="0"/></radialGradient>
+        <linearGradient id="acl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".5" stop-color="#fff2e2" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient>
+        <linearGradient id="arock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a5650"/><stop offset=".5" stop-color="#3a3834"/><stop offset="1" stop-color="#22211f"/></linearGradient>
+        <linearGradient id="avig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1730" stop-opacity=".55"/><stop offset=".6" stop-color="#0b1730" stop-opacity=".1"/><stop offset="1" stop-color="#0b1730" stop-opacity="0"/></linearGradient>
+      </defs>
+      <rect width="800" height="720" fill="url(#ask)"/>
+      <g fill="#fff" opacity=".35"><ellipse cx="560" cy="210" rx="190" ry="10"/><ellipse cx="640" cy="245" rx="150" ry="7"/><ellipse cx="470" cy="300" rx="160" ry="8"/><ellipse cx="700" cy="330" rx="120" ry="6"/></g>
+      <g fill="#ffd7a8" opacity=".55"><ellipse cx="520" cy="370" rx="170" ry="7"/><ellipse cx="660" cy="395" rx="130" ry="5"/></g>
+      <rect width="800" height="720" fill="url(#asun)"/>
+      <circle cx="560" cy="455" r="16" fill="#fffbe9"/>
+      <path d="M0 470 L90 438 L170 455 L260 425 L350 452 L430 432 L520 456 L610 440 L700 452 L800 436 V560 H0Z" fill="#7d8eae" opacity=".75"/>
+      <path d="M0 470 Q200 455 400 468 T800 462 V520 H0Z" fill="url(#acl)"/>
+      <path d="M330 500 L420 470 L500 488 L600 462 L700 480 L800 470 V600 H330Z" fill="#45587a" opacity=".85"/>
+      <path d="M520 512 Q600 505 680 515 T800 512 V530 H520Z" fill="#f6c58b" opacity=".55"/>
+      <path d="M0 520 Q150 500 300 520 L320 560 H0Z" fill="#fff" opacity=".55"/>
+      <path d="M520 540 L800 528 V720 H520Z" fill="#2e3f2c"/>
+      <g fill="#24361f"><ellipse cx="640" cy="600" rx="90" ry="40"/><ellipse cx="760" cy="580" rx="70" ry="45"/><ellipse cx="560" cy="650" rx="80" ry="40"/></g>
+      <path d="M0 720 L0 600 Q60 560 130 548 L210 520 Q260 500 300 506 L345 512 Q400 520 440 560 Q480 600 520 640 L580 720Z" fill="url(#arock)"/>
+      <path d="M150 560 Q200 540 250 548 M90 610 Q160 590 230 600 M300 540 Q340 548 370 575" stroke="#6b665e" stroke-width="3" fill="none" opacity=".6"/>
+      <g fill="#14161b">
+        <ellipse cx="300" cy="508" rx="22" ry="4" opacity=".4"/>
+        <path d="M290 506 L293 455 L301 455 L300 506 Z"/><path d="M302 506 L306 456 L313 456 L311 506 Z"/>
+        <path d="M288 460 L289 405 Q290 396 300 395 L308 395 Q316 397 316 408 L315 460 Z"/>
+        <rect x="278" y="400" width="16" height="36" rx="5" fill="#2a2d33"/>
+        <path d="M312 405 L319 440 L315 442 L309 412Z"/>
+        <circle cx="303" cy="384" r="9"/>
+      </g>
+      <rect width="800" height="720" fill="url(#avig)"/>
+    </svg>
+    <div class="au-logo"><svg width="56" height="36" viewBox="0 0 46 30"><path d="M4 26 L14 5 L23 18 L32 5 L42 26" fill="none" stroke="#7cc4ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>MyPlan</div>
+    <div class="au-copy"><h1>오늘의 작은 실천이<br><em>더 나은 내일</em>을 만듭니다</h1><i class="au-hr"></i><p>목표하고, 계획하고, 이루는<br>당신의 라이프 파트너 MyPlan</p></div>
+    <div class="au-feats">
+      <div><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg><b>목표 관리</b><span>꿈을 현실로</span></div>
+      <div><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M9 15l2 2 4-4"/></svg><b>스케줄 관리</b><span>계획을 습관으로</span></div>
+      <div><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5M3 20h18"/></svg><b>성장 분석</b><span>더 나은 오늘로</span></div>
+    </div>
+  </div>
+  <div class="au-panel"><div class="au-card" id="aucard"></div></div>
+</div>
+<div id="loading"><div class="spin"></div><div id="loadmsg">불러오는 중…</div></div>
+<div class="app">
+  <aside>
+    <a class="logo" href="#home"><svg width="46" height="30" viewBox="0 0 46 30"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#5ec8f2"/><stop offset="1" stop-color="#4f7cf7"/></linearGradient></defs><path d="M4 26 L14 5 L23 18 L32 5 L42 26" fill="none" stroke="url(#lg)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>MyPlan</a>
+    <nav class="side-nav" id="snav"></nav>
+    <div class="me" data-act="go" data-v="settings"><div class="avatar" id="avatar"></div><div id="myname"></div><div id="status"></div><a id="logout" data-act="lock" style="display:none;color:#8f9bb5;font-size:12px;cursor:pointer">로그아웃</a></div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="tb-l" id="tbl"></div>
+      <div class="tb-r">
+        <div class="search" id="searchbox"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" placeholder="목표, 일정 검색..." autocomplete="off"><div class="dd" id="sdd"></div></div>
+        <div class="rel"><button class="cbtn" data-act="bell" id="bellbtn"></button><div class="dd" id="ndd"></div></div>
+        <button class="cbtn" data-act="go" data-v="schedule" id="calbtn" title="일정"></button>
+      </div>
+    </div>
+    <div class="banner" id="banner"></div>
+    <div id="page"></div>
+  </div>
+</div>
+<div id="modal"><div class="mbox" id="mbox"></div></div>
+<div id="toast"></div>
+<datalist id="dl-owner"></datalist>
+<datalist id="dl-broker"></datalist>
+<datalist id="dl-inst"></datalist>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+/* ================= 화면 모드 (PC / 모바일 자동) ================= */
+const VIEW_LABEL={auto:'자동',pc:'PC 화면',mobile:'모바일 화면'};
+let viewPref='auto';try{viewPref=localStorage.getItem('pdash_view')||'auto'}catch(e){}
+const isTouch=()=>window.matchMedia&&matchMedia('(pointer: coarse)').matches&&!matchMedia('(any-pointer: fine)').matches;
+const isPhone=()=>isTouch()&&Math.min(screen.width,screen.height)<600;
+function curView(){
+  if(viewPref==='mobile')return 'm';
+  if(viewPref==='auto'&&isPhone())return 'm';
+  return window.innerWidth<1100?'t':'';
+}
+function applyView(){
+  const v=curView(),h=document.documentElement;
+  h.classList.toggle('m',v==='m');h.classList.toggle('t',v==='t');
+  h.classList.toggle('forced',viewPref==='mobile'&&!isPhone());
+  const meta=document.querySelector('meta[name=viewport]');
+  if(meta)meta.setAttribute('content',viewPref==='pc'&&isPhone()?'width=1180':'width=device-width, initial-scale=1, viewport-fit=cover');
+  return v;
+}
+applyView();
+let _lastView=curView();
+window.addEventListener('resize',()=>{const v=applyView();if(v!==_lastView){_lastView=v;if(typeof renderAll==='function'&&mode!=='loading')renderAll()}});
+function setView(p){viewPref=p;try{localStorage.setItem('pdash_view',p)}catch(e){}_lastView=applyView();if(_lastView==='m'&&cv.mode==='week')cv.mode='day';renderAll();toast(VIEW_LABEL[p]+'(으)로 설정했습니다')}
+/* ================= 기본 설정 ================= */
+const DOCS=['schedule','goals','finance','ipo','settings','life'];
+const DEFAULTS={
+  schedule:{events:[],todos:[]},
+  goals:{items:[],notes:{}},
+  finance:{accounts:[],assets:[],debts:[],fixed:[],snapshots:[]},
+  ipo:{items:[],brokers:[]},
+  settings:{name:'김성열',greet:'작은 실천이 만드는 큰 변화, 오늘도 한 걸음 더 나아가요.',quote:'오늘의 노력이\n더 나은 내일을 만듭니다.',showIpo:true,showFixed:false,autoLock:0},
+  life:{birthYear:null,family:[],stages:[],goals:[]}
+};
+const clone=o=>JSON.parse(JSON.stringify(o));
+let S=clone(DEFAULTS);
+let mode='loading', db=null, uid=null;
+const dirty={}, timers={}, inflight={}, loaded={};
+const now=new Date();
+const BROKERS=['KB증권','NH투자증권','한국투자증권','미래에셋증권','삼성증권','신한투자증권','키움증권','대신증권','하나증권','메리츠증권','유안타증권','IBK투자증권','교보증권','DB금융투자','SK증권','하이투자증권','현대차증권','유진투자증권','신영증권','한화투자증권','LS증권','상상인증권','BNK투자증권','케이프투자증권','토스증권','카카오페이증권'];
+const BANKS=['국민은행','신한은행','하나은행','우리은행','농협은행','기업은행','카카오뱅크','토스뱅크','케이뱅크','새마을금고','신협','우체국'];
+const CATS={업무:'#3b7cf5',개인:'#f97316',가족:'#20a464',투자:'#8b5cf6',건강:'#14b8a6',기타:'#64748b'};
+const GCATS=['업무','투자','재무','건강','가족','자기계발','기타'];
+const GICON={재무:['📈','#efe9ff','#8b5cf6'],투자:['💹','#efe9ff','#8b5cf6'],건강:['🏃','#e3f6ee','#20a464'],가족:['✈️','#fff0e5','#f97316'],업무:['💼','#eaf1fe','#3b7cf5'],자기계발:['📚','#e6f7f6','#14b8a6'],기타:['⭐','#f1f3f7','#64748b']};
+const PAL=['#3b7cf5','#8b5cf6','#0ea5e9','#20a464','#f59e0b','#e11d48','#14b8a6','#a855f7','#64748b','#84cc16'];
+const IPO_ST={'관심':['#e4e7ec','#344054'],'청약예정':['#d1e9ff','#175cd3'],'청약완료':['#e0eaff','#3538cd'],'배정완료':['#fef0c7','#b54708'],'매도완료':['#d1fadf','#067647'],'미청약':['#f2f4f7','#98a2b3']};
+const IC={
+ home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/>',
+ cal:'<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>',
+ calcheck:'<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M9 15l2 2 4-4"/>',
+ chart:'<path d="M5 20V11M11 20V5M17 20v-6M3 20h18"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6"/><circle cx="12" cy="12" r="7"/>',
+ wallet:'<rect x="3" y="6" width="18" height="14" rx="2.5"/><path d="M3 10.5h18M16 15h2M6 6V4.5h11V6"/>',
+ trend:'<path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+ bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',chevL:'<path d="m15 18-6-6 6-6"/>',chevR:'<path d="m9 18 6-6-6-6"/>',chevD:'<path d="m6 9 6 6 6-6"/>',
+ check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',list:'<rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+ map:'<path d="M9 4 3 6.5v13.5L9 17.5l6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/>',
+ flame:'<path fill="currentColor" stroke="none" d="M12 22c4.2 0 7.3-2.9 7.3-7.1 0-4.1-2.6-6.3-3.8-9.4-1.6 1.9-2.1 3.5-2.2 5.1-1.7-1.2-3.2-3.8-3.1-7.1C6.5 6.1 4.7 10.4 4.7 15c0 4.2 3.1 7 7.3 7z"/><path fill="#fff" stroke="none" opacity=".85" d="M12 20c1.9 0 3.3-1.3 3.3-3.2 0-1.8-1.1-2.8-1.8-4.2-.8 1-1 1.8-1 2.5-.9-.5-1.5-1.5-1.6-2.9-1.4 1.2-2.2 2.8-2.2 4.6 0 1.9 1.4 3.2 3.3 3.2z"/>'
+};
+const ic=(n,s)=>`<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"${s?` style="font-size:${s}px"`:''}>${IC[n]}</svg>`;
+
+/* ================= 유틸 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const fmtD=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseD=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const todayS=()=>fmtD(new Date());
+const addDays=(d,n)=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()+n);return x};
+const won=n=>(n==null||n===''||isNaN(n))?'-':Math.round(Number(n)).toLocaleString('ko-KR');
+const wonU=n=>won(n)+'원';
+const short=n=>{n=Number(n)||0;const a=Math.abs(n);if(a>=1e8)return (n/1e8).toFixed(a>=1e9?1:2).replace(/\.?0+$/,'')+'억';if(a>=1e4)return Math.round(n/1e4).toLocaleString()+'만';return n.toLocaleString()};
+const md=s=>s?`${+s.slice(5,7)}/${+s.slice(8,10)}`:'';
+const DOW=['일','월','화','수','목','금','토'];
+const mdw=s=>s?`${md(s)}(${DOW[parseD(s).getDay()]})`:'';
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const sum=(a,f)=>a.reduce((t,x)=>t+(Number(f(x))||0),0);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const toMin=t=>{if(!t)return null;const[h,m]=t.split(':').map(Number);return h*60+(m||0)};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800)}
+function setStatus(m,err){const s=$('#status');s.textContent=m;s.className=err?'err':''}
+function dday(s){if(!s)return null;return Math.round((parseD(s)-parseD(todayS()))/864e5)}
+function monday(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-(x.getDay()+6)%7);return x}
+function sunday(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-x.getDay());return x}
+
+/* ================= 저장 (Supabase) ================= */
+let sb=null,sbUser=null,rtChannel=null,recovering=false;
+function normalize(k,d){const o=clone(DEFAULTS[k]);if(d&&typeof d==='object')for(const key in o){if(d[key]!==undefined)o[key]=d[key]}return o}
+function save(k){
+  if(mode!=='db')return;
+  dirty[k]=true;setStatus('저장 중…');
+  clearTimeout(timers[k]);timers[k]=setTimeout(()=>flush(k),500);
+}
+async function flush(k){
+  if(inflight[k]){timers[k]=setTimeout(()=>flush(k),300);return}
+  if(!sbUser)return;
+  dirty[k]=false;inflight[k]=true;
+  const row={user_id:sbUser.id,doc:k,data:clone(S[k]),updated_at:new Date().toISOString()};
+  try{
+    let {error}=await sb.from('user_docs').upsert(row);
+    if(error){await sleep(800+Math.random()*900);({error}=await sb.from('user_docs').upsert(row))}
+    if(error)throw error;
+    if(!Object.values(dirty).some(Boolean))setStatus('저장됨 ✓');
+  }catch(e){dirty[k]=true;setStatus('저장 실패 — 다음 변경 시 재시도','err');console.error(e)}
+  finally{inflight[k]=false}
+}
+window.addEventListener('beforeunload',e=>{if(Object.values(dirty).some(Boolean)||Object.values(inflight).some(Boolean)){e.preventDefault();e.returnValue=''}});
+
+function showLoading(msg){$('#loadmsg').innerHTML=msg||'데이터를 불러오는 중…';$('#loading').classList.remove('off')}
+async function loadData(){
+  showLoading();
+  const {data,error}=await sb.from('user_docs').select('doc,data').eq('user_id',sbUser.id);
+  if(error){showLoading('데이터를 불러오지 못했습니다.<br><span class="mut">'+esc(error.message)+'</span><br><br><button class="btn" onclick="location.reload()">다시 시도</button>');return false}
+  S=clone(DEFAULTS);
+  const have={};(data||[]).forEach(r=>{if(DEFAULTS[r.doc]){S[r.doc]=normalize(r.doc,r.data);have[r.doc]=1}});
+  if(!have.settings){const nm=(sbUser.user_metadata&&sbUser.user_metadata.name)||(sbUser.email||'').split('@')[0];S.settings.name=nm||'나';mode='db';save('settings')}
+  mode='db';
+  subscribeRealtime();
+  return true;
+}
+function subscribeRealtime(){
+  if(rtChannel){sb.removeChannel(rtChannel);rtChannel=null}
+  rtChannel=sb.channel('docs-'+sbUser.id).on('postgres_changes',{event:'*',schema:'public',table:'user_docs',filter:'user_id=eq.'+sbUser.id},p=>{
+    const r=p.new;if(!r||!r.doc||!DEFAULTS[r.doc])return;
+    if(dirty[r.doc]||inflight[r.doc])return;
+    const nv=normalize(r.doc,r.data);
+    if(JSON.stringify(nv)===JSON.stringify(S[r.doc]))return;
+    S[r.doc]=nv;renderAll(true);
+  }).subscribe();
+}
+let starting=null;
+async function startSession(user){
+  if(recovering||starting===user.id)return;
+  if(sbUser&&mode==='db'&&sbUser.id===user.id){hideAuth();return}
+  sbUser=user;hideAuth();starting=user.id;
+  try{if(await loadData()){$('#loading').classList.add('off');setStatus('동기화됨 ✓');lastAct=Date.now();renderAll()}}finally{starting=null}
+}
+function endSession(){
+  if(rtChannel){sb.removeChannel(rtChannel);rtChannel=null}
+  sbUser=null;mode='auth';S=clone(DEFAULTS);
+  Object.keys(dirty).forEach(k=>dirty[k]=false);
+  closeModal();$('#page').innerHTML='';$('#loading').classList.add('off');showAuth('login');
+}
+async function init(){
+  route();
+  const cfg=window.MYPLAN_CONFIG||{};
+  if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY||cfg.SUPABASE_URL.includes('YOUR-')){
+    showLoading('<b>Supabase 설정이 필요합니다</b><br><span class="mut">config.js 파일에 SUPABASE_URL과 SUPABASE_ANON_KEY를 입력해 주세요.<br>자세한 방법은 README.md를 참고하세요.</span>');
+    $('.spin').style.display='none';return;
+  }
+  sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  sb.auth.onAuthStateChange((ev,session)=>{
+    if(ev==='PASSWORD_RECOVERY'){recovering=true;$('#loading').classList.add('off');showAuth('reset2');return}
+    if(ev==='SIGNED_OUT'){if(mode!=='auth')endSession();return}
+    if((ev==='SIGNED_IN'||ev==='INITIAL_SESSION')&&session&&!recovering)setTimeout(()=>startSession(session.user),0);
+    if(ev==='USER_UPDATED'&&session){sbUser=session.user;if(curTab==='settings'&&mode==='db')renderAll()}
+  });
+  // '로그인 상태 유지'를 끄고 로그인했다면, 브라우저를 새로 열었을 때 로그아웃
+  try{if(localStorage.getItem('pdash_nokeep')==='1'&&!sessionStorage.getItem('pdash_alive')){localStorage.removeItem('pdash_nokeep');await sb.auth.signOut({scope:'local'})}}catch(e){}
+  const {data:{session}}=await sb.auth.getSession();
+  if(/access_token|error_description|type=/.test(location.hash)){history.replaceState(null,'',location.pathname+location.search);route()}
+  if(recovering)return;
+  if(session)await startSession(session.user);
+  else{mode='auth';$('#loading').classList.add('off');showAuth(location.search.includes('signup')?'signup':'login')}
+}
+
+/* ================= 라우팅 ================= */
+const PAGES=[['home','홈','home','홈'],['goals','목표','check','목표'],['life','라이프 플랜','map','라이프'],['schedule','일정','cal','일정'],['assets','자산관리','wallet','자산'],['ipo','공모주','trend','공모주'],['stats','통계','chart','통계'],['settings','설정','gear','설정']];
+let curTab='home';
+function route(){const h=location.hash.slice(1);curTab=PAGES.some(p=>p[0]===h)?h:'home'}
+window.addEventListener('hashchange',()=>{route();closeDD();renderAll();window.scrollTo(0,0)});
+
+/* ================= 폼/모달 ================= */
+const F={
+ event:[{k:'title',l:'제목',t:'text',req:1},{k:'date',l:'시작일',t:'date',req:1,h:1},{k:'end',l:'종료일 (여러 날일 때)',t:'date',h:1},{k:'time',l:'시간',t:'time',h:1},{k:'cat',l:'분류',t:'sel',o:Object.keys(CATS),h:1},{k:'memo',l:'메모',t:'area'},{k:'done',l:'완료',t:'check'}],
+ goal:[{k:'text',l:'목표',t:'text',req:1},{k:'cat',l:'분류',t:'sel',o:GCATS,h:1},{k:'due',l:'기한',t:'date',h:1},{k:'progress',l:'진행률 (%)',t:'num',h:1,min:0,max:100},{k:'metric',l:'측정 기준 (선택)',t:'text',h:1,ph:'예: 주 3회 운동'},{k:'memo',l:'메모',t:'area'},{k:'done',l:'달성',t:'check'}],
+ account:[{k:'inst',l:'금융기관',t:'text',req:1,h:1,list:'dl-inst'},{k:'type',l:'유형',t:'sel',o:['입출금','예·적금','증권','CMA','ISA','연금','청약','기타'],h:1},{k:'name',l:'계좌명/용도',t:'text',h:1,ph:'예: 생활비, 공모주용'},{k:'no',l:'계좌번호 뒷자리',t:'text',h:1,ph:'예: 1234'},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner'},{k:'bal',l:'잔액 (원)',t:'money',h:1},{k:'memo',l:'메모',t:'area'}],
+ asset:[{k:'name',l:'자산명',t:'text',req:1,h:1},{k:'cat',l:'분류',t:'sel',o:['부동산','주식','펀드·ETF','채권','현금성','가상자산','차량','기타'],h:1},{k:'value',l:'평가금액 (원)',t:'money',h:1},{k:'cost',l:'취득가 (원)',t:'money',h:1},{k:'date',l:'평가 기준일',t:'date',h:1},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner'},{k:'memo',l:'메모',t:'area'}],
+ debt:[{k:'name',l:'부채명',t:'text',req:1,h:1},{k:'inst',l:'금융기관',t:'text',h:1,list:'dl-inst'},{k:'type',l:'유형',t:'sel',o:['주택담보','전세대출','신용대출','마이너스통장','학자금','카드할부','기타'],h:1},{k:'bal',l:'잔액 (원)',t:'money',h:1},{k:'rate',l:'금리 (%)',t:'num',h:1,step:'0.01'},{k:'pay',l:'월 상환액 (원)',t:'money',h:1},{k:'payday',l:'상환일 (매월 n일)',t:'num',h:1,min:1,max:31},{k:'due',l:'만기일',t:'date',h:1},{k:'memo',l:'메모',t:'area'}],
+ fixed:[{k:'name',l:'항목',t:'text',req:1,h:1},{k:'cat',l:'분류',t:'sel',o:['주거·관리비','공과금','통신','보험','구독','교통','육아','교육','대출상환','용돈','기부','기타'],h:1},{k:'amt',l:'금액 (원)',t:'money',req:1,h:1},{k:'day',l:'결제일 (매월 n일)',t:'num',h:1,min:1,max:31},{k:'method',l:'결제수단',t:'text',h:1,ph:'예: 국민카드, 자동이체'},{k:'active',l:'사용 중',t:'check',def:true},{k:'memo',l:'메모',t:'area'}],
+ ipo:[{k:'name',l:'종목명',t:'text',req:1,h:1},{k:'market',l:'시장',t:'sel',o:['코스닥','코스피','코넥스'],h:1},{k:'leads',l:'주관사 (쉼표로 구분)',t:'text',ph:'예: 한국투자증권, KB증권'},{k:'status',l:'상태',t:'sel',o:Object.keys(IPO_ST),h:1},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner'},{k:'subStart',l:'청약 시작일',t:'date',req:1,h:1},{k:'subEnd',l:'청약 종료일',t:'date',h:1},{k:'refundDate',l:'환불일',t:'date',h:1},{k:'listDate',l:'상장일',t:'date',h:1},{k:'price',l:'확정 공모가 (원)',t:'money',h:1},{k:'broker',l:'청약 증권사',t:'text',h:1,list:'dl-broker'},{k:'qty',l:'청약 주수',t:'num',h:1},{k:'deposit',l:'청약 증거금 (원)',t:'money',h:1,hint:'비워두면 공모가×주수×50%로 자동 계산'},{k:'allotted',l:'배정 주수',t:'num',h:1},{k:'fee',l:'청약 수수료 (원)',t:'money',h:1,hint:'비워두면 증권사 수수료표에서 자동 입력'},{k:'sellPrice',l:'매도 단가 (원)',t:'money',h:1},{k:'sellDate',l:'매도일',t:'date',h:1},{k:'sellCost',l:'매도 비용 (세금·수수료)',t:'money',h:1},{k:'memo',l:'메모',t:'area'}],
+ broker:[{k:'name',l:'증권사',t:'text',req:1,h:1,list:'dl-broker'},{k:'fee',l:'청약 수수료 (원/건)',t:'money',h:1},{k:'cond',l:'면제·우대 조건',t:'text',ph:'예: 미배정 시 면제, 우대고객 무료'},{k:'memo',l:'메모',t:'area'}]
+};
+function fieldHTML(f,v){
+  if(v==null)v=f.def??'';
+  const cls=f.t==='check'?'ck':(f.h?'h':'');
+  const ph=f.ph?` placeholder="${esc(f.ph)}"`:'';
+  const list=f.list?` list="${f.list}"`:'';
+  let inp;
+  switch(f.t){
+    case 'area':inp=`<textarea name="${f.k}"${ph}>${esc(v)}</textarea>`;break;
+    case 'sel':inp=`<select name="${f.k}">${f.o.map(o=>`<option${o===v?' selected':''}>${esc(o)}</option>`).join('')}</select>`;break;
+    case 'check':return `<label class="ck"><input type="checkbox" name="${f.k}"${v?' checked':''}> ${esc(f.l)}</label>`;
+    case 'money':inp=`<input name="${f.k}" inputmode="numeric" data-money value="${v===''?'':esc(won(v))}"${ph}>`;break;
+    case 'num':inp=`<input type="number" name="${f.k}" value="${esc(v)}"${f.min!=null?` min="${f.min}"`:''}${f.max!=null?` max="${f.max}"`:''} step="${f.step||'any'}"${ph}>`;break;
+    default:inp=`<input type="${f.t}" name="${f.k}" value="${esc(v)}"${ph}${list}>`;
+  }
+  return `<label class="${cls}">${esc(f.l)}${f.req?' *':''}${inp}${f.hint?`<span class="hint">${esc(f.hint)}</span>`:''}</label>`;
+}
+function readForm(root,fields){
+  const o={};
+  for(const f of fields){
+    const el=root.querySelector(`[name="${f.k}"]`);if(!el)continue;
+    if(f.t==='check')o[f.k]=el.checked;
+    else if(f.t==='money'||f.t==='num'){const s=String(el.value).replace(/[^0-9.\-]/g,'');o[f.k]=s===''?null:Number(s)}
+    else o[f.k]=el.value.trim();
+  }
+  return o;
+}
+function openModal(title,html,mount){
+  $('#mbox').innerHTML=`<h2>${esc(title)}<button class="x" data-act="close">×</button></h2>${html}`;
+  $('#modal').classList.add('on');
+  $('#mbox').querySelectorAll('[data-money]').forEach(el=>el.addEventListener('input',()=>{const neg=el.value.trim().startsWith('-');const d=el.value.replace(/[^0-9]/g,'');el.value=d?(neg?'-':'')+Number(d).toLocaleString('ko-KR'):(neg?'-':'')}));
+  mount&&mount($('#mbox'));
+  const first=$('#mbox').querySelector('input,select,textarea');first&&setTimeout(()=>first.focus(),30);
+}
+function closeModal(){$('#modal').classList.remove('on');$('#mbox').innerHTML='';if(typeof pendingRender!=='undefined'&&pendingRender)renderAll()}
+$('#modal').addEventListener('mousedown',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function openForm({title,fields,data={},onSave,onDelete,onDup,mount}){
+  openModal(title,`<form class="form" id="mform">${fields.map(f=>fieldHTML(f,data[f.k])).join('')}</form>
+  <div class="mfoot">${onDelete?'<button class="btn d" id="mdel">삭제</button>':''}${onDup?'<button class="btn" id="mdup">복제</button>':''}<span class="sp"></span><button class="btn" data-act="close">취소</button><button class="btn p" id="msave">저장</button></div>`,root=>{
+    const form=$('#mform',root);
+    const submit=()=>{
+      const v=readForm(form,fields);
+      for(const f of fields)if(f.req&&(v[f.k]===''||v[f.k]==null)){toast(`'${f.l}'을(를) 입력해 주세요`);form.querySelector(`[name="${f.k}"]`).focus();return}
+      onSave(v);closeModal();
+    };
+    $('#msave',root).onclick=submit;
+    form.addEventListener('submit',e=>{e.preventDefault();submit()});
+    form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();submit()}});
+    const del=$('#mdel',root);
+    if(del)del.onclick=()=>{if(del.dataset.c){onDelete();closeModal()}else{del.dataset.c=1;del.textContent='정말 삭제할까요?';del.classList.add('p');del.style.background='var(--red)';del.style.borderColor='var(--red)'}};
+    const dup=$('#mdup',root);if(dup)dup.onclick=()=>{const v=readForm(form,fields);closeModal();onDup(v)};
+    mount&&mount(root);
+  });
+}
+const LISTS={
+  events:{doc:'schedule',get:()=>S.schedule.events,f:'event',t:'일정'},
+  goals:{doc:'goals',get:()=>S.goals.items,f:'goal',t:'목표'},
+  accounts:{doc:'finance',get:()=>S.finance.accounts,f:'account',t:'계좌'},
+  assets:{doc:'finance',get:()=>S.finance.assets,f:'asset',t:'자산'},
+  debts:{doc:'finance',get:()=>S.finance.debts,f:'debt',t:'부채'},
+  fixed:{doc:'finance',get:()=>S.finance.fixed,f:'fixed',t:'고정지출'},
+  ipo:{doc:'ipo',get:()=>S.ipo.items,f:'ipo',t:'공모주'},
+  brokers:{doc:'ipo',get:()=>S.ipo.brokers,f:'broker',t:'증권사 수수료'}
+};
+function edit(listKey,id,preset={},extra={}){
+  const L=LISTS[listKey],arr=L.get(),item=id?arr.find(x=>x.id===id):null;
+  if(id&&!item)return;
+  openForm({
+    title:L.t+(item?' 수정':' 추가'),fields:F[L.f],data:item?item:preset,
+    onSave:v=>{if(listKey==='ipo')autoStatus(v);if(listKey==='goals'&&v.done&&!(item&&item.doneAt))v.doneAt=todayS();if(item)Object.assign(item,v);else arr.push({id:newId(),...extra,...v});save(L.doc);renderAll();toast('저장했습니다')},
+    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save(L.doc);renderAll();toast('삭제했습니다')}:null,
+    onDup:item&&listKey==='ipo'?v=>edit('ipo',null,{...v,owner:'',qty:null,deposit:null,allotted:null,fee:null,sellPrice:null,sellDate:'',sellCost:null}):null,
+    mount:listKey==='ipo'?ipoMount:null
+  });
+}
+
+
+F.event=[{k:'title',l:'제목',t:'text',req:1},{k:'date',l:'날짜',t:'date',req:1,h:1},{k:'cat',l:'분류',t:'sel',o:Object.keys(CATS),h:1},{k:'time',l:'시작 시간',t:'time',h:1},{k:'endTime',l:'종료 시간',t:'time',h:1},{k:'end',l:'종료일 (여러 날 일정일 때)',t:'date',h:1},{k:'memo',l:'메모',t:'area'},{k:'done',l:'완료',t:'check'}];
+
+/* ================= 2. 계획·목표 ================= */
+let gp={scope:'week',anchor:new Date()};
+function monday(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());const w=(x.getDay()+6)%7;x.setDate(x.getDate()-w);return x}
+function isoWeek(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil(((t-ys)/864e5+1)/7)}
+function periodOf(scope,a){
+  if(scope==='week'){const mo=monday(a),su=new Date(mo);su.setDate(mo.getDate()+6);const th=new Date(mo);th.setDate(mo.getDate()+3);
+    const wom=Math.ceil(th.getDate()/7);
+    return {key:'W:'+fmtD(mo),label:`${th.getFullYear()}년 ${th.getMonth()+1}월 ${wom}주차`,sub:`${md(fmtD(mo))}(월) ~ ${md(fmtD(su))}(일) · ${isoWeek(mo)}주`,parent:{scope:'month',a:th}}}
+  if(scope==='month')return {key:`M:${a.getFullYear()}-${pad(a.getMonth()+1)}`,label:`${a.getFullYear()}년 ${a.getMonth()+1}월`,sub:'',parent:{scope:'year',a}};
+  return {key:'Y:'+a.getFullYear(),label:`${a.getFullYear()}년`,sub:'',parent:null};
+}
+function shiftAnchor(scope,a,n){const x=new Date(a);if(scope==='week')x.setDate(x.getDate()+7*n);else if(scope==='month'){x.setDate(1);x.setMonth(x.getMonth()+n)}else x.setFullYear(x.getFullYear()+n);return x}
+const SC={week:'주간',month:'월간',year:'연간'};
+function goalRow(g,ro){
+  const p=g.done?100:Math.max(0,Math.min(100,Number(g.progress)||0));
+  return `<div class="goal${g.done?' done':''}">
+    <input type="checkbox" data-act="gdone" data-id="${g.id}"${g.done?' checked':''}${ro?' disabled':''} style="margin-top:4px">
+    <div class="body">
+      <div class="row"><span class="t">${esc(g.text)}</span>${g.cat?`<span class="tag">${esc(g.cat)}</span>`:''}${g.due?`<span class="tag">~${md(g.due)}</span>`:''}</div>
+      ${g.metric?`<div class="mut" style="font-size:12px">${esc(g.metric)}</div>`:''}
+      ${ro?`<div class="bar" style="margin-top:6px"><i style="width:${p}%"></i></div>`:`<div class="row" style="margin-top:4px;flex-wrap:nowrap"><input type="range" min="0" max="100" step="5" value="${p}" data-act="gprog" data-id="${g.id}"><span class="mut num" style="width:38px">${p}%</span></div>`}
+      ${g.memo?`<div class="mut" style="font-size:12px;white-space:pre-wrap">${esc(g.memo)}</div>`:''}
+    </div>
+    ${ro?'':`<button class="btn s ghost" data-act="edit" data-l="goals" data-id="${g.id}">수정</button>`}
+  </div>`;
+}
+function renderGoals(){
+  const P=periodOf(gp.scope,gp.anchor);
+  const items=S.goals.items.filter(g=>g.period===P.key);
+  const doneN=items.filter(g=>g.done).length,avg=items.length?Math.round(sum(items,g=>g.done?100:g.progress)/items.length):0;
+  const par=P.parent?periodOf(P.parent.scope,P.parent.a):null;
+  const parItems=par?S.goals.items.filter(g=>g.period===par.key):[];
+  const prevKey=periodOf(gp.scope,shiftAnchor(gp.scope,gp.anchor,-1)).key;
+  const prevUndone=S.goals.items.filter(g=>g.period===prevKey&&!g.done).length;
+  // 연간 요약
+  const y=gp.anchor.getFullYear();
+  const yrStats=['week','month','year'].map(sc=>{const it=S.goals.items.filter(g=>g.scope===sc&&(g.period||'').includes(String(y)));return {sc,n:it.length,d:it.filter(g=>g.done).length}});
+  $('#page').innerHTML=`
+  <div class="card">
+    <div class="calhead">
+      <div class="seg">${Object.entries(SC).map(([k,v])=>`<button data-act="gscope" data-v="${k}" class="${gp.scope===k?'on':''}">${v}</button>`).join('')}</div>
+      <span style="width:8px"></span>
+      <button class="btn" data-act="gnav" data-v="-1">◀</button>
+      <div style="text-align:center;min-width:180px"><div style="font-weight:700;font-size:17px">${P.label}</div>${P.sub?`<div class="mut" style="font-size:12px">${P.sub}</div>`:''}</div>
+      <button class="btn" data-act="gnav" data-v="1">▶</button>
+      <button class="btn s" data-act="gnav" data-v="0">현재</button>
+    </div>
+  </div>
+  <div class="ggrid">
+    <div>
+      <div class="card">
+        <h3>🎯 ${SC[gp.scope]} 목표 <span class="tag">${doneN}/${items.length} 달성</span><span class="sp"></span>${prevUndone?`<button class="btn s" data-act="gcarry">지난 기간 미완료 ${prevUndone}개 가져오기</button>`:''}<button class="btn p s" data-act="add-goal">+ 목표 추가</button></h3>
+        ${items.length?`<div class="bar" style="height:8px;margin-bottom:6px"><i style="width:${avg}%"></i></div><div class="mut" style="font-size:12px;margin-bottom:6px">평균 진행률 ${avg}%</div>`+items.map(g=>goalRow(g)).join(''):'<div class="empty">이 기간의 목표가 없습니다. ‘+ 목표 추가’로 시작해 보세요.</div>'}
+      </div>
+      <div class="card">
+        <h3>📝 ${SC[gp.scope]} 메모 · 회고</h3>
+        <textarea class="note" data-act="gnote" data-k="${P.key}" placeholder="이번 ${gp.scope==='week'?'주':gp.scope==='month'?'달':'해'}의 계획, 회고, 배운 점을 자유롭게 적어 보세요.">${esc(S.goals.notes[P.key]||'')}</textarea>
+      </div>
+    </div>
+    <div>
+      ${par?`<div class="card"><h3>⬆ 상위 목표 · ${par.label}</h3>${parItems.length?parItems.map(g=>goalRow(g,true)).join(''):`<div class="empty">${SC[par.key[0]==='M'?'month':'year']} 목표가 아직 없습니다</div>`}</div>`:''}
+      <div class="card"><h3>📊 ${y}년 목표 현황</h3>
+        <table><thead><tr><th>구분</th><th class="num">목표 수</th><th class="num">달성</th><th class="num">달성률</th></tr></thead><tbody>
+        ${yrStats.map(s=>`<tr><td>${SC[s.sc]}</td><td class="num">${s.n}</td><td class="num">${s.d}</td><td class="num">${s.n?Math.round(s.d/s.n*100)+'%':'-'}</td></tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>
+  </div>`;
+}
+
+
+
+/* ================= 3. 자산관리 ================= */
+function tableHTML(listKey,cols,rows,foot){
+  if(!rows.length)return `<div class="empty">아직 등록된 항목이 없습니다</div>`;
+  return `<div class="tw"><table><thead><tr>${cols.map(c=>`<th class="${c.n?'num':''}">${c.l}</th>`).join('')}</tr></thead><tbody>
+  ${rows.map(r=>`<tr class="click" data-act="edit" data-l="${listKey}" data-id="${r.id}">${cols.map(c=>`<td class="${c.n?'num':''}">${c.f(r)}</td>`).join('')}</tr>`).join('')}
+  </tbody>${foot?`<tfoot><tr>${foot}</tr></tfoot>`:''}</table></div>`;
+}
+function finTotals(){
+  const f=S.finance;
+  const acc=sum(f.accounts,a=>a.bal),ast=sum(f.assets,a=>a.value),debt=sum(f.debts,d=>d.bal);
+  const fixed=sum(f.fixed.filter(x=>x.active!==false),x=>x.amt),dpay=sum(f.debts,d=>d.pay);
+  return {acc,ast,total:acc+ast,debt,net:acc+ast-debt,fixed,dpay};
+}
+function renderAssets(){
+  const f=S.finance,T=finTotals();
+  // 구성
+  const comp={};
+  f.accounts.forEach(a=>{const k='계좌·'+(a.type||'기타');comp[k]=(comp[k]||0)+(+a.bal||0)});
+  f.assets.forEach(a=>{const k=a.cat||'기타';comp[k]=(comp[k]||0)+(+a.value||0)});
+  const ce=Object.entries(comp).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const ctot=ce.reduce((t,[,v])=>t+v,0);
+  const fixedByCat={};f.fixed.filter(x=>x.active!==false).forEach(x=>{fixedByCat[x.cat||'기타']=(fixedByCat[x.cat||'기타']||0)+(+x.amt||0)});
+  const snaps=[...f.snapshots].sort((a,b)=>a.month.localeCompare(b.month)).slice(-12);
+  const smax=Math.max(1,...snaps.map(s=>Math.abs(s.net)));
+  const avgRate=T.debt?sum(f.debts,d=>(+d.bal||0)*(+d.rate||0))/T.debt:0;
+  $('#page').innerHTML=`
+  <div class="kpis">
+    <div class="kpi"><div class="l">총자산</div><div class="v">${short(T.total)}원</div><div class="s">${wonU(T.total)}</div></div>
+    <div class="kpi"><div class="l">총부채</div><div class="v" style="color:var(--red)">${short(T.debt)}원</div><div class="s">평균금리 ${avgRate?avgRate.toFixed(2)+'%':'-'}</div></div>
+    <div class="kpi"><div class="l">순자산</div><div class="v" style="color:var(--pri)">${short(T.net)}원</div><div class="s">${wonU(T.net)}</div></div>
+    <div class="kpi"><div class="l">월 고정지출</div><div class="v">${short(T.fixed)}원</div><div class="s">+ 대출상환 ${short(T.dpay)}원/월</div></div>
+    <div class="kpi"><div class="l">부채비율 (부채/자산)</div><div class="v">${T.total?(T.debt/T.total*100).toFixed(1)+'%':'-'}</div><div class="s">계좌 ${f.accounts.length} · 자산 ${f.assets.length} · 부채 ${f.debts.length}</div></div>
+  </div>
+  <div class="card"><h3>🧩 자산 구성</h3>
+    ${ctot?`<div class="stack">${ce.map(([k,v],i)=>`<i title="${esc(k)} ${wonU(v)}" style="width:${v/ctot*100}%;background:${PAL[i%PAL.length]}"></i>`).join('')}</div>
+    <div class="legend">${ce.map(([k,v],i)=>`<span><i class="dot" style="background:${PAL[i%PAL.length]}"></i>${esc(k)} <b>${short(v)}</b> <span class="mut">${(v/ctot*100).toFixed(1)}%</span></span>`).join('')}</div>`:'<div class="empty">계좌나 자산을 등록하면 구성이 표시됩니다</div>'}
+  </div>
+  <div class="card"><h3>🏦 보유 계좌 <span class="tag">${wonU(T.acc)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="accounts">+ 계좌 추가</button></h3>
+    ${tableHTML('accounts',[{l:'금융기관',f:r=>esc(r.inst)},{l:'유형',f:r=>`<span class="tag">${esc(r.type)}</span>`},{l:'계좌명/용도',f:r=>esc(r.name)},{l:'번호',f:r=>r.no?'…'+esc(r.no):''},{l:'명의',f:r=>esc(r.owner)},{l:'잔액',n:1,f:r=>won(r.bal)},{l:'메모',f:r=>`<span class="mut">${esc(r.memo)}</span>`}],f.accounts,`<td colspan="5">합계</td><td class="num">${won(T.acc)}</td><td></td>`)}
+  </div>
+  <div class="fgrid">
+    <div class="card"><h3>🏠 기타 자산 <span class="tag">${wonU(T.ast)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="assets">+ 자산 추가</button></h3>
+      ${tableHTML('assets',[{l:'자산명',f:r=>esc(r.name)},{l:'분류',f:r=>`<span class="tag">${esc(r.cat)}</span>`},{l:'평가금액',n:1,f:r=>won(r.value)},{l:'평가손익',n:1,f:r=>r.cost?`<span class="${r.value-r.cost>=0?'pos':'neg'}">${won(r.value-r.cost)}</span>`:'-'},{l:'기준일',f:r=>`<span class="mut">${esc(r.date)}</span>`}],f.assets,`<td colspan="2">합계</td><td class="num">${won(T.ast)}</td><td colspan="2"></td>`)}
+    </div>
+    <div class="card"><h3>💳 부채 <span class="tag">${wonU(T.debt)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="debts">+ 부채 추가</button></h3>
+      ${tableHTML('debts',[{l:'부채명',f:r=>esc(r.name)+(r.inst?`<div class="mut" style="font-size:11px">${esc(r.inst)}</div>`:'')},{l:'유형',f:r=>`<span class="tag">${esc(r.type)}</span>`},{l:'잔액',n:1,f:r=>won(r.bal)},{l:'금리',n:1,f:r=>r.rate!=null?r.rate+'%':'-'},{l:'월상환',n:1,f:r=>won(r.pay)},{l:'만기',f:r=>`<span class="mut">${esc(r.due)}</span>`}],f.debts,`<td colspan="2">합계</td><td class="num">${won(T.debt)}</td><td></td><td class="num">${won(T.dpay)}</td><td></td>`)}
+    </div>
+  </div>
+  <div class="card"><h3>🧾 월별 고정지출 <span class="tag">월 ${wonU(T.fixed)}</span><span class="tag">연 ${short(T.fixed*12)}원</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="fixed">+ 고정지출 추가</button></h3>
+    ${Object.keys(fixedByCat).length?`<div class="legend" style="margin-bottom:10px">${Object.entries(fixedByCat).sort((a,b)=>b[1]-a[1]).map(([k,v],i)=>`<span><i class="dot" style="background:${PAL[i%PAL.length]}"></i>${esc(k)} <b>${won(v)}</b></span>`).join('')}</div>`:''}
+    ${tableHTML('fixed',[{l:'결제일',f:r=>r.day?`매월 ${r.day}일`:'-'},{l:'항목',f:r=>`<span style="${r.active===false?'text-decoration:line-through;color:var(--mut)':''}">${esc(r.name)}</span>`},{l:'분류',f:r=>`<span class="tag">${esc(r.cat)}</span>`},{l:'금액',n:1,f:r=>won(r.amt)},{l:'결제수단',f:r=>esc(r.method)},{l:'메모',f:r=>`<span class="mut">${esc(r.memo)}</span>`}],[...f.fixed].sort((a,b)=>(+a.day||99)-(+b.day||99)),`<td colspan="3">합계 (사용 중)</td><td class="num">${won(T.fixed)}</td><td colspan="2"></td>`)}
+  </div>
+  <div class="card"><h3>📈 월별 순자산 기록<span class="sp"></span><button class="btn p s" data-act="snap">이번 달 기록 저장</button></h3>
+    ${snaps.length?`<div class="bars">${snaps.map(s=>`<div class="b" title="${s.month} 순자산 ${wonU(s.net)}"><small>${short(s.net)}</small><i class="${s.net<0?'n':''}" style="height:${Math.max(2,Math.abs(s.net)/smax*100)}%"></i><small>${+s.month.slice(5)}월</small></div>`).join('')}</div>
+    <div class="tw" style="margin-top:10px"><table><thead><tr><th>월</th><th class="num">총자산</th><th class="num">총부채</th><th class="num">순자산</th><th class="num">전월 대비</th><th></th></tr></thead><tbody>
+    ${snaps.slice().reverse().map((s,i,a)=>{const p=a[i+1];const dv=p?s.net-p.net:null;return `<tr><td>${s.month}</td><td class="num">${won(s.assets)}</td><td class="num">${won(s.debts)}</td><td class="num"><b>${won(s.net)}</b></td><td class="num ${dv>0?'pos':dv<0?'neg':''}">${dv==null?'-':(dv>0?'+':'')+won(dv)}</td><td><button class="btn s ghost d" data-act="delsnap" data-m="${s.month}">삭제</button></td></tr>`}).join('')}
+    </tbody></table></div>`:'<div class="empty">매월 말 ‘이번 달 기록 저장’을 누르면 순자산 추이가 쌓입니다</div>'}
+  </div>`;
+}
+
+/* ================= 4. 공모주 ================= */
+let ipoF={st:'전체',y:String(now.getFullYear())};
+function autoStatus(v){
+  const order=['관심','청약예정','청약완료','배정완료','매도완료'];
+  const cur=order.indexOf(v.status);if(v.status==='미청약')return;
+  let want=cur;
+  if(v.sellPrice!=null&&v.allotted)want=4;else if(v.allotted!=null)want=3;
+  if(want>cur){v.status=order[want];toast('상태를 ‘'+v.status+'’(으)로 바꿨습니다')}
+}
+function ipoProfit(i){if(i.sellPrice==null||i.price==null||!i.allotted)return null;return (i.sellPrice-i.price)*i.allotted-(+i.fee||0)-(+i.sellCost||0)}
+function ipoMount(root){
+  const g=n=>root.querySelector(`[name="${n}"]`);
+  const fill=()=>{const b=S.ipo.brokers.find(x=>x.name===g('broker').value.trim());if(b&&b.fee!=null&&!g('fee').value){g('fee').value=Number(b.fee).toLocaleString('ko-KR')}};
+  g('broker').addEventListener('change',fill);g('broker').addEventListener('blur',fill);
+  const dep=()=>{const p=Number(g('price').value.replace(/[^0-9]/g,'')),q=Number(g('qty').value);g('deposit').placeholder=p&&q?`자동: ${Math.round(p*q*0.5).toLocaleString('ko-KR')}`:''};
+  g('price').addEventListener('input',dep);g('qty').addEventListener('input',dep);dep();
+}
+function renderIpo(){
+  const all=S.ipo.items;
+  const years=[...new Set(all.map(i=>(i.subStart||'').slice(0,4)).filter(Boolean).concat(String(now.getFullYear())))].sort().reverse();
+  const inY=all.filter(i=>ipoF.y==='전체'||(i.subStart||'').startsWith(ipoF.y));
+  const rows=inY.filter(i=>ipoF.st==='전체'||i.status===ipoF.st).sort((a,b)=>(b.subStart||'').localeCompare(a.subStart||''));
+  const subbed=inY.filter(i=>!['관심','청약예정','미청약'].includes(i.status));
+  const prof=sum(inY,i=>ipoProfit(i)||0),fees=sum(subbed,i=>i.fee),allot=sum(inY,i=>i.allotted);
+  const sold=inY.filter(i=>ipoProfit(i)!=null);
+  const t=todayS();
+  const up=[];all.forEach(i=>{[['subStart','청약 시작'],['subEnd','청약 마감'],['refundDate','환불'],['listDate','상장']].forEach(([k,l])=>{const d=i[k];if(d&&d>=t&&dday(d)<=21&&!(k==='subEnd'&&i.subEnd===i.subStart))up.push({d,l,i})})});
+  up.sort((a,b)=>a.d.localeCompare(b.d));
+  const byBroker={};subbed.forEach(i=>{const k=i.broker||'미지정';byBroker[k]=byBroker[k]||{n:0,a:0,fee:0,p:0};byBroker[k].n++;byBroker[k].a+=+i.allotted||0;byBroker[k].fee+=+i.fee||0;byBroker[k].p+=ipoProfit(i)||0});
+  const deposit=i=>i.deposit!=null?i.deposit:(i.price&&i.qty?i.price*i.qty*0.5:null);
+  $('#page').innerHTML=`
+  <div class="kpis">
+    <div class="kpi"><div class="l">${ipoF.y==='전체'?'전체':ipoF.y+'년'} 청약 건수</div><div class="v">${subbed.length}건</div><div class="s">관심·예정 포함 ${inY.length}건</div></div>
+    <div class="kpi"><div class="l">배정 주수 합계</div><div class="v">${won(allot)}주</div><div class="s">배정 받은 건 ${inY.filter(i=>i.allotted>0).length}건</div></div>
+    <div class="kpi"><div class="l">실현 손익</div><div class="v ${prof>0?'pos':prof<0?'neg':''}">${prof>0?'+':''}${won(prof)}원</div><div class="s">매도 완료 ${sold.length}건 · 건당 ${sold.length?won(prof/sold.length):'-'}원</div></div>
+    <div class="kpi"><div class="l">청약 수수료 합계</div><div class="v">${won(fees)}원</div><div class="s">손익에 반영됨</div></div>
+  </div>
+  <div class="fgrid">
+    <div class="card"><h3>⏰ 다가오는 공모주 일정 (3주)</h3>
+      ${up.length?`<ul class="list">${up.map(u=>`<li style="cursor:pointer" data-act="edit" data-l="ipo" data-id="${u.i.id}"><span style="width:74px" class="mut">${mdw(u.d)}</span><span class="tag">${u.l}</span><span style="flex:1">${esc(u.i.name)} <span class="mut" style="font-size:12px">${esc(u.i.broker||'')}${u.i.owner?' · '+esc(u.i.owner):''}</span></span>${dday(u.d)===0?'<span class="tag" style="background:var(--pri);color:#fff">오늘</span>':`<span class="tag">D-${dday(u.d)}</span>`}</li>`).join('')}</ul>`:'<div class="empty">3주 내 일정이 없습니다</div>'}
+    </div>
+    <div class="card"><h3>🏢 증권사별 청약 수수료<span class="sp"></span><button class="btn p s" data-act="add" data-l="brokers">+ 증권사 추가</button></h3>
+      ${tableHTML('brokers',[{l:'증권사',f:r=>esc(r.name)},{l:'수수료/건',n:1,f:r=>r.fee==null?'-':won(r.fee)+'원'},{l:'면제·우대 조건',f:r=>`<span class="mut">${esc(r.cond)}</span>`},{l:'청약',n:1,f:r=>byBroker[r.name]?byBroker[r.name].n+'건':'-'}],[...S.ipo.brokers].sort((a,b)=>a.name.localeCompare(b.name)))}
+      <div class="mut" style="font-size:12px;margin-top:6px">여기 등록한 수수료는 공모주 입력 시 ‘청약 수수료’ 칸에 자동으로 채워집니다.</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📈 청약 내역<span class="sp"></span><button class="btn p" data-act="add" data-l="ipo">+ 공모주 추가</button></h3>
+    <div class="filters">
+      ${['전체',...years].map(y=>`<button data-act="ipoy" data-v="${y}" class="${ipoF.y===y?'on':''}">${y==='전체'?'전체 연도':y+'년'}</button>`).join('')}
+      <span style="width:10px"></span>
+      ${['전체',...Object.keys(IPO_ST)].map(s=>`<button data-act="ipos" data-v="${s}" class="${ipoF.st===s?'on':''}">${s}${s!=='전체'?' '+inY.filter(i=>i.status===s).length:''}</button>`).join('')}
+    </div>
+    ${tableHTML('ipo',[
+      {l:'상태',f:r=>{const c=IPO_ST[r.status]||IPO_ST['관심'];return `<span class="st" style="background:${c[0]};color:${c[1]}">${esc(r.status||'관심')}</span>`}},
+      {l:'종목',f:r=>`<b>${esc(r.name)}</b><div class="mut" style="font-size:11px">${esc(r.market||'')}${r.leads?' · '+esc(r.leads):''}</div>`},
+      {l:'청약일',f:r=>`${mdw(r.subStart)}${r.subEnd&&r.subEnd!==r.subStart?'~'+md(r.subEnd):''}`},
+      {l:'환불/상장',f:r=>`<span class="mut">${md(r.refundDate)||'-'} / ${md(r.listDate)||'-'}</span>`},
+      {l:'청약 계좌',f:r=>`${esc(r.broker||'')}${r.owner?`<div class="mut" style="font-size:11px">${esc(r.owner)}</div>`:''}`},
+      {l:'공모가',n:1,f:r=>won(r.price)},
+      {l:'청약주수',n:1,f:r=>won(r.qty)},
+      {l:'증거금',n:1,f:r=>{const d=deposit(r);return d==null?'-':(r.deposit==null?`<span class="mut">${won(d)}</span>`:won(d))}},
+      {l:'배정',n:1,f:r=>r.allotted!=null?`<b>${won(r.allotted)}주</b>`:'-'},
+      {l:'수수료',n:1,f:r=>won(r.fee)},
+      {l:'매도가',n:1,f:r=>won(r.sellPrice)+(r.sellPrice&&r.price?`<div style="font-size:11px" class="${r.sellPrice>=r.price?'pos':'neg'}">${((r.sellPrice/r.price-1)*100).toFixed(1)}%</div>`:'')},
+      {l:'손익',n:1,f:r=>{const p=ipoProfit(r);return p==null?'-':`<b class="${p>0?'pos':p<0?'neg':''}">${p>0?'+':''}${won(p)}</b>`}}
+    ],rows,rows.length?`<td colspan="8">합계 (${rows.length}건)</td><td class="num">${won(sum(rows,r=>r.allotted))}주</td><td class="num">${won(sum(rows,r=>r.fee))}</td><td></td><td class="num">${won(sum(rows,r=>ipoProfit(r)||0))}</td>`:'')}
+    <div class="mut" style="font-size:12px;margin-top:8px">손익 = (매도가 − 공모가) × 배정주수 − 청약수수료 − 매도비용. 같은 종목을 여러 계좌(본인·배우자 등)로 청약했다면 행을 열어 <b>복제</b>하면 편합니다.</div>
+  </div>
+  ${Object.keys(byBroker).length?`<div class="card"><h3>📊 증권사별 성과 (${ipoF.y==='전체'?'전체':ipoF.y+'년'})</h3><div class="tw"><table><thead><tr><th>증권사</th><th class="num">청약</th><th class="num">배정 주수</th><th class="num">수수료</th><th class="num">실현 손익</th></tr></thead><tbody>
+  ${Object.entries(byBroker).sort((a,b)=>b[1].p-a[1].p).map(([k,v])=>`<tr><td>${esc(k)}</td><td class="num">${v.n}건</td><td class="num">${won(v.a)}</td><td class="num">${won(v.fee)}</td><td class="num ${v.p>0?'pos':v.p<0?'neg':''}">${won(v.p)}</td></tr>`).join('')}
+  </tbody></table></div></div>`:''}`;
+}
+
+/* ================= 백업 ================= */
+function openBackup(){
+  const json=JSON.stringify(S);
+  openModal('백업 / 복원',`
+    <p class="mut" style="margin-top:0">데이터는 자동 저장됩니다(내 계정 전용 클라우드). 만약을 위해 아래 내용을 복사해 메모장 등에 보관해 두면 언제든 복원할 수 있어요.</p>
+    <div class="form"><label>현재 데이터 (JSON)<textarea id="bk" style="min-height:120px;font-family:monospace;font-size:12px" readonly>${esc(json)}</textarea></label></div>
+    <div class="mfoot"><button class="btn" id="bkcopy">복사</button><span class="sp"></span></div>
+    <hr style="border:0;border-top:1px solid var(--bd);margin:16px 0">
+    <div class="form"><label>복원 — 백업한 JSON을 붙여넣기<textarea id="rs" style="min-height:100px;font-family:monospace;font-size:12px" placeholder='{"schedule":...}'></textarea></label></div>
+    <div class="mfoot"><span class="sp"></span><button class="btn d" id="rsgo">덮어쓰기 복원</button></div>`,root=>{
+    $('#bkcopy',root).onclick=async()=>{try{await navigator.clipboard.writeText(json);toast('복사했습니다')}catch(e){$('#bk',root).select();toast('텍스트를 선택했습니다. Ctrl+C로 복사하세요')}};
+    const go=$('#rsgo',root);
+    go.onclick=()=>{let d;try{d=JSON.parse($('#rs',root).value)}catch(e){toast('JSON 형식이 올바르지 않습니다');return}
+      if(!d||typeof d!=='object'||!DOCS.some(k=>d[k])){toast('백업 데이터가 아닙니다');return}
+      if(!go.dataset.c){go.dataset.c=1;go.textContent='현재 데이터를 덮어씁니다. 진행?';return}
+      DOCS.forEach(k=>{if(d[k]){S[k]=normalize(k,d[k]);save(k)}});closeModal();renderAll();toast('복원했습니다')};
+  });
+}
+
+
+
+/* ================= 일정 데이터 ================= */
+function evColor(e){return CATS[e.cat]||CATS['기타']}
+function itemsOn(ds){
+  const d=parseD(ds),day=d.getDate(),dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate(),st=S.settings;
+  const out=[];
+  S.schedule.events.forEach(e=>{
+    if(!e.date)return;const multi=e.end&&e.end>e.date,end=multi?e.end:e.date;
+    if(ds<e.date||ds>end)return;
+    const c=evColor(e),timed=e.time&&!multi;
+    let tm=null;if(timed){const s=toMin(e.time),en=toMin(e.endTime);tm={s,e:en&&en>s?en:Math.min(1440,s+60)}}
+    const memo=(e.memo||'').split('\n')[0];
+    out.push({k:'ev',id:e.id,title:e.title,label:(timed?e.time+' ':'')+e.title,color:c,bg:c+'24',done:e.done,tm,sub:memo?`(${memo})`:(timed?e.time+(e.endTime?'–'+e.endTime:''):''),sort:'0'+(e.time||'00:00')});
+  });
+  if(st.showIpo)S.ipo.items.forEach(i=>{
+    const lite=i.status==='미청약';
+    if(i.subStart&&ds>=i.subStart&&ds<=(i.subEnd||i.subStart))out.push({k:'ipo',id:i.id,label:'📝 '+i.name+' 청약',color:'#8b5cf6',bg:lite?'#f1f3f7':'#8b5cf624',sort:'1'});
+    if(i.refundDate===ds)out.push({k:'ipo',id:i.id,label:'💸 '+i.name+' 환불',color:'#0891b2',bg:'#0891b224',sort:'2'});
+    if(i.listDate===ds)out.push({k:'ipo',id:i.id,label:'🔔 '+i.name+' 상장',color:'#f97316',bg:'#f9731624',sort:'2'});
+  });
+  if(st.showFixed){
+    S.finance.fixed.forEach(f=>{if(f.active===false||!f.day)return;if(Math.min(+f.day,dim)===day)out.push({k:'fixed',id:f.id,label:'💳 '+f.name+' '+short(f.amt),color:'#94a3b8',bg:'#f1f3f7',sort:'3'})});
+    S.finance.debts.forEach(f=>{if(!f.payday||!f.pay)return;if(Math.min(+f.payday,dim)===day)out.push({k:'debts',id:f.id,label:'🏦 '+f.name+' '+short(f.pay),color:'#94a3b8',bg:'#f1f3f7',sort:'3'})});
+  }
+  return out.sort((a,b)=>a.sort.localeCompare(b.sort));
+}
+const chip=it=>`<span class="chip${it.done?' done':''}" style="background:${it.bg};border-left-color:${it.color}" data-act="item" data-k="${it.k}" data-id="${it.id}" title="${esc(it.label)}">${esc(it.label)}</span>`;
+
+/* ================= 캘린더 ================= */
+let cv={mode:curView()==='m'?'day':'week',anchor:new Date()},cvScroll=null;
+const HH=46;
+function layoutLanes(items){
+  items.sort((a,b)=>a.tm.s-b.tm.s||b.tm.e-a.tm.e);
+  const out=[];let cl=[],end=-1;
+  const flush=()=>{const lanes=[];cl.forEach(it=>{let l=lanes.findIndex(e=>e<=it.tm.s);if(l<0){l=lanes.length;lanes.push(0)}lanes[l]=it.tm.e;it.lane=l});cl.forEach(it=>it.lanes=lanes.length);out.push(...cl);cl=[];end=-1};
+  items.forEach(it=>{if(cl.length&&it.tm.s>=end)flush();cl.push(it);end=Math.max(end,it.tm.e)});
+  if(cl.length)flush();return out;
+}
+function evBlock(it){
+  const top=it.tm.s/60*HH,h=Math.max(22,(it.tm.e-it.tm.s)/60*HH-2),w=100/it.lanes;
+  return `<div class="tev${it.done?' done':''}" data-act="item" data-k="${it.k}" data-id="${it.id}" style="top:${top+1}px;height:${h}px;left:calc(${it.lane*w}% + 3px);width:calc(${w}% - 6px);background:${it.bg};border-color:${it.color}" title="${esc(it.label)}"><b>${esc(it.title)}</b>${h>36&&it.sub?`<span>${esc(it.sub)}</span>`:''}</div>`;
+}
+function timeGrid(days,tall){
+  const t=todayS(),cols=`52px repeat(${days.length},minmax(0,1fr))`;
+  const all=days.map(itemsOn);
+  const head=`<div class="tg-row tg-head" style="grid-template-columns:${cols}"><div></div>${days.map(ds=>{const w=parseD(ds).getDay();return `<div class="${ds===t?'today':''}${w===0?' sun':w===6?' sat':''}" data-act="cv-day" data-d="${ds}">${DOW[w]}<b>${md(ds).replace('/','.')}</b></div>`}).join('')}</div>`;
+  const allRow=all.some(a=>a.some(x=>!x.tm))?`<div class="tg-row tg-all" style="grid-template-columns:${cols}"><div>종일</div>${all.map((a,i)=>`<div class="${days[i]===t?'today':''}">${a.filter(x=>!x.tm).map(chip).join('')}</div>`).join('')}</div>`:'';
+  const nowM=new Date().getHours()*60+new Date().getMinutes();
+  const lines=`background-image:repeating-linear-gradient(to bottom,var(--bd) 0 1px,transparent 1px ${HH}px)`;
+  const body=`<div class="tg-scroll" id="tgs" style="height:${tall?620:300}px"><div class="tg-body" style="grid-template-columns:${cols};height:${24*HH}px">
+    <div class="tg-gut">${[...Array(24)].map((_,h)=>`<div style="top:${h*HH}px">${pad(h)}:00</div>`).join('')}</div>
+    ${days.map((ds,i)=>`<div class="tg-col${ds===t?' today':''}" data-act="slot" data-d="${ds}" style="${lines}">${layoutLanes(all[i].filter(x=>x.tm)).map(evBlock).join('')}${ds===t?`<div class="nowline" style="top:${nowM/60*HH}px"></div>`:''}</div>`).join('')}
+  </div></div>`;
+  return `<div class="tg">${head}${allRow}${body}</div>`;
+}
+function monthGrid(tall){
+  const y=cv.anchor.getFullYear(),m=cv.anchor.getMonth(),first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate();
+  const weeks=Math.ceil((first.getDay()+dim)/7),start=new Date(y,m,1-first.getDay()),t=todayS(),maxC=tall?4:2;
+  let c=DOW.map((w,i)=>`<div class="dow${i===0?' sun':i===6?' sat':''}">${w}</div>`).join('');
+  for(let i=0;i<weeks*7;i++){
+    const d=addDays(start,i),ds=fmtD(d),its=itemsOn(ds);
+    c+=`<div class="d${d.getMonth()!==m?' out':''}${ds===t?' today':''}${d.getDay()===0?' sun':d.getDay()===6?' sat':''}" style="min-height:${tall?108:74}px" data-act="day" data-d="${ds}"><span class="n">${d.getDate()}</span>${its.slice(0,maxC).map(chip).join('')}${its.length>maxC?`<div class="more">+${its.length-maxC}</div>`:''}</div>`;
+  }
+  return `<div class="mcal">${c}</div>`;
+}
+function calendarCard(tall){
+  const a=cv.anchor;let body;
+  if(cv.mode==='month')body=monthGrid(tall);
+  else body=timeGrid(cv.mode==='week'?[...Array(7)].map((_,i)=>fmtD(addDays(sunday(a),i))):[fmtD(a)],tall);
+  return `<div class="card"><div class="cal-top">
+    <div class="ct">${ic('cal',18)} 일정 캘린더</div>
+    <div class="cal-nav"><button class="ib" data-act="cv-nav" data-v="-1">${ic('chevL')}</button><button class="ib" data-act="cv-nav" data-v="1">${ic('chevR')}</button>
+    <button class="ym" data-act="cv-pick">${a.getFullYear()}년 ${a.getMonth()+1}월${cv.mode==='day'?` ${a.getDate()}일`:''} ${ic('chevD',14)}</button><button class="btn s" data-act="cv-today">오늘</button></div>
+    <span class="sp"></span>
+    <div class="seg2">${[['month','월'],['week','주'],['day','일']].map(([k,l])=>`<button data-act="cv-mode" data-v="${k}" class="${cv.mode===k?'on':''}">${l}</button>`).join('')}</div>
+    <button class="btn p" data-act="add-ev">${ic('plus',15)} 일정 추가</button>
+  </div>${body}</div>`;
+}
+function afterCalendar(){
+  const s=$('#tgs');if(!s)return;
+  if(cvScroll==null){const firsts=[...s.querySelectorAll('.tev')].map(e=>parseFloat(e.style.top));cvScroll=Math.max(0,Math.min(8*HH,...firsts)-10)}
+  s.scrollTop=cvScroll;s.addEventListener('scroll',()=>{cvScroll=s.scrollTop},{passive:true});
+}
+function openDay(ds){
+  const its=itemsOn(ds),todos=S.schedule.todos.filter(t=>t.date===ds);
+  openModal(`${+ds.slice(5,7)}월 ${+ds.slice(8,10)}일 (${DOW[parseD(ds).getDay()]})`,`
+    ${its.length?`<ul class="list">${its.map(it=>`<li style="cursor:pointer" data-act="item" data-k="${it.k}" data-id="${it.id}"><span class="dot" style="background:${it.color}"></span><span style="flex:1${it.done?';text-decoration:line-through':''}">${esc(it.label)}</span><span class="mut">›</span></li>`).join('')}</ul>`:'<div class="empty">일정이 없습니다</div>'}
+    ${todos.length?`<div class="mut" style="font-size:12px;margin-top:12px">할 일 ${todos.filter(t=>t.done).length}/${todos.length}</div><ul class="list">${todos.map(t=>`<li>${t.done?'✅':'⬜'} ${esc(t.text)}</li>`).join('')}</ul>`:''}
+    <div class="mfoot"><button class="btn" data-act="cv-day" data-d="${ds}">이 날 시간표 보기</button><span class="sp"></span><button class="btn p" data-act="add-ev" data-d="${ds}">+ 이 날 일정 추가</button></div>`);
+}
+let pkY=null;
+function openPicker(){
+  pkY=pkY||cv.anchor.getFullYear();
+  openModal('날짜 이동',`<div class="row" style="justify-content:center;margin-bottom:12px"><button class="ib" data-act="pk-y" data-v="-1">${ic('chevL')}</button><b style="font-size:17px;min-width:80px;text-align:center">${pkY}년</b><button class="ib" data-act="pk-y" data-v="1">${ic('chevR')}</button></div>
+  <div class="pk">${[...Array(12)].map((_,i)=>`<button data-act="pk-m" data-v="${i}" class="${pkY===cv.anchor.getFullYear()&&i===cv.anchor.getMonth()?'on':''}">${i+1}월</button>`).join('')}</div>`);
+}
+
+/* ================= 할 일 ================= */
+let sdate=todayS();
+function todoCard(ds,opt={}){
+  const list=S.schedule.todos.filter(t=>t.date===ds),done=list.filter(t=>t.done).length;
+  const isT=ds===todayS();
+  const title=opt.nav?`${isT?'오늘':mdw(ds)}의 할 일`:'오늘의 할 일';
+  return `<div class="card"><div class="ch"><h3>${opt.nav?`<button class="ib" data-act="sd-nav" data-v="-1">${ic('chevL')}</button>`:''}${title} <span class="mut" style="font-weight:500">(${done}/${list.length})</span>${opt.nav?`<button class="ib" data-act="sd-nav" data-v="1">${ic('chevR')}</button>${isT?'':'<button class="btn s" data-act="sd-nav" data-v="0">오늘</button>'}`:''}</h3>${opt.nav?'':'<a data-act="go" data-v="schedule">더보기 ›</a>'}</div>
+  ${list.length?`<ul class="todo">${list.map(t=>`<li class="${t.done?'done':''}"><label><input type="checkbox" data-act="tdone" data-id="${t.id}"${t.done?' checked':''}><span class="tt">${esc(t.text)}</span></label><button class="tx" data-act="tdel" data-id="${t.id}" title="삭제">×</button></li>`).join('')}</ul>`:'<div class="mut" style="font-size:13px;padding:6px 2px">아직 할 일이 없어요.</div>'}
+  <form class="tadd" data-date="${ds}"><input name="t" placeholder="+ 할 일 추가 (Enter)" autocomplete="off"></form></div>`;
+}
+
+/* ================= 지표 계산 ================= */
+function weekOfKeyMonth(key){const mo=parseD(key.slice(2));const th=addDays(mo,3);return `${th.getFullYear()}-${pad(th.getMonth()+1)}`}
+function goalsOfMonth(ym){return S.goals.items.filter(g=>g.period==='M:'+ym||(g.scope==='week'&&(g.period||'').startsWith('W:')&&weekOfKeyMonth(g.period)===ym))}
+function doneDates(){
+  const s={};const add=d=>{if(d)s[d]=(s[d]||0)+1};
+  S.schedule.todos.forEach(t=>t.done&&add(t.date));
+  S.schedule.events.forEach(e=>e.done&&add(e.date));
+  S.goals.items.forEach(g=>g.done&&add(g.doneAt));
+  return s;
+}
+function streaks(){
+  const s=doneDates();let d=new Date(),cur=0;
+  if(!s[fmtD(d)])d=addDays(d,-1);
+  while(s[fmtD(d)]){cur++;d=addDays(d,-1)}
+  const ds=Object.keys(s).sort();let best=0,run=0,prev=null;
+  ds.forEach(x=>{run=prev&&fmtD(addDays(parseD(prev),1))===x?run+1:1;best=Math.max(best,run);prev=x});
+  return {cur,best,todayDone:!!s[todayS()]};
+}
+
+/* ================= 홈 ================= */
+function heroHTML(){
+  const st=S.settings;
+  return `<div class="hero" data-act="go" data-v="settings" title="설정에서 문구를 바꿀 수 있어요">
+  <svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9c2df"/><stop offset=".55" stop-color="#ecd2b4"/><stop offset="1" stop-color="#f6b77c"/></linearGradient><linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/></linearGradient></defs>
+  <rect width="400" height="150" fill="url(#sky)"/><circle cx="345" cy="88" r="26" fill="#fde7c4" opacity=".75"/>
+  <path d="M0 112 L50 92 L95 104 L150 80 L205 100 L250 88 L300 104 L400 92 V150 H0Z" fill="#8a9bb3" opacity=".65"/>
+  <rect y="95" width="400" height="30" fill="url(#fog)"/>
+  <path d="M0 132 L70 114 L140 128 L200 112 L260 126 L400 118 V150 H0Z" fill="#56647d"/>
+  <path d="M250 150 L292 102 L318 92 L340 100 L372 150Z" fill="#2d3548"/>
+  <g stroke="#1d2433" stroke-width="3.2" stroke-linecap="round" fill="none"><path d="M318 74v11"/><path d="M318 85l-3.5 8M318 85l3.5 8"/><path d="M318 76l-8-10M318 76l8-10"/></g><circle cx="318" cy="69" r="4.2" fill="#1d2433"/>
+  </svg><div class="hq"><div class="q">${esc(st.quote)}</div><div class="qs">- ${esc(st.name)}님을 응원합니다 -</div></div></div>`;
+}
+function donut(p){const r=50,c=2*Math.PI*r;return `<svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="${r}" fill="none" stroke="#e3e9f5" stroke-width="20"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--pri)" stroke-width="20" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 75 75)" stroke-linecap="${p>0&&p<100?'round':'butt'}"/><text x="75" y="76" text-anchor="middle" font-size="24" font-weight="800" fill="#1a2233">${p}%</text><text x="75" y="97" text-anchor="middle" font-size="12" fill="#7a8499">완료율</text></svg>`}
+function renderHome(){
+  const t=todayS(),ym=t.slice(0,7);
+  const mg=goalsOfMonth(ym),mgd=mg.filter(g=>g.done).length,mgp=mg.length?Math.round(mgd/mg.length*100):0;
+  const su=sunday(new Date()),wk=[...Array(7)].map((_,i)=>fmtD(addDays(su,i)));
+  const wev=S.schedule.events.filter(e=>wk.includes(e.date)),wd=wev.filter(e=>e.done).length;
+  const sk=streaks();
+  const k1=`<div class="kcard" data-act="go" data-v="goals"><div class="kic" style="background:#eaf1fe;color:var(--pri)">${ic('target',28)}</div><div class="kb"><div class="kl">이번 달 목표 달성률</div><div class="kv">${mgp}<small>%</small></div><div class="kfoot"><div class="bar"><i style="width:${mgp}%"></i></div>${mgd} / ${mg.length}개</div></div></div>`;
+  const k2=`<div class="kcard" data-act="go" data-v="schedule"><div class="kic" style="background:#e3f6ee;color:var(--grn)">${ic('calcheck',27)}</div><div class="kb"><div class="kl">이번 주 완료한 일정</div><div class="kv">${wd} <span class="of">/ ${wev.length}개</span></div><div class="kfoot"><div class="bar"><i style="width:${wev.length?wd/wev.length*100:0}%;background:var(--grn)"></i></div></div></div></div>`;
+  const msg=sk.cur===0?'오늘 첫 실천을 체크해 보세요!':sk.cur>=sk.best?'🏆 최고 기록 갱신 중!':`🔥 최고 기록 ${sk.best}일에 도전해보세요!`;
+  const k3=`<div class="kcard peach" data-act="go" data-v="stats"><div class="kic" style="background:#ffe1cc;color:var(--org)">${ic('flame',28)}</div><div class="kb"><div class="kl">연속 실천 일수</div><div class="kv">${sk.cur}<small>일</small></div><span class="pill">${msg}</span></div></div>`;
+  // 나의 목표
+  let yg=S.goals.items.filter(g=>g.period==='Y:'+t.slice(0,4));let gsrc='올해';
+  if(!yg.length){yg=S.goals.items.filter(g=>g.period==='M:'+ym);gsrc='이번 달'}
+  const myGoals=`<div class="card"><div class="ch"><h3>나의 목표</h3><a data-act="go" data-v="goals">더보기 ›</a></div>
+   ${yg.length?yg.slice(0,5).map(g=>{const gi=GICON[g.cat]||GICON['기타'];const p=g.done?100:Math.max(0,Math.min(100,+g.progress||0));const due=g.due||(g.period[0]==='Y'?g.period.slice(2)+'-12-31':'');
+     return `<div class="mg" data-act="edit" data-l="goals" data-id="${g.id}"><div class="gi" style="background:${gi[1]}">${gi[0]}</div><div class="gb"><div class="gt">${esc(g.text)}</div>${due?`<div class="gd">(${due.replace(/-/g,'.')}까지)</div>`:''}<div class="gp"><div class="bar"><i style="width:${p}%;background:${gi[2]}"></i></div><span>${p}%</span></div></div></div>`}).join(''):`<div class="empty" style="padding:10px">연간 목표를 추가해 보세요<br><button class="btn s" style="margin-top:8px" data-act="goal-year">+ 올해 목표 추가</button></div>`}
+   ${yg.length?`<div class="mut" style="font-size:11px;margin-top:4px">${gsrc} 목표 ${yg.length}개</div>`:''}</div>`;
+  // 이번 달 요약
+  const mev=S.schedule.events.filter(e=>(e.date||'').startsWith(ym)),md_=mev.filter(e=>e.done).length;
+  const mp=mev.length?Math.round(md_/mev.length*100):0;
+  const summ=`<div class="card"><div class="ch"><h3>이번 달 일정 요약</h3><a data-act="cv-month">더보기 ›</a></div>
+    <div class="sumrow">${ic('cal')} 총 일정<b>${mev.length}건</b></div><div class="sumrow">${ic('check')} 완료<b>${md_}건</b></div><div class="sumrow">${ic('clock')} 예정<b>${mev.length-md_}건</b></div>
+    <div class="donut">${donut(mp)}</div></div>`;
+  // 주간 현황
+  const mo=monday(new Date());
+  const wdata=[...Array(7)].map((_,i)=>{const ds=fmtD(addDays(mo,i));const td=S.schedule.todos.filter(x=>x.date===ds),ev=S.schedule.events.filter(x=>x.date===ds);return {ds,plan:td.length+ev.length,done:td.filter(x=>x.done).length+ev.filter(x=>x.done).length}});
+  const wmax=Math.max(1,...wdata.map(x=>x.plan));
+  const wchart=`<div class="card"><div class="ch"><h3>주간 목표 현황</h3><div class="lg"><span><i class="dot" style="background:#dbe7fd"></i>목표</span><span><i class="dot" style="background:var(--pri)"></i>실적</span></div></div>
+    <div class="wchart">${wdata.map((x,i)=>`<div class="wc" title="${mdw(x.ds)} 계획 ${x.plan} · 완료 ${x.done}"><div class="bp"><i class="a" style="height:${x.plan/wmax*100}%"></i><i class="b" style="height:${x.done/wmax*100}%"></i></div><div class="wl"${x.ds===t?' style="color:var(--pri);font-weight:700"':''}>${'월화수목금토일'[i]}<small>${md(x.ds).replace('/','.')}</small></div></div>`).join('')}</div>
+    <div class="mut" style="font-size:11px;margin-top:6px">그날의 일정 + 할 일 기준</div></div>`;
+  $('#page').innerHTML=`<div class="home-top">${k1}${k2}${k3}${heroHTML()}</div>
+  <div class="home-main"><div class="hl">${myGoals}${summ}</div><div class="hr">${calendarCard(false)}<div class="hr2">${todoCard(t)}${wchart}</div></div></div>`;
+  afterCalendar();
+}
+
+/* ================= 일정 페이지 ================= */
+function renderSchedulePage(){
+  const up=[];for(let i=0;i<14;i++){const ds=fmtD(addDays(new Date(),i));itemsOn(ds).forEach(it=>{if(it.k==='ev'&&up.some(u=>u.id===it.id&&u.k==='ev'))return;up.push({...it,ds})})}
+  $('#page').innerHTML=`<div class="sgrid"><div>${calendarCard(true)}
+    <div class="card" style="padding:12px 18px"><div class="row mut" style="font-size:13px"><b style="color:var(--tx)">달력 표시</b>
+      <label><input type="checkbox" data-act="opt" data-k="showIpo"${S.settings.showIpo?' checked':''}> 공모주 청약·환불·상장일</label>
+      <label><input type="checkbox" data-act="opt" data-k="showFixed"${S.settings.showFixed?' checked':''}> 고정지출·대출 상환일</label>
+      <span style="flex:1"></span>${Object.entries(CATS).map(([k,c])=>`<span class="row" style="gap:4px"><i class="dot" style="background:${c}"></i>${k}</span>`).join('')}</div></div></div>
+    <div>${todoCard(sdate,{nav:true})}
+    <div class="card"><h3>⏰ 다가오는 2주</h3>${up.length?`<ul class="list">${up.map(u=>`<li style="cursor:pointer" data-act="item" data-k="${u.k}" data-id="${u.id}"><span class="dot" style="background:${u.color}"></span><span style="width:66px;font-size:12.5px" class="mut">${mdw(u.ds)}</span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(u.label)}</span>${dday(u.ds)===0?'<span class="tag" style="background:var(--pri);color:#fff">오늘</span>':`<span class="tag">D-${dday(u.ds)}</span>`}</li>`).join('')}</ul>`:'<div class="empty">예정된 일정이 없습니다</div>'}</div></div></div>`;
+  afterCalendar();
+}
+
+/* ================= 통계 ================= */
+function barChart(rows,{fmt=v=>v,unit=''}={}){
+  const max=Math.max(1,...rows.map(r=>Math.abs(r.v||0)));
+  return `<div class="bars">${rows.map(r=>`<div class="b" title="${esc(r.l)} ${fmt(r.v)}${unit}"><small>${r.v==null?'':fmt(r.v)+unit}</small><i class="${r.v<0?'n':''}" style="height:${Math.max(r.v?2:0,Math.abs(r.v||0)/max*100)}%;${r.c?'background:'+r.c:''}"></i><small>${esc(r.l)}</small></div>`).join('')}</div>`;
+}
+function renderStats(){
+  const months=[...Array(6)].map((_,i)=>{const d=new Date(now.getFullYear(),new Date().getMonth()-5+i,1);return `${d.getFullYear()}-${pad(d.getMonth()+1)}`});
+  const gRows=months.map(ym=>{const g=goalsOfMonth(ym);return {l:+ym.slice(5)+'월',v:g.length?Math.round(g.filter(x=>x.done).length/g.length*100):null}});
+  const eRows=months.map(ym=>{const e=S.schedule.events.filter(x=>(x.date||'').startsWith(ym));return {l:+ym.slice(5)+'월',v:e.length?Math.round(e.filter(x=>x.done).length/e.length*100):null,n:e.length}});
+  const tRows=months.map(ym=>{const e=S.schedule.todos.filter(x=>(x.date||'').startsWith(ym));return {l:+ym.slice(5)+'월',v:e.filter(x=>x.done).length}});
+  const y=String(new Date().getFullYear());
+  const pRows=[...Array(12)].map((_,i)=>{const ym=`${y}-${pad(i+1)}`;const it=S.ipo.items.filter(x=>((x.sellDate||x.listDate||'').startsWith(ym)));const v=sum(it,x=>ipoProfit(x)||0);return {l:(i+1)+'월',v:it.some(x=>ipoProfit(x)!=null)?v:null}});
+  const snaps=[...S.finance.snapshots].sort((a,b)=>a.month.localeCompare(b.month)).slice(-12);
+  const sk=streaks(),dd=doneDates();
+  const start=addDays(sunday(new Date()),-7*19);let heat='';
+  for(let i=0;i<20*7;i++){const d=addDays(start,i),ds=fmtD(d),n=dd[ds]||0;const c=d>new Date()?'transparent':n===0?'#edf1f7':n===1?'#c7dafc':n<=3?'#8db4f8':'#3b7cf5';heat+=`<i title="${ds} 완료 ${n}건" style="background:${c}"></i>`}
+  $('#page').innerHTML=`
+  <div class="kpis">
+    <div class="kpi"><div class="l">현재 연속 실천</div><div class="v">${sk.cur}일</div><div class="s">최고 기록 ${sk.best}일</div></div>
+    <div class="kpi"><div class="l">누적 완료한 할 일</div><div class="v">${S.schedule.todos.filter(x=>x.done).length}개</div><div class="s">전체 ${S.schedule.todos.length}개</div></div>
+    <div class="kpi"><div class="l">누적 달성 목표</div><div class="v">${S.goals.items.filter(x=>x.done).length}개</div><div class="s">전체 ${S.goals.items.length}개</div></div>
+    <div class="kpi"><div class="l">${y}년 공모주 실현손익</div><div class="v">${won(sum(pRows,r=>r.v||0))}원</div><div class="s">매도일 기준</div></div>
+  </div>
+  <div class="card"><h3>🔥 실천 기록 (최근 20주)</h3><div class="heat">${heat}</div><div class="mut" style="font-size:11.5px;margin-top:6px">할 일·일정·목표를 완료로 체크한 날이 진하게 표시됩니다.</div></div>
+  <div class="fgrid">
+    <div class="card"><h3>🎯 월별 목표 달성률</h3>${barChart(gRows,{unit:'%'})}<div class="mut" style="font-size:11.5px;margin-top:6px">월간 목표 + 그달의 주간 목표 기준</div></div>
+    <div class="card"><h3>📅 월별 일정 완료율</h3>${barChart(eRows.map(r=>({...r,c:'var(--grn)'})),{unit:'%'})}<div class="mut" style="font-size:11.5px;margin-top:6px">${eRows.map(r=>r.l+' '+r.n+'건').join(' · ')}</div></div>
+    <div class="card"><h3>✅ 월별 완료한 할 일</h3>${barChart(tRows.map(r=>({...r,c:'#8b5cf6'})),{unit:'개'})}</div>
+    <div class="card"><h3>📈 ${y}년 공모주 월별 실현손익</h3>${barChart(pRows,{fmt:short})}</div>
+  </div>
+  <div class="card"><h3>💰 순자산 추이</h3>${snaps.length?barChart(snaps.map(s=>({l:+s.month.slice(5)+'월',v:s.net})),{fmt:short}):'<div class="empty">자산관리 탭에서 ‘이번 달 기록 저장’을 누르면 추이가 쌓입니다</div>'}</div>`;
+}
+
+/* ================= 설정 ================= */
+function viewCard(){
+  const opts=[['auto','자동','기기에 맞춰 PC·모바일 화면을 고릅니다'],['pc','PC 화면','항상 PC 레이아웃으로 봅니다'],['mobile','모바일 화면','항상 모바일 레이아웃으로 봅니다']];
+  return `<div class="card"><h3>🖥️ 화면 보기</h3><div class="vseg">${opts.map(([k,l,d])=>`<button data-act="view" data-v="${k}" class="${viewPref===k?'on':''}"><b>${l}</b><span>${d}</span></button>`).join('')}</div>
+  <p class="mut" style="font-size:12px;margin-bottom:0">지금 이 기기: <b>${curView()==='m'?'모바일 화면':curView()==='t'?'PC 화면(좁은 창용)':'PC 화면'}</b> · 이 설정은 기기(브라우저)마다 따로 저장됩니다.</p></div>`;
+}
+function renderSettings(){
+  const st=S.settings;
+  $('#page').innerHTML=`<div class="fgrid"><div class="card"><h3>👤 프로필 · 문구</h3>
+    <form class="form" id="setform">
+      <label>이름 (인사말·응원 카드에 표시)<input name="name" value="${esc(st.name)}"></label>
+      <label>인사말 아래 문구<input name="greet" value="${esc(st.greet)}"></label>
+      <label>응원 카드 문구 (줄바꿈 가능)<textarea name="quote">${esc(st.quote)}</textarea></label>
+      <label class="ck"><input type="checkbox" name="showIpo"${st.showIpo?' checked':''}> 달력에 공모주 청약·환불·상장일 표시</label>
+      <label class="ck"><input type="checkbox" name="showFixed"${st.showFixed?' checked':''}> 달력에 고정지출·대출 상환일 표시</label>
+    </form><div class="mfoot"><span class="sp"></span><button class="btn p" data-act="set-save">저장</button></div></div>
+    ${securityCard()}${viewCard()}<div class="card"><h3>💾 데이터</h3>
+      <p class="mut" style="margin-top:0">모든 데이터는 내 계정 전용 클라우드(Supabase)에 자동 저장되고, 로그인한 어느 기기에서나 같은 데이터가 보여요. 다른 사이트에서 쓰던 데이터는 ‘백업 / 복원’으로 옮길 수 있습니다.</p>
+      <div class="row"><button class="btn" data-act="backup">백업 / 복원 열기</button></div>
+      <p class="mut" style="font-size:12px">일정 ${S.schedule.events.length} · 할 일 ${S.schedule.todos.length} · 목표 ${S.goals.items.length} · 계좌 ${S.finance.accounts.length} · 공모주 ${S.ipo.items.length}건</p>
+    </div></div>`;
+}
+
+/* ================= 검색 · 알림 ================= */
+function closeDD(){document.querySelectorAll('.dd').forEach(d=>d.classList.remove('on'))}
+function doSearch(q){
+  const dd=$('#sdd');q=q.trim().toLowerCase();if(!q){dd.classList.remove('on');return}
+  const has=s=>(s||'').toLowerCase().includes(q);
+  const groups=[
+    ['일정',S.schedule.events.filter(e=>has(e.title)||has(e.memo)).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(e=>`<div class="di" data-act="item" data-k="ev" data-id="${e.id}"><span class="dot" style="background:${evColor(e)}"></span><span style="flex:1">${esc(e.title)}</span><span class="mut" style="font-size:12px">${mdw(e.date)}</span></div>`)],
+    ['목표',S.goals.items.filter(g=>has(g.text)||has(g.memo)).slice(0,6).map(g=>`<div class="di" data-act="edit" data-l="goals" data-id="${g.id}"><span>${(GICON[g.cat]||GICON['기타'])[0]}</span><span style="flex:1">${esc(g.text)}</span><span class="tag">${g.scope==='week'?'주간':g.scope==='month'?'월간':'연간'}</span></div>`)],
+    ['할 일',S.schedule.todos.filter(t=>has(t.text)).slice(0,6).map(t=>`<div class="di" data-act="todo-go" data-d="${t.date}"><span>${t.done?'✅':'⬜'}</span><span style="flex:1">${esc(t.text)}</span><span class="mut" style="font-size:12px">${mdw(t.date)}</span></div>`)],
+    ['공모주',S.ipo.items.filter(i=>has(i.name)||has(i.broker)).slice(0,6).map(i=>`<div class="di" data-act="edit" data-l="ipo" data-id="${i.id}"><span>📈</span><span style="flex:1">${esc(i.name)} <span class="mut" style="font-size:12px">${esc(i.broker||'')}</span></span><span class="mut" style="font-size:12px">${mdw(i.subStart)}</span></div>`)]
+  ].filter(g=>g[1].length);
+  dd.innerHTML=groups.length?groups.map(([h,a])=>`<div class="dh">${h}</div>${a.join('')}`).join(''):'<div class="de">검색 결과가 없습니다</div>';
+  dd.classList.add('on');
+}
+function notifications(){
+  const t=todayS(),tm=fmtD(addDays(new Date(),1)),out=[];
+  [t,tm].forEach(ds=>itemsOn(ds).forEach(it=>{if(it.done||it.k==='fixed'||it.k==='debts')return;out.push({...it,ds})}));
+  const td=S.schedule.todos.filter(x=>x.date===t&&!x.done).length;
+  const dim=new Date(now.getFullYear(),new Date().getMonth()+1,0).getDate(),day=new Date().getDate();
+  S.finance.fixed.forEach(f=>{if(f.active!==false&&f.day&&Math.min(+f.day,dim)===day)out.push({k:'fixed',id:f.id,label:'💳 오늘 결제: '+f.name+' '+won(f.amt)+'원',color:'#94a3b8',ds:t})});
+  S.finance.debts.forEach(f=>{if(f.payday&&f.pay&&Math.min(+f.payday,dim)===day)out.push({k:'debts',id:f.id,label:'🏦 오늘 상환: '+f.name+' '+won(f.pay)+'원',color:'#94a3b8',ds:t})});
+  return {list:out,td};
+}
+function renderBell(){const n=notifications();const c=n.list.length+(n.td?1:0);const b=$('#bellbtn');b.innerHTML=ic('bell')+`<i class="badge${c?' on':''}">${c>9?'9+':c}</i>`}
+function openBell(){
+  const n=notifications(),t=todayS(),dd=$('#ndd');
+  dd.innerHTML=(n.td?`<div class="di" data-act="go" data-v="home"><span>📝</span><span style="flex:1">오늘 남은 할 일 ${n.td}개</span></div>`:'')+(n.list.length?n.list.map(x=>`<div class="di" data-act="item" data-k="${x.k}" data-id="${x.id}"><span class="dot" style="background:${x.color}"></span><span style="flex:1">${esc(x.label)}</span><span class="tag"${x.ds===t?' style="background:var(--pri);color:#fff"':''}>${x.ds===t?'오늘':'내일'}</span></div>`).join(''):'')||'<div class="de">오늘·내일 알림이 없습니다 🎉</div>';
+  dd.classList.toggle('on');$('#sdd').classList.remove('on');
+}
+
+/* ================= 렌더 & 이벤트 ================= */
+let pendingRender=false;
+function renderAll(fromSnap){
+  const ae=document.activeElement;
+  if(fromSnap&&ae&&(ae.tagName==='TEXTAREA'||(ae.tagName==='INPUT'&&!['checkbox','range'].includes(ae.type)))&&$('#page').contains(ae)){pendingRender=true;return}
+  if(fromSnap&&$('#modal').classList.contains('on')){pendingRender=true}
+  pendingRender=false;
+  const st=S.settings;
+  $('#snav').innerHTML=PAGES.map(([k,l,i,sh])=>`<a href="#${k}" class="${curTab===k?'on':''}" title="${l}">${ic(i)}<span class="ln">${l}</span><span class="ls">${sh}</span></a>`).join('');
+  $('#avatar').textContent=(st.name||'나').slice(-2);$('#myname').textContent=(st.name||'')+'님';
+  $('#calbtn').innerHTML=ic('cal');renderBell();
+  const P=PAGES.find(p=>p[0]===curTab);
+  const SUB={goals:'주간·월간·연간 목표를 세우고 진행률을 관리해요.',schedule:'일정과 할 일을 한눈에 관리해요.',assets:'계좌·자산·부채와 고정지출을 정리해요.',ipo:'공모주 청약부터 배정·매도 손익까지 기록해요.',stats:'꾸준함과 성과를 숫자로 돌아봐요.',settings:'이름과 문구, 로그인 비밀번호, 표시 옵션을 바꿀 수 있어요.',life:'생애 단계별 목표로 인생의 큰 그림을 그려요.'};
+  $('#tbl').innerHTML=curTab==='home'?`<h1>${esc(st.name)}님, 오늘도 힘내세요! 💪</h1><p>${esc(st.greet)}</p>`:`<h1>${P[1]}</h1><p>${SUB[curTab]}</p>`;
+  $('#dl-broker').innerHTML=[...new Set([...S.ipo.brokers.map(b=>b.name),...BROKERS])].map(b=>`<option value="${esc(b)}">`).join('');
+  $('#dl-inst').innerHTML=[...new Set([...S.finance.accounts.map(a=>a.inst).filter(Boolean),...BANKS,...BROKERS])].map(b=>`<option value="${esc(b)}">`).join('');
+  const owners=new Set(['본인','배우자']);S.ipo.items.concat(S.finance.accounts).forEach(x=>x.owner&&owners.add(x.owner));$('#dl-owner').innerHTML=[...owners].map(o=>`<option value="${esc(o)}">`).join('');
+  $('#logout').style.display='block';
+  ({home:renderHome,life:renderLife,goals:renderGoals,schedule:renderSchedulePage,assets:renderAssets,ipo:renderIpo,stats:renderStats,settings:renderSettings})[curTab]();
+  maybeLock();
+}
+document.addEventListener('focusout',()=>setTimeout(()=>{if(pendingRender&&!$('#modal').classList.contains('on'))renderAll()},50));
+let noteT=null;
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.id==='q'){doSearch(el.value);return}
+  if(el.dataset.act==='gnote'){const k=el.dataset.k;S.goals.notes[k]=el.value;if(!el.value)delete S.goals.notes[k];clearTimeout(noteT);noteT=setTimeout(()=>save('goals'),800)}
+  if(el.dataset.act==='gprog'){el.nextElementSibling&&(el.nextElementSibling.textContent=el.value+'%')}
+});
+$('#q').addEventListener('focus',e=>{if(e.target.value)doSearch(e.target.value)});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Escape'){e.target.value='';closeDD()}});
+document.addEventListener('submit',e=>{
+  const f=e.target;if(!f.classList.contains('tadd'))return;e.preventDefault();
+  const inp=f.querySelector('input'),v=inp.value.trim();if(!v)return;
+  S.schedule.todos.push({id:newId(),date:f.dataset.date,text:v,done:false});save('schedule');renderAll();
+  const nf=document.querySelector(`form.tadd[data-date="${f.dataset.date}"] input`);nf&&nf.focus();
+});
+document.addEventListener('change',e=>{
+  const el=e.target,a=el.dataset.act;
+  if(a==='gprog'){const g=S.goals.items.find(x=>x.id===el.dataset.id);if(g){g.progress=Number(el.value);g.done=g.progress>=100;if(g.done)g.doneAt=g.doneAt||todayS();save('goals');renderAll()}}
+  if(a==='gdone'){const g=S.goals.items.find(x=>x.id===el.dataset.id);if(g){g.done=el.checked;if(g.done){g.progress=100;g.doneAt=todayS()}save('goals');renderAll()}}
+  if(a==='tdone'){const t=S.schedule.todos.find(x=>x.id===el.dataset.id);if(t){t.done=el.checked;save('schedule');renderAll()}}
+  if(a==='evdone'){const ev=S.schedule.events.find(x=>x.id===el.dataset.id);if(ev){ev.done=el.checked;save('schedule');renderAll()}}
+  if(a==='life-by'){const v=+el.value;S.life.birthYear=v>1900&&v<2100?v:null;save('life');renderAll()}
+  if(a==='lgoal-done'){const g=S.life.goals.find(x=>x.id===el.dataset.id);if(g){g.done=el.checked;if(g.done)g.doneAt=todayS();save('life');renderAll()}}
+  if(a==='opt'){S.settings[el.dataset.k]=el.checked;save('settings');renderAll()}
+});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.dd,#q,[data-act=bell]'))closeDD();
+  if(e.target.closest('input[type=checkbox],input[type=range]'))return;
+  const el=e.target.closest('[data-act]');if(!el)return;
+  const a=el.dataset.act;
+  switch(a){
+    case 'close':closeModal();break;
+    case 'backup':openBackup();break;
+    case 'go':closeModal();closeDD();if(location.hash==='#'+el.dataset.v){route();renderAll()}else location.hash=el.dataset.v;break;
+    case 'bell':openBell();break;
+    case 'cv-nav':{const v=+el.dataset.v,x=new Date(cv.anchor);if(cv.mode==='month'){x.setDate(1);x.setMonth(x.getMonth()+v)}else x.setDate(x.getDate()+(cv.mode==='week'?7:1)*v);cv.anchor=x;renderAll();break}
+    case 'cv-today':cv.anchor=new Date();cvScroll=null;renderAll();break;
+    case 'cv-mode':cv.mode=el.dataset.v;renderAll();break;
+    case 'cv-month':cv.mode='month';cv.anchor=new Date();location.hash='schedule';break;
+    case 'cv-day':closeModal();cv.mode='day';cv.anchor=parseD(el.dataset.d);sdate=el.dataset.d;renderAll();break;
+    case 'cv-pick':pkY=null;openPicker();break;
+    case 'pk-y':pkY+=+el.dataset.v;openPicker();break;
+    case 'pk-m':{cv.anchor=new Date(pkY,+el.dataset.v,1);if(cv.mode!=='month')cv.mode='month';closeModal();renderAll();break}
+    case 'slot':{const r=el.getBoundingClientRect(),h=Math.max(0,Math.min(23,Math.floor((e.clientY-r.top)/HH)));edit('events',null,{date:el.dataset.d,time:pad(h)+':00',endTime:pad(Math.min(23,h+1))+':00',cat:'업무'});break}
+    case 'day':openDay(el.dataset.d);break;
+    case 'add-ev':closeModal();edit('events',null,{date:el.dataset.d||(cv.mode==='day'?fmtD(cv.anchor):todayS()),cat:'업무'});break;
+    case 'item':{e.stopPropagation();closeModal();closeDD();const k=el.dataset.k;edit(k==='ev'?'events':k,el.dataset.id);break}
+    case 'edit':closeDD();edit(el.dataset.l,el.dataset.id);break;
+    case 'add':edit(el.dataset.l,null,el.dataset.l==='ipo'?{status:'청약예정',owner:'본인'}:el.dataset.l==='fixed'?{active:true}:{});break;
+    case 'todo-go':closeDD();sdate=el.dataset.d;location.hash='schedule';break;
+    case 'sd-nav':{const v=+el.dataset.v;sdate=v===0?todayS():fmtD(addDays(parseD(sdate),v));renderAll();break}
+    case 'tdel':{const L=S.schedule.todos,i=L.findIndex(x=>x.id===el.dataset.id);if(i>=0){L.splice(i,1);save('schedule');renderAll()}break}
+    case 'set-save':{const f=$('#setform');const v={name:f.name.value.trim()||'나',greet:f.greet.value.trim(),quote:f.quote.value,showIpo:f.showIpo.checked,showFixed:f.showFixed.checked};Object.assign(S.settings,v);save('settings');renderAll();toast('설정을 저장했습니다');break}
+    case 'goal-year':gp.scope='year';gp.anchor=new Date();edit('goals',null,{progress:0,cat:'재무'},{scope:'year',period:'Y:'+new Date().getFullYear()});break;
+    case 'gscope':gp.scope=el.dataset.v;renderAll();break;
+    case 'gnav':{const v=+el.dataset.v;gp.anchor=v===0?new Date():shiftAnchor(gp.scope,gp.anchor,v);renderAll();break}
+    case 'add-goal':{const P=periodOf(gp.scope,gp.anchor);edit('goals',null,{progress:0,cat:'업무'},{scope:gp.scope,period:P.key});break}
+    case 'gcarry':{const P=periodOf(gp.scope,gp.anchor),pk=periodOf(gp.scope,shiftAnchor(gp.scope,gp.anchor,-1)).key;
+      const src=S.goals.items.filter(g=>g.period===pk&&!g.done);let n=0;
+      src.forEach(g=>{if(!S.goals.items.some(x=>x.period===P.key&&x.text===g.text)){S.goals.items.push({...clone(g),id:newId(),period:P.key});n++}});
+      save('goals');renderAll();toast(n?`${n}개를 가져왔습니다`:'이미 모두 가져왔습니다');break}
+    case 'snap':{const T=finTotals(),m=todayS().slice(0,7);const s=S.finance.snapshots;const ex=s.find(x=>x.month===m);const v={month:m,assets:T.total,debts:T.debt,net:T.net,at:todayS()};if(ex)Object.assign(ex,v);else s.push(v);save('finance');renderAll();toast(`${m} 순자산을 기록했습니다`);break}
+    case 'delsnap':{e.stopPropagation();if(!el.dataset.c){el.dataset.c=1;el.textContent='확인';return}const s=S.finance.snapshots;const i=s.findIndex(x=>x.month===el.dataset.m);if(i>=0){s.splice(i,1);save('finance');renderAll()}break}
+    case 'lock':e.stopPropagation();lockNow();break;
+    case 'au-mode':authMode=el.dataset.v;renderAuthCard();break;
+    case 'au-resend':resendSignup();break;
+    case 'au-eye':{const i=document.getElementById(el.dataset.for);if(i)i.type=i.type==='password'?'text':'password';break}
+    case 'pw-save':pwAction();break;
+    case 'view':setView(el.dataset.v);break;
+    case 'life-tpl':S.life.stages=lifeTemplate();save('life');renderAll();toast('기본 생애 단계를 만들었습니다. 자유롭게 수정하세요');break;
+    case 'stage-add':editStage(null);break;
+    case 'stage-edit':editStage(el.dataset.id);break;
+    case 'lstage-jump':{const t=document.getElementById('ls-'+el.dataset.id);t&&t.scrollIntoView({behavior:'smooth',block:'center'});break}
+    case 'lgoal-add':editLGoal(null,el.dataset.id);break;
+    case 'lgoal-edit':e.stopPropagation();editLGoal(el.dataset.id);break;
+    case 'fam-add':editFamily(null);break;
+    case 'fam-edit':editFamily(el.dataset.id);break;
+    case 'ipoy':ipoF.y=el.dataset.v;renderAll();break;
+    case 'ipos':ipoF.st=el.dataset.v;renderAll();break;
+  }
+});
+/* ================= 라이프 플랜 ================= */
+const LCATS={재무:['💰','#8b5cf6'],커리어:['💼','#3b7cf5'],가족:['👨‍👩‍👧','#f97316'],건강:['🏃','#20a464'],주거:['🏠','#0ea5e9'],교육:['🎓','#14b8a6'],여가:['✈️','#e11d48'],기타:['⭐','#64748b']};
+const STAGE_COLORS=['#3b7cf5','#8b5cf6','#20a464','#f97316','#e11d48','#0ea5e9','#14b8a6','#64748b'];
+F.stage=[{k:'name',l:'단계 이름',t:'text',req:1,ph:'예: 기반 다지기'},{k:'from',l:'시작 나이',t:'num',req:1,h:1,min:0,max:120},{k:'to',l:'끝 나이',t:'num',req:1,h:1,min:0,max:120},{k:'theme',l:'이 시기의 핵심 테마',t:'area',ph:'예: 커리어 성장, 종잣돈 마련, 내 집 마련 준비'}];
+F.family=[{k:'name',l:'이름/호칭',t:'text',req:1,h:1,ph:'예: 아내, 첫째'},{k:'birthYear',l:'출생연도',t:'num',req:1,h:1,min:1900,max:2100}];
+const lifeAge=()=>{const by=+S.life.birthYear;return by?new Date().getFullYear()-by:null};
+function lgoalFields(){return [{k:'text',l:'목표',t:'text',req:1},{k:'stage',l:'생애 단계',t:'sel',o:S.life.stages.slice().sort((a,b)=>a.from-b.from).map(s=>s.name),h:1},{k:'cat',l:'분류',t:'sel',o:Object.keys(LCATS),h:1},{k:'targetAge',l:'목표 나이',t:'num',h:1,min:0,max:120},{k:'amount',l:'목표 금액 (선택)',t:'money',h:1},{k:'memo',l:'메모 · 실행 계획',t:'area'},{k:'done',l:'달성',t:'check'}]}
+function editLGoal(id,stageId){
+  const L=S.life,item=id?L.goals.find(g=>g.id===id):null;if(id&&!item)return;
+  const st=L.stages.find(s=>s.id===(item?item.stageId:stageId));
+  const data=item?{...item,stage:st&&st.name}:{stage:st&&st.name,cat:'재무',targetAge:st?st.from:null};
+  openForm({title:'라이프 목표'+(item?' 수정':' 추가'),fields:lgoalFields(),data,
+    onSave:v=>{const s=L.stages.find(x=>x.name===v.stage);v.stageId=s?s.id:(st&&st.id);delete v.stage;if(v.done&&!(item&&item.doneAt))v.doneAt=todayS();if(item)Object.assign(item,v);else L.goals.push({id:newId(),...v});save('life');renderAll();toast('저장했습니다')},
+    onDelete:item?()=>{L.goals.splice(L.goals.indexOf(item),1);save('life');renderAll()}:null});
+}
+function editStage(id){
+  const L=S.life,item=id?L.stages.find(s=>s.id===id):null;
+  const last=L.stages.reduce((m,s)=>Math.max(m,+s.to||0),0);
+  openForm({title:'생애 단계'+(item?' 수정':' 추가'),fields:F.stage,data:item||{from:last?last+1:(lifeAge()||30),to:(last?last+10:(lifeAge()||30)+9)},
+    onSave:v=>{if(v.to<v.from){toast('끝 나이가 시작 나이보다 작아요');return}if(item)Object.assign(item,v);else L.stages.push({id:newId(),color:STAGE_COLORS[L.stages.length%STAGE_COLORS.length],...v});save('life');renderAll()},
+    onDelete:item?()=>{const n=L.goals.filter(g=>g.stageId===item.id).length;L.stages.splice(L.stages.indexOf(item),1);L.goals=L.goals.filter(g=>g.stageId!==item.id);save('life');renderAll();if(n)toast(`단계와 목표 ${n}개를 삭제했습니다`)}:null});
+}
+function editFamily(id){
+  const L=S.life,item=id?L.family.find(f=>f.id===id):null;
+  openForm({title:'가족'+(item?' 수정':' 추가'),fields:F.family,data:item||{},
+    onSave:v=>{if(item)Object.assign(item,v);else L.family.push({id:newId(),...v});save('life');renderAll()},
+    onDelete:item?()=>{L.family.splice(L.family.indexOf(item),1);save('life');renderAll()}:null});
+}
+function lifeTemplate(){
+  const a=lifeAge()||30;
+  const T=[[20,29,'출발',"학업·첫 직장, 저축 습관, 자기계발"],[30,39,'기반 다지기','커리어 성장, 종잣돈·내 집 마련, 가정 꾸리기'],[40,49,'성장·자산 증식','소득 극대화, 자산 증식, 자녀 교육 준비'],[50,59,'안정·확장','부채 정리, 노후자금 본격 마련, 건강 관리'],[60,69,'은퇴 전환','은퇴 설계, 연금 수령 계획, 제2의 일'],[70,100,'여유로운 노후','건강, 여가, 가족과의 시간, 자산 승계']];
+  return T.filter(t=>t[1]>=a).map((t,i)=>({id:newId(),from:t[0],to:t[1],name:t[2],theme:t[3],color:STAGE_COLORS[i%STAGE_COLORS.length]}));
+}
+function renderLife(){
+  const L=S.life,by=+L.birthYear||null,age=lifeAge(),cy=new Date().getFullYear();
+  const stages=L.stages.slice().sort((a,b)=>a.from-b.from);
+  const goals=L.goals,done=goals.filter(g=>g.done).length;
+  const next=goals.filter(g=>!g.done&&g.targetAge!=null&&(age==null||g.targetAge>=age)).sort((a,b)=>a.targetAge-b.targetAge)[0];
+  const yr=a=>by?by+(+a):null;
+  const head=`<div class="card"><div class="row" style="gap:18px;align-items:flex-end">
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mut)">내 출생연도<input type="number" data-act="life-by" value="${by||''}" placeholder="예: 1985" style="width:120px;border:1px solid var(--bd);border-radius:9px;padding:7px 10px"></label>
+    <div><div class="mut" style="font-size:12px">올해 나이</div><div style="font-size:22px;font-weight:800">${age!=null?age+'세':'-'}</div></div>
+    <div style="flex:1;min-width:200px"><div class="mut" style="font-size:12px;margin-bottom:4px">함께하는 가족 <span class="mut" style="font-size:11px">(단계별로 가족 나이가 표시돼요)</span></div><div class="row">${L.family.map(f=>`<button class="btn s" data-act="fam-edit" data-id="${f.id}">${esc(f.name)} · ${f.birthYear?cy-f.birthYear+'세':''}</button>`).join('')}<button class="btn s" data-act="fam-add">+ 가족 추가</button></div></div>
+  </div><div class="mut" style="font-size:11.5px;margin-top:8px">나이는 ‘올해 연도 − 출생연도’로 계산한 만 나이 기준(생일 전이면 1살 적음)입니다.</div></div>`;
+  if(!stages.length){
+    $('#page').innerHTML=head+`<div class="card" style="text-align:center;padding:40px 20px"><div style="font-size:40px">🗺️</div><h3 style="justify-content:center;font-size:18px">인생 지도를 그려 볼까요?</h3><p class="mut">생애 단계(예: 30대 기반 다지기, 40대 자산 증식…)를 나누고 단계별 목표를 적어 보세요.${by?'':'<br>먼저 위에 출생연도를 입력하면 연도가 함께 계산됩니다.'}</p>
+    <div class="row" style="justify-content:center;margin-top:10px"><button class="btn p" data-act="life-tpl">기본 생애 단계로 시작</button><button class="btn" data-act="stage-add">직접 단계 추가</button></div></div>`;return;
+  }
+  const minA=stages[0].from,maxA=Math.max(...stages.map(s=>+s.to)),span=Math.max(1,maxA-minA+1);
+  const tl=`<div class="card"><div class="ch"><h3>🗺️ 나의 생애 타임라인</h3><button class="btn s" data-act="stage-add">+ 단계 추가</button></div>
+    <div class="ltl">${stages.map(s=>`<div class="lseg" style="width:${(s.to-s.from+1)/span*100}%;background:${s.color}" data-act="lstage-jump" data-id="${s.id}" title="${esc(s.name)}"><b>${esc(s.name)}</b><small>${s.from}–${s.to}세${by?` · ${yr(s.from)}–${yr(s.to)}`:''}</small></div>`).join('')}
+    ${age!=null&&age>=minA&&age<=maxA?`<div class="lnow" style="left:${(age-minA+.5)/span*100}%"><span>지금 ${age}세</span></div>`:''}
+    ${goals.filter(g=>g.targetAge!=null&&g.targetAge>=minA&&g.targetAge<=maxA).map(g=>`<i class="lpin${g.done?' done':''}" style="left:${(g.targetAge-minA+.5)/span*100}%" title="${esc(g.text)} (${g.targetAge}세)" data-act="lgoal-edit" data-id="${g.id}"></i>`).join('')}
+    </div>
+    <div class="row mut" style="font-size:12.5px;margin-top:34px;gap:18px"><span>전체 목표 <b style="color:var(--tx)">${goals.length}</b>개</span><span>달성 <b style="color:var(--tx)">${done}</b>개</span>${next?`<span>다음 목표: <b style="color:var(--tx)">${esc(next.text)}</b> (${next.targetAge}세${by?', '+yr(next.targetAge)+'년':''}${age!=null?` · ${next.targetAge-age}년 남음`:''})</span>`:''}</div></div>`;
+  const cards=stages.map(s=>{
+    const gs=goals.filter(g=>g.stageId===s.id).sort((a,b)=>(a.targetAge??999)-(b.targetAge??999));
+    const gd=gs.filter(g=>g.done).length,cur=age!=null&&age>=s.from&&age<=s.to,past=age!=null&&age>s.to;
+    const fam=L.family.filter(f=>f.birthYear&&by).map(f=>{const a1=yr(s.from)-f.birthYear,a2=yr(s.to)-f.birthYear;return a2<0?null:`${esc(f.name)} ${Math.max(0,a1)}–${a2}세`}).filter(Boolean);
+    return `<div class="card lstage${cur?' cur':''}${past?' past':''}" id="ls-${s.id}" style="border-top:4px solid ${s.color}">
+      <div class="ch"><h3><span style="color:${s.color}">●</span> ${esc(s.name)} ${cur?'<span class="tag" style="background:var(--pri);color:#fff">지금</span>':past?'<span class="tag">지난 단계</span>':''}</h3><button class="btn s ghost" data-act="stage-edit" data-id="${s.id}">수정</button></div>
+      <div class="mut" style="font-size:12.5px;margin-top:-6px">${s.from}–${s.to}세${by?` · ${yr(s.from)}–${yr(s.to)}년`:''}${cur&&age!=null?` · ${s.to-age}년 남음`:''}</div>
+      ${fam.length?`<div style="font-size:12px;margin-top:4px;color:#4a5468">👨‍👩‍👧 ${fam.join(' · ')}</div>`:''}
+      ${s.theme?`<div class="ltheme">${esc(s.theme)}</div>`:''}
+      ${gs.length?`<div class="row" style="flex-wrap:nowrap;margin:4px 0 6px"><div class="bar" style="flex:1"><i style="width:${gd/gs.length*100}%;background:${s.color}"></i></div><span class="mut" style="font-size:12px">${gd}/${gs.length}</span></div>`:''}
+      <ul class="todo">${gs.map(g=>{const c=LCATS[g.cat]||LCATS['기타'];return `<li class="${g.done?'done':''}"><input type="checkbox" data-act="lgoal-done" data-id="${g.id}"${g.done?' checked':''}><span style="flex:1;min-width:0;cursor:pointer" data-act="lgoal-edit" data-id="${g.id}"><span class="tt">${c[0]} ${esc(g.text)}</span><span class="mut" style="font-size:11.5px;display:block">${g.targetAge!=null?`${g.targetAge}세${by?' ('+yr(g.targetAge)+')':''}`:''}${g.amount?` · 목표 ${short(g.amount)}원`:''}${g.memo?` · ${esc(g.memo.split('\n')[0])}`:''}</span></span></li>`}).join('')}</ul>
+      <button class="btn s" style="margin-top:6px" data-act="lgoal-add" data-id="${s.id}">+ 목표 추가</button></div>`;
+  }).join('');
+  $('#page').innerHTML=head+tl+`<div class="lgrid">${cards}</div>`;
+}
+
+/* ================= 회원가입 · 로그인 (Supabase Auth) ================= */
+let lastAct=Date.now(),authMode='login',authBusy=false,sentTo='';
+const validEmail=e=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+const AU_IC={mail:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',lock:'<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.2" fill="currentColor"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>',eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'};
+const aic=n=>`<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${AU_IC[n]}</svg>`;
+const fld=(icon,id,type,ph,ac,eye)=>`<div class="au-in">${aic(icon)}<input id="${id}" type="${type}" placeholder="${ph}" autocomplete="${ac}">${eye?`<button type="button" class="au-eye" data-act="au-eye" data-for="${id}" title="비밀번호 보기">${aic('eye')}</button>`:''}</div>`;
+const AU_ERR={'Invalid login credentials':'이메일 또는 비밀번호가 올바르지 않습니다','Email not confirmed':'이메일 인증이 아직 완료되지 않았습니다. 받은 메일함(스팸함 포함)을 확인해 주세요','User already registered':'이미 가입된 이메일입니다. 로그인해 주세요','Password should be at least 6 characters.':'비밀번호는 6자 이상이어야 합니다','For security purposes, you can only request this after':'보안을 위해 잠시 후 다시 시도해 주세요','Email rate limit exceeded':'메일 발송 한도를 넘었습니다. 잠시 후 다시 시도해 주세요','New password should be different from the old password.':'새 비밀번호가 기존 비밀번호와 같습니다','Unable to validate email address: invalid format':'올바른 이메일 주소를 입력해 주세요'};
+const krErr=e=>{const m=(e&&e.message)||String(e);for(const k in AU_ERR)if(m.startsWith(k))return AU_ERR[k];return '오류: '+m};
+function renderAuthCard(){
+  const c=$('#aucard'),logo=`<svg width="70" height="44" viewBox="0 0 46 30"><defs><linearGradient id="alg" x1="0" x2="1"><stop offset="0" stop-color="#5ec8f2"/><stop offset="1" stop-color="#4f7cf7"/></linearGradient></defs><path d="M4 26 L14 5 L23 18 L32 5 L42 26" fill="none" stroke="url(#alg)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="au-brand">MyPlan</div>`;
+  let h='';
+  if(authMode==='signup'){
+    h=`${logo}<div class="au-sub">회원가입하고 나만의 플래너를 시작하세요</div>
+    <form class="au-form" data-form="signup">${fld('user','au-name','text','이름을 입력하세요','name')}${fld('mail','au-email','email','이메일 주소를 입력하세요','email')}${fld('lock','au-pw','password','비밀번호 (8자 이상)','new-password',1)}${fld('lock','au-pw2','password','비밀번호를 한 번 더 입력하세요','new-password')}
+    <div class="au-err" id="au-err"></div><button class="au-btn" type="submit">회원가입</button></form>
+    <div class="au-foot">이미 계정이 있으신가요? <a data-act="au-mode" data-v="login">로그인 ›</a></div>`;
+  }else if(authMode==='sent'){
+    h=`${logo}<div style="font-size:44px;margin:18px 0 6px">📬</div><div class="au-sub" style="margin-bottom:14px"><b style="color:#18213a">${esc(sentTo)}</b>(으)로<br>인증 메일을 보냈어요.</div>
+    <p class="au-note">메일의 링크를 누르면 가입이 완료되고 자동으로 로그인됩니다.<br>메일이 안 보이면 스팸함도 확인해 주세요.</p>
+    <div class="au-form" style="margin-top:16px"><button class="au-btn" data-act="au-mode" data-v="login" type="button">로그인 화면으로</button></div>
+    <div class="au-foot">메일을 못 받으셨나요? <a data-act="au-resend">인증 메일 다시 보내기</a></div>`;
+  }else if(authMode==='reset'){
+    h=`${logo}<div class="au-sub">비밀번호 재설정</div>
+    <form class="au-form" data-form="reset1"><p class="au-note">가입한 이메일을 입력하면<br>비밀번호를 다시 정할 수 있는 링크를 보내드려요.</p>${fld('mail','au-email','email','가입한 이메일 주소','email')}<div class="au-err" id="au-err"></div><button class="au-btn" type="submit">재설정 메일 보내기</button></form>
+    <div class="au-foot"><a data-act="au-mode" data-v="login">‹ 로그인으로 돌아가기</a></div>`;
+  }else if(authMode==='resetSent'){
+    h=`${logo}<div style="font-size:44px;margin:18px 0 6px">✉️</div><div class="au-sub"><b style="color:#18213a">${esc(sentTo)}</b>(으)로<br>비밀번호 재설정 메일을 보냈어요.</div><p class="au-note">메일의 링크를 누르면 새 비밀번호를 정하는 화면이 열립니다.</p>
+    <div class="au-foot"><a data-act="au-mode" data-v="login">‹ 로그인으로 돌아가기</a></div>`;
+  }else if(authMode==='reset2'){
+    h=`${logo}<div class="au-sub">새 비밀번호를 정해 주세요</div>
+    <form class="au-form" data-form="reset2">${fld('lock','au-pw','password','새 비밀번호 (8자 이상)','new-password',1)}${fld('lock','au-pw2','password','새 비밀번호 확인','new-password')}<div class="au-err" id="au-err"></div><button class="au-btn" type="submit">비밀번호 변경</button></form>`;
+  }else{
+    h=`${logo}<div class="au-sub">당신의 더 나은 내일을 위한 시작</div>
+    <form class="au-form" data-form="login">${fld('mail','au-email','email','이메일 주소를 입력하세요','username')}${fld('lock','au-pw','password','비밀번호를 입력하세요','current-password',1)}
+    <div class="au-err" id="au-err"></div><button class="au-btn" type="submit">로그인</button>
+    <div class="au-row"><label><input type="checkbox" id="au-keep" checked> 로그인 상태 유지</label><a data-act="au-mode" data-v="reset">비밀번호를 잊으셨나요?</a></div></form>
+    <div class="au-foot">계정이 없으신가요? <a data-act="au-mode" data-v="signup">회원가입 ›</a></div>`;
+  }
+  c.innerHTML=h;
+  const first=c.querySelector('input');first&&setTimeout(()=>{if(authMode==='login'){let e='';try{e=localStorage.getItem('pdash_lastEmail')||''}catch(x){}if(e){$('#au-email').value=e;$('#au-pw').focus();return}}first.focus()},60);
+}
+function showAuth(m){if(m)authMode=m;renderAuthCard();$('#auth').classList.add('on')}
+function hideAuth(){$('#auth').classList.remove('on')}
+function maybeLock(){if(mode==='auth'&&!$('#auth').classList.contains('on'))showAuth()}
+async function lockNow(){try{await sb.auth.signOut({scope:'local'})}catch(e){}try{localStorage.removeItem('pdash_nokeep')}catch(e){}endSession()}
+const auErr=m=>{const e=$('#au-err');if(e)e.textContent=m};
+const redirectUrl=()=>location.origin+location.pathname;
+async function authSubmit(kind){
+  if(authBusy)return;
+  const v=id=>{const e=$('#'+id);return e?e.value:''};
+  const btn=document.querySelector('.au-form .au-btn'),label=btn&&btn.textContent;
+  const busy=b=>{authBusy=b;if(btn){btn.disabled=b;btn.textContent=b?'처리 중…':label;btn.style.opacity=b?.7:1}};
+  try{
+    if(kind==='login'){
+      const em=v('au-email').trim(),pw=v('au-pw');
+      if(!em||!pw)return auErr('이메일과 비밀번호를 입력해 주세요');
+      busy(true);
+      const keep=$('#au-keep').checked;
+      const {data,error}=await sb.auth.signInWithPassword({email:em,password:pw});
+      if(error){busy(false);if((error.message||'').startsWith('Email not confirmed')){sentTo=em;auErr(krErr(error));const a=document.createElement('a');a.textContent=' 인증 메일 다시 보내기';a.dataset.act='au-resend';a.style.cssText='color:#3d7cf6;cursor:pointer';$('#au-err').appendChild(a);return}return auErr(krErr(error))}
+      try{localStorage.setItem('pdash_lastEmail',em);if(keep)localStorage.removeItem('pdash_nokeep');else{localStorage.setItem('pdash_nokeep','1');sessionStorage.setItem('pdash_alive','1')}}catch(e){}
+      busy(false);await startSession(data.user);toast('로그인했습니다');
+    }else if(kind==='signup'){
+      const name=v('au-name').trim(),em=v('au-email').trim(),pw=v('au-pw'),pw2=v('au-pw2');
+      if(!name)return auErr('이름을 입력해 주세요');
+      if(!validEmail(em))return auErr('올바른 이메일 주소를 입력해 주세요');
+      if(pw.length<8)return auErr('비밀번호는 8자 이상으로 정해 주세요');
+      if(pw!==pw2)return auErr('비밀번호 확인이 일치하지 않습니다');
+      busy(true);
+      const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{data:{name},emailRedirectTo:redirectUrl()}});
+      busy(false);
+      if(error)return auErr(krErr(error));
+      if(data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0)return auErr('이미 가입된 이메일입니다. 로그인해 주세요');
+      try{localStorage.setItem('pdash_lastEmail',em)}catch(e){}
+      if(data.session){await startSession(data.user);toast(`${name}님, 가입을 환영합니다!`)}
+      else{sentTo=em;showAuth('sent')}
+    }else if(kind==='reset1'){
+      const em=v('au-email').trim();
+      if(!validEmail(em))return auErr('올바른 이메일 주소를 입력해 주세요');
+      busy(true);const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:redirectUrl()});busy(false);
+      if(error)return auErr(krErr(error));
+      sentTo=em;showAuth('resetSent');
+    }else if(kind==='reset2'){
+      const pw=v('au-pw'),pw2=v('au-pw2');
+      if(pw.length<8)return auErr('비밀번호는 8자 이상으로 정해 주세요');
+      if(pw!==pw2)return auErr('비밀번호 확인이 일치하지 않습니다');
+      busy(true);const {data,error}=await sb.auth.updateUser({password:pw});busy(false);
+      if(error)return auErr(krErr(error));
+      recovering=false;await startSession(data.user);toast('비밀번호를 변경했습니다');
+    }
+  }catch(e){busy(false);auErr(krErr(e))}
+}
+async function resendSignup(){
+  if(!sentTo)return;
+  const {error}=await sb.auth.resend({type:'signup',email:sentTo,options:{emailRedirectTo:redirectUrl()}});
+  toast(error?krErr(error):'인증 메일을 다시 보냈습니다');
+}
+document.addEventListener('submit',e=>{const f=e.target.closest('.au-form');if(!f)return;e.preventDefault();authSubmit(f.dataset.form)});
+['mousedown','keydown','touchstart','scroll'].forEach(ev=>document.addEventListener(ev,()=>{lastAct=Date.now()},{passive:true,capture:true}));
+const isKept=()=>{try{return localStorage.getItem('pdash_nokeep')!=='1'}catch(e){return true}};
+const idleOut=()=>{const m=+S.settings.autoLock||0;return mode==='db'&&m&&!isKept()&&Date.now()-lastAct>m*60000};
+setInterval(()=>{if(idleOut())lockNow()},20000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&idleOut())lockNow()});
+function securityCard(){
+  const st=S.settings,u=sbUser||{};
+  return `<div class="card"><h3>🔐 계정 · 로그인</h3>
+    <p style="margin-top:0;font-size:13px">로그인 이메일 <b>${esc(u.email||'')}</b>${u.created_at?` <span class="mut">· ${u.created_at.slice(0,10)} 가입</span>`:''}${u.new_email?`<br><span class="mut">변경 대기 중: ${esc(u.new_email)} (인증 메일 확인 필요)</span>`:''}</p>
+    <form class="form" id="pwform" onsubmit="return false">
+      <label>현재 비밀번호 (이메일·비밀번호 변경 시 필요)<input type="password" name="cur" autocomplete="current-password"></label>
+      <label>새 이메일 (바꿀 때만 — 새 주소로 인증 메일이 갑니다)<input type="email" name="email" placeholder="${esc(u.email||'')}" autocomplete="email"></label>
+      <label class="h">새 비밀번호 (바꿀 때만)<input type="password" name="pw" autocomplete="new-password"></label>
+      <label class="h">새 비밀번호 확인<input type="password" name="pw2" autocomplete="new-password"></label>
+      <label>자동 로그아웃 <span class="hint">‘로그인 상태 유지’를 끄고 로그인했을 때만 적용돼요</span><select name="auto">${[[0,'사용 안 함'],[5,'5분 동안 사용하지 않으면'],[15,'15분 동안 사용하지 않으면'],[30,'30분 동안 사용하지 않으면'],[60,'1시간 동안 사용하지 않으면']].map(([v,l])=>`<option value="${v}"${+st.autoLock===v?' selected':''}>${l}</option>`).join('')}</select></label>
+    </form>
+    <div class="mfoot"><button class="btn" data-act="lock">로그아웃</button><span class="sp"></span><button class="btn p" data-act="pw-save">변경 저장</button></div></div>`;
+}
+async function pwAction(){
+  const f=$('#pwform'),st=S.settings,em=f.email.value.trim(),pw=f.pw.value;
+  if(em||pw){
+    if(!f.cur.value){toast('현재 비밀번호를 입력해 주세요');return}
+    const {error}=await sb.auth.signInWithPassword({email:sbUser.email,password:f.cur.value});
+    if(error){toast('현재 비밀번호가 맞지 않습니다');return}
+  }
+  if(em&&!validEmail(em)){toast('올바른 이메일 주소를 입력해 주세요');return}
+  if(pw){if(pw.length<8){toast('비밀번호는 8자 이상으로 정해 주세요');return}if(pw!==f.pw2.value){toast('새 비밀번호 확인이 일치하지 않습니다');return}}
+  const upd={};if(em)upd.email=em;if(pw)upd.password=pw;
+  if(Object.keys(upd).length){const {data,error}=await sb.auth.updateUser(upd,{emailRedirectTo:redirectUrl()});if(error){toast(krErr(error));return}if(data&&data.user)sbUser=data.user}
+  st.autoLock=+f.auto.value;save('settings');renderAll();
+  toast(em?'새 이메일로 인증 메일을 보냈습니다. 확인하면 변경이 완료됩니다':'저장했습니다');
+}
+
+init();
+
+</script>
+</body>
+</html>
