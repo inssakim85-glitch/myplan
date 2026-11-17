@@ -358,6 +358,100 @@ html.m.forced aside{left:50%;right:auto;transform:translateX(-50%);max-width:520
 .vseg button{flex:1;min-width:120px;border:1.5px solid var(--bd);background:#fff;border-radius:12px;padding:12px;cursor:pointer;text-align:left}
 .vseg button b{display:block;font-size:14px}.vseg button span{font-size:12px;color:var(--mut)}
 .vseg button.on{border-color:var(--pri);background:var(--pri2)}
+
+/* ===== v5 팝업 디자인 ===== */
+#modal .mbox{max-width:660px;padding:26px 28px 22px;border-radius:22px}
+.mh{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.mh .mi{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 13%,#fff);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 18%,#fff);flex:none}
+.mh .mt{min-width:0}
+.mh h2{margin:0;font-size:21px;font-weight:800;letter-spacing:-.3px;display:block}
+.mh p{margin:4px 0 0;color:var(--mut);font-size:13.5px}
+.mh .x{margin-left:auto;align-self:flex-start;border:0;background:#f3f6fb;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#5d6880;cursor:pointer;flex:none}
+.mh .x:hover{background:#e8edf5}
+#mbox .form{gap:16px 14px}
+#mbox .form label{font-size:13.5px;color:#2a3245;font-weight:600;gap:8px}
+#mbox .fl{display:flex;align-items:center;gap:7px}
+#mbox .fl svg{color:var(--c);font-size:16px}
+#mbox .rq{color:#e5484d;font-weight:700}
+#mbox .op{color:var(--mut);font-weight:400;font-size:12px}
+#mbox .form input:not([type=checkbox]),#mbox .form select,#mbox .form textarea{background:#f3f6fb;border:1.5px solid transparent;border-radius:12px;padding:12px 14px;font-size:14.5px;font-weight:400;transition:border-color .15s,background .15s,box-shadow .15s}
+#mbox .form input:focus,#mbox .form select:focus,#mbox .form textarea:focus{outline:none;border-color:var(--c);background:#fff;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 12%,transparent)}
+#mbox .form textarea{min-height:72px}
+#mbox .form .hint{font-weight:400}
+.fwrap{position:relative;display:block}
+.fwrap .cnt{position:absolute;right:12px;bottom:9px;font-size:11px;color:var(--mut);font-weight:400;pointer-events:none}
+.fwrap input[data-max]{padding-right:56px!important}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px}
+.card-opt{border:1.5px solid #e6ebf3;background:#f6f8fc;border-radius:14px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;text-align:center;color:#2a3245;font:inherit;transition:all .15s}
+.card-opt:hover{border-color:color-mix(in srgb,var(--cc,var(--c)) 45%,#fff)}
+.card-opt b{font-size:14px;font-weight:700}.card-opt small{font-size:11.5px;color:var(--mut);font-weight:400;line-height:1.35}
+.card-opt svg{font-size:19px;color:var(--cc,var(--c));margin-bottom:2px}
+.card-opt.on{background:var(--cc,var(--c));border-color:var(--cc,var(--c));color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--cc,var(--c)) 32%,transparent)}
+.card-opt.on small,.card-opt.on svg{color:#fff;opacity:.92}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip-opt{border:1.5px solid #e6ebf3;background:#f6f8fc;border-radius:20px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-weight:500;color:#2a3245}
+.chip-opt i{width:8px;height:8px;border-radius:50%;background:var(--cc,var(--c))}
+.chip-opt.on{border-color:var(--cc,var(--c));background:color-mix(in srgb,var(--cc,var(--c)) 12%,#fff);color:color-mix(in srgb,var(--cc,var(--c)) 80%,#000);font-weight:700}
+.fsec{grid-column:span 2;display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:#1a2233;padding-top:14px;border-top:1px dashed #e3e8f0;flex-wrap:wrap}
+.fsec svg{color:var(--c);font-size:17px}.fsec em{font-style:normal;font-weight:400;color:var(--mut);font-size:12px}
+.form .fsec:first-child{border-top:0;padding-top:0}
+.fhtml{grid-column:span 2}.fhtml.h{grid-column:span 1}
+.tgl{display:flex!important;flex-direction:row!important;align-items:center;gap:10px!important;cursor:pointer;font-weight:600!important;color:#2a3245!important;background:#f6f8fc;border-radius:12px;padding:10px 12px}
+.tgl input{display:none}
+.tgl i{width:40px;height:23px;border-radius:12px;background:#cfd6e2;position:relative;flex:none;transition:background .15s}
+.tgl i::after{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tgl input:checked+i{background:var(--c)}.tgl input:checked+i::after{left:20px}
+.tgl small{display:block;font-weight:400;color:var(--mut);font-size:11.5px}
+.form .hide{display:none!important}
+#mbox .mfoot{margin-top:22px;padding-top:16px;border-top:1px solid #eef1f6}
+#mbox .mfoot .btn{border-radius:12px;padding:11px 20px;font-weight:700}
+#mbox .mfoot .btn.p{background:var(--c);border-color:var(--c);box-shadow:0 6px 16px color-mix(in srgb,var(--c) 30%,transparent)}
+#mbox .mfoot .btn.cancel{background:#eef2f8;border-color:transparent}
+#mbox .mfoot .btn.d.danger{background:var(--red);border-color:var(--red);color:#fff}
+.leadpick{display:flex;flex-wrap:wrap;gap:5px}.leadpick:empty{display:none}.leadpick .chip-opt{padding:3px 10px;font-size:12px}
+.costbox{background:color-mix(in srgb,var(--c) 7%,#fff);border:1px dashed color-mix(in srgb,var(--c) 35%,#fff);border-radius:12px;padding:10px 12px;height:100%;display:flex;flex-direction:column;justify-content:center;font-weight:400}
+.cb-t{font-size:13px}.cb-t b{font-size:16px;color:var(--c)}.cb-d{font-size:12px;color:#4a5468;margin-top:2px}.cb-s{font-size:11px;color:var(--mut);margin-top:2px}
+.sugg{display:flex;flex-direction:column;gap:4px}.sugg:empty{display:none}
+.sg{display:flex;justify-content:space-between;gap:8px;border:1px solid #e6ebf3;background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font:inherit;text-align:left}
+.sg:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 6%,#fff)}.sg span{color:var(--mut);font-size:12px}
+.loglist{background:#f6f8fc;border-radius:12px;padding:10px 12px;max-height:220px;overflow:auto}
+.logrow{display:flex;align-items:center;gap:10px;padding:4px 0;font-size:13px;border-bottom:1px solid #e9edf4}.logrow:last-child{border:0}.logrow b{margin-left:auto}
+.logrow .tx{border:0;background:none;color:var(--mut);cursor:pointer;font-size:16px}
+/* 카드 머리 아이콘 */
+.hic{width:28px;height:28px;border-radius:9px;display:inline-grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 13%,#fff);flex:none}
+.warn{display:flex;gap:8px;align-items:flex-start;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:10px;padding:8px 12px;font-size:12.5px;margin-bottom:10px}
+/* 증권 계좌 */
+.secacc{border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:12px;background:#fcfdff}
+.sa-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.sa-t{cursor:pointer;flex:1;min-width:0}.sa-t:hover b{color:var(--pri)}
+.sa-v{text-align:right;display:flex;flex-direction:column}.sa-v b{font-size:16px}.sa-v span{font-size:12px}
+.sa-f{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:#4a5468}.sa-f .sp{flex:1}
+.htbl td,.htbl th{padding:6px 7px}
+.qstat{display:inline-flex;align-items:center;gap:2px;font-size:11.5px;font-weight:400}
+/* 공모주 자동 수집 */
+.iplist{display:flex;flex-direction:column;gap:8px}
+.iprow{display:flex;gap:12px;align-items:center;border:1px solid var(--bd);border-radius:14px;padding:12px 14px;background:#fff}
+.iprow.mine{border-color:#c7d2fe;background:#f8f9ff}.iprow.hid{opacity:.55}
+.ip-a{flex:1;min-width:0}.ip-n{font-size:14.5px}.ip-ind{font-size:11.5px}
+.ip-m{font-size:12.5px;color:#4a5468;margin-top:3px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}.ip-m svg{color:var(--mut)}
+.ip-sep{color:#c3cad6;margin:0 2px}
+.ip-l{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.lead{font-size:11px;padding:2px 8px;border-radius:10px;background:#f1f3f7;color:#4a5468}.lead.main{background:#eaf1fe;color:var(--pri);font-weight:700}
+.ip-b{display:flex;flex-direction:column;gap:5px;align-items:stretch;flex:none}
+.badge-d{font-size:11px;padding:1px 8px;border-radius:10px;background:#fef0c7;color:#b54708;font-weight:700}
+.badge-on{font-size:11px;padding:1px 8px;border-radius:10px;background:#8b5cf6;color:#fff;font-weight:700}
+.mbsel{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#4a5468}.mbsel select{border:1px solid var(--bd);border-radius:8px;padding:4px 8px;background:#fff}
+/* 수치형 목표 */
+.gico{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:15px;flex:none}
+.glab{font-size:12.5px;color:#4a5468;margin-top:3px}.glab b{color:var(--tx)}
+.gbtns{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.spark{flex:none}
+html.m .iprow{flex-direction:column;align-items:stretch}html.m .ip-b{flex-direction:row}
+html.m #modal .mbox{padding:20px 16px calc(18px + env(safe-area-inset-bottom))}
+html.m .mh .mi{width:48px;height:48px;border-radius:15px}html.m .mh h2{font-size:18px}
+html.m .cards{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}
+html.m .fsec,html.m .fhtml.h{grid-column:span 1}html.m .costbox{min-height:60px}
+html.m .gbtns{flex-direction:row}html.m .goal{flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -430,6 +524,7 @@ html.m.forced aside{left:50%;right:auto;transform:translateX(-50%);max-width:520
 <datalist id="dl-owner"></datalist>
 <datalist id="dl-broker"></datalist>
 <datalist id="dl-inst"></datalist>
+<datalist id="dl-inst-bank"></datalist>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
@@ -461,8 +556,8 @@ const DEFAULTS={
   schedule:{events:[],todos:[]},
   goals:{items:[],notes:{}},
   finance:{accounts:[],assets:[],debts:[],fixed:[],snapshots:[]},
-  ipo:{items:[],brokers:[]},
-  settings:{name:'',greet:'작은 실천이 만드는 큰 변화, 오늘도 한 걸음 더 나아가요.',quote:'오늘의 노력이\n더 나은 내일을 만듭니다.',showIpo:true,showFixed:false,autoLock:0},
+  ipo:{items:[],brokers:[],hidden:[]},
+  settings:{name:'',greet:'작은 실천이 만드는 큰 변화, 오늘도 한 걸음 더 나아가요.',quote:'오늘의 노력이\n더 나은 내일을 만듭니다.',showIpo:true,showFixed:false,autoLock:0,mainBroker:''},
   life:{birthYear:null,family:[],stages:[],goals:[]}
 };
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -616,60 +711,13 @@ const F={
  ipo:[{k:'name',l:'종목명',t:'text',req:1,h:1},{k:'market',l:'시장',t:'sel',o:['코스닥','코스피','코넥스'],h:1},{k:'leads',l:'주관사 (쉼표로 구분)',t:'text',ph:'예: 한국투자증권, KB증권'},{k:'status',l:'상태',t:'sel',o:Object.keys(IPO_ST),h:1},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner'},{k:'subStart',l:'청약 시작일',t:'date',req:1,h:1},{k:'subEnd',l:'청약 종료일',t:'date',h:1},{k:'refundDate',l:'환불일',t:'date',h:1},{k:'listDate',l:'상장일',t:'date',h:1},{k:'price',l:'확정 공모가 (원)',t:'money',h:1},{k:'broker',l:'청약 증권사',t:'text',h:1,list:'dl-broker'},{k:'qty',l:'청약 주수',t:'num',h:1},{k:'deposit',l:'청약 증거금 (원)',t:'money',h:1,hint:'비워두면 공모가×주수×50%로 자동 계산'},{k:'allotted',l:'배정 주수',t:'num',h:1},{k:'fee',l:'청약 수수료 (원)',t:'money',h:1,hint:'비워두면 증권사 수수료표에서 자동 입력'},{k:'sellPrice',l:'매도 단가 (원)',t:'money',h:1},{k:'sellDate',l:'매도일',t:'date',h:1},{k:'sellCost',l:'매도 비용 (세금·수수료)',t:'money',h:1},{k:'memo',l:'메모',t:'area'}],
  broker:[{k:'name',l:'증권사',t:'text',req:1,h:1,list:'dl-broker'},{k:'fee',l:'청약 수수료 (원/건)',t:'money',h:1},{k:'cond',l:'면제·우대 조건',t:'text',ph:'예: 미배정 시 면제, 우대고객 무료'},{k:'memo',l:'메모',t:'area'}]
 };
-function fieldHTML(f,v){
-  if(v==null)v=f.def??'';
-  const cls=f.t==='check'?'ck':(f.h?'h':'');
-  const ph=f.ph?` placeholder="${esc(f.ph)}"`:'';
-  const list=f.list?` list="${f.list}"`:'';
-  let inp;
-  switch(f.t){
-    case 'area':inp=`<textarea name="${f.k}"${ph}>${esc(v)}</textarea>`;break;
-    case 'sel':inp=`<select name="${f.k}">${f.o.map(o=>`<option${o===v?' selected':''}>${esc(o)}</option>`).join('')}</select>`;break;
-    case 'check':return `<label class="ck"><input type="checkbox" name="${f.k}"${v?' checked':''}> ${esc(f.l)}</label>`;
-    case 'money':inp=`<input name="${f.k}" inputmode="numeric" data-money value="${v===''?'':esc(won(v))}"${ph}>`;break;
-    case 'num':inp=`<input type="number" name="${f.k}" value="${esc(v)}"${f.min!=null?` min="${f.min}"`:''}${f.max!=null?` max="${f.max}"`:''} step="${f.step||'any'}"${ph}>`;break;
-    default:inp=`<input type="${f.t}" name="${f.k}" value="${esc(v)}"${ph}${list}>`;
-  }
-  return `<label class="${cls}">${esc(f.l)}${f.req?' *':''}${inp}${f.hint?`<span class="hint">${esc(f.hint)}</span>`:''}</label>`;
-}
-function readForm(root,fields){
-  const o={};
-  for(const f of fields){
-    const el=root.querySelector(`[name="${f.k}"]`);if(!el)continue;
-    if(f.t==='check')o[f.k]=el.checked;
-    else if(f.t==='money'||f.t==='num'){const s=String(el.value).replace(/[^0-9.\-]/g,'');o[f.k]=s===''?null:Number(s)}
-    else o[f.k]=el.value.trim();
-  }
-  return o;
-}
-function openModal(title,html,mount){
-  $('#mbox').innerHTML=`<h2>${esc(title)}<button class="x" data-act="close">×</button></h2>${html}`;
-  $('#modal').classList.add('on');
-  $('#mbox').querySelectorAll('[data-money]').forEach(el=>el.addEventListener('input',()=>{const neg=el.value.trim().startsWith('-');const d=el.value.replace(/[^0-9]/g,'');el.value=d?(neg?'-':'')+Number(d).toLocaleString('ko-KR'):(neg?'-':'')}));
-  mount&&mount($('#mbox'));
-  const first=$('#mbox').querySelector('input,select,textarea');first&&setTimeout(()=>first.focus(),30);
-}
+
+
+
 function closeModal(){$('#modal').classList.remove('on');$('#mbox').innerHTML='';if(typeof pendingRender!=='undefined'&&pendingRender)renderAll()}
 $('#modal').addEventListener('mousedown',e=>{if(e.target.id==='modal')closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-function openForm({title,fields,data={},onSave,onDelete,onDup,mount}){
-  openModal(title,`<form class="form" id="mform">${fields.map(f=>fieldHTML(f,data[f.k])).join('')}</form>
-  <div class="mfoot">${onDelete?'<button class="btn d" id="mdel">삭제</button>':''}${onDup?'<button class="btn" id="mdup">복제</button>':''}<span class="sp"></span><button class="btn" data-act="close">취소</button><button class="btn p" id="msave">저장</button></div>`,root=>{
-    const form=$('#mform',root);
-    const submit=()=>{
-      const v=readForm(form,fields);
-      for(const f of fields)if(f.req&&(v[f.k]===''||v[f.k]==null)){toast(`'${f.l}'을(를) 입력해 주세요`);form.querySelector(`[name="${f.k}"]`).focus();return}
-      onSave(v);closeModal();
-    };
-    $('#msave',root).onclick=submit;
-    form.addEventListener('submit',e=>{e.preventDefault();submit()});
-    form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();submit()}});
-    const del=$('#mdel',root);
-    if(del)del.onclick=()=>{if(del.dataset.c){onDelete();closeModal()}else{del.dataset.c=1;del.textContent='정말 삭제할까요?';del.classList.add('p');del.style.background='var(--red)';del.style.borderColor='var(--red)'}};
-    const dup=$('#mdup',root);if(dup)dup.onclick=()=>{const v=readForm(form,fields);closeModal();onDup(v)};
-    mount&&mount(root);
-  });
-}
+
 const LISTS={
   events:{doc:'schedule',get:()=>S.schedule.events,f:'event',t:'일정'},
   goals:{doc:'goals',get:()=>S.goals.items,f:'goal',t:'목표'},
@@ -680,17 +728,7 @@ const LISTS={
   ipo:{doc:'ipo',get:()=>S.ipo.items,f:'ipo',t:'공모주'},
   brokers:{doc:'ipo',get:()=>S.ipo.brokers,f:'broker',t:'증권사 수수료'}
 };
-function edit(listKey,id,preset={},extra={}){
-  const L=LISTS[listKey],arr=L.get(),item=id?arr.find(x=>x.id===id):null;
-  if(id&&!item)return;
-  openForm({
-    title:L.t+(item?' 수정':' 추가'),fields:F[L.f],data:item?item:preset,
-    onSave:v=>{if(listKey==='ipo')autoStatus(v);if(listKey==='goals'&&v.done&&!(item&&item.doneAt))v.doneAt=todayS();if(item)Object.assign(item,v);else arr.push({id:newId(),...extra,...v});save(L.doc);renderAll();toast('저장했습니다')},
-    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save(L.doc);renderAll();toast('삭제했습니다')}:null,
-    onDup:item&&listKey==='ipo'?v=>edit('ipo',null,{...v,owner:'',qty:null,deposit:null,allotted:null,fee:null,sellPrice:null,sellDate:'',sellCost:null}):null,
-    mount:listKey==='ipo'?ipoMount:null
-  });
-}
+
 
 
 F.event=[{k:'title',l:'제목',t:'text',req:1},{k:'date',l:'날짜',t:'date',req:1,h:1},{k:'cat',l:'분류',t:'sel',o:Object.keys(CATS),h:1},{k:'time',l:'시작 시간',t:'time',h:1},{k:'endTime',l:'종료 시간',t:'time',h:1},{k:'end',l:'종료일 (여러 날 일정일 때)',t:'date',h:1},{k:'memo',l:'메모',t:'area'},{k:'done',l:'완료',t:'check'}];
@@ -708,62 +746,8 @@ function periodOf(scope,a){
 }
 function shiftAnchor(scope,a,n){const x=new Date(a);if(scope==='week')x.setDate(x.getDate()+7*n);else if(scope==='month'){x.setDate(1);x.setMonth(x.getMonth()+n)}else x.setFullYear(x.getFullYear()+n);return x}
 const SC={week:'주간',month:'월간',year:'연간'};
-function goalRow(g,ro){
-  const p=g.done?100:Math.max(0,Math.min(100,Number(g.progress)||0));
-  return `<div class="goal${g.done?' done':''}">
-    <input type="checkbox" data-act="gdone" data-id="${g.id}"${g.done?' checked':''}${ro?' disabled':''} style="margin-top:4px">
-    <div class="body">
-      <div class="row"><span class="t">${esc(g.text)}</span>${g.cat?`<span class="tag">${esc(g.cat)}</span>`:''}${g.due?`<span class="tag">~${md(g.due)}</span>`:''}</div>
-      ${g.metric?`<div class="mut" style="font-size:12px">${esc(g.metric)}</div>`:''}
-      ${ro?`<div class="bar" style="margin-top:6px"><i style="width:${p}%"></i></div>`:`<div class="row" style="margin-top:4px;flex-wrap:nowrap"><input type="range" min="0" max="100" step="5" value="${p}" data-act="gprog" data-id="${g.id}"><span class="mut num" style="width:38px">${p}%</span></div>`}
-      ${g.memo?`<div class="mut" style="font-size:12px;white-space:pre-wrap">${esc(g.memo)}</div>`:''}
-    </div>
-    ${ro?'':`<button class="btn s ghost" data-act="edit" data-l="goals" data-id="${g.id}">수정</button>`}
-  </div>`;
-}
-function renderGoals(){
-  const P=periodOf(gp.scope,gp.anchor);
-  const items=S.goals.items.filter(g=>g.period===P.key);
-  const doneN=items.filter(g=>g.done).length,avg=items.length?Math.round(sum(items,g=>g.done?100:g.progress)/items.length):0;
-  const par=P.parent?periodOf(P.parent.scope,P.parent.a):null;
-  const parItems=par?S.goals.items.filter(g=>g.period===par.key):[];
-  const prevKey=periodOf(gp.scope,shiftAnchor(gp.scope,gp.anchor,-1)).key;
-  const prevUndone=S.goals.items.filter(g=>g.period===prevKey&&!g.done).length;
-  // 연간 요약
-  const y=gp.anchor.getFullYear();
-  const yrStats=['week','month','year'].map(sc=>{const it=S.goals.items.filter(g=>g.scope===sc&&(g.period||'').includes(String(y)));return {sc,n:it.length,d:it.filter(g=>g.done).length}});
-  $('#page').innerHTML=`
-  <div class="card">
-    <div class="calhead">
-      <div class="seg">${Object.entries(SC).map(([k,v])=>`<button data-act="gscope" data-v="${k}" class="${gp.scope===k?'on':''}">${v}</button>`).join('')}</div>
-      <span style="width:8px"></span>
-      <button class="btn" data-act="gnav" data-v="-1">◀</button>
-      <div style="text-align:center;min-width:180px"><div style="font-weight:700;font-size:17px">${P.label}</div>${P.sub?`<div class="mut" style="font-size:12px">${P.sub}</div>`:''}</div>
-      <button class="btn" data-act="gnav" data-v="1">▶</button>
-      <button class="btn s" data-act="gnav" data-v="0">현재</button>
-    </div>
-  </div>
-  <div class="ggrid">
-    <div>
-      <div class="card">
-        <h3>🎯 ${SC[gp.scope]} 목표 <span class="tag">${doneN}/${items.length} 달성</span><span class="sp"></span>${prevUndone?`<button class="btn s" data-act="gcarry">지난 기간 미완료 ${prevUndone}개 가져오기</button>`:''}<button class="btn p s" data-act="add-goal">+ 목표 추가</button></h3>
-        ${items.length?`<div class="bar" style="height:8px;margin-bottom:6px"><i style="width:${avg}%"></i></div><div class="mut" style="font-size:12px;margin-bottom:6px">평균 진행률 ${avg}%</div>`+items.map(g=>goalRow(g)).join(''):'<div class="empty">이 기간의 목표가 없습니다. ‘+ 목표 추가’로 시작해 보세요.</div>'}
-      </div>
-      <div class="card">
-        <h3>📝 ${SC[gp.scope]} 메모 · 회고</h3>
-        <textarea class="note" data-act="gnote" data-k="${P.key}" placeholder="이번 ${gp.scope==='week'?'주':gp.scope==='month'?'달':'해'}의 계획, 회고, 배운 점을 자유롭게 적어 보세요.">${esc(S.goals.notes[P.key]||'')}</textarea>
-      </div>
-    </div>
-    <div>
-      ${par?`<div class="card"><h3>⬆ 상위 목표 · ${par.label}</h3>${parItems.length?parItems.map(g=>goalRow(g,true)).join(''):`<div class="empty">${SC[par.key[0]==='M'?'month':'year']} 목표가 아직 없습니다</div>`}</div>`:''}
-      <div class="card"><h3>📊 ${y}년 목표 현황</h3>
-        <table><thead><tr><th>구분</th><th class="num">목표 수</th><th class="num">달성</th><th class="num">달성률</th></tr></thead><tbody>
-        ${yrStats.map(s=>`<tr><td>${SC[s.sc]}</td><td class="num">${s.n}</td><td class="num">${s.d}</td><td class="num">${s.n?Math.round(s.d/s.n*100)+'%':'-'}</td></tr>`).join('')}
-        </tbody></table>
-      </div>
-    </div>
-  </div>`;
-}
+
+
 
 
 
@@ -774,45 +758,315 @@ function tableHTML(listKey,cols,rows,foot){
   ${rows.map(r=>`<tr class="click" data-act="edit" data-l="${listKey}" data-id="${r.id}">${cols.map(c=>`<td class="${c.n?'num':''}">${c.f(r)}</td>`).join('')}</tr>`).join('')}
   </tbody>${foot?`<tfoot><tr>${foot}</tr></tfoot>`:''}</table></div>`;
 }
+
+
+
+/* ================= 4. 공모주 ================= */
+let ipoF={st:'전체',y:String(now.getFullYear())};
+
+
+
+
+
+/* ================= 입력창(팝업) v5 ================= */
+Object.assign(IC,{
+ flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+ layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+ note:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+ coin:'<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9h-3.25a1.75 1.75 0 0 0 0 3.5h1.5a1.75 1.75 0 0 1 0 3.5H9.5M12 7.5V9M12 16v1.5"/>',
+ bank:'<path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>',
+ hash:'<path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/>',
+ percent:'<path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>',
+ tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/>',
+ trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4.5a3 3 0 0 0 3.5 4M16 6h3.5a3 3 0 0 1-3.5 4M12 13v4M8 20h8"/>',
+ swap:'<path d="M4 8h14l-3-3M20 16H6l3 3"/>',
+ x:'<path d="M6 6l12 12M18 6 6 18"/>',
+ ok:'<path d="m5 12 5 5 9-10"/>',
+ refresh:'<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',
+ down:'<path d="m3 7 6 6 4-4 8 8"/><path d="M15 17h6v-6"/>',
+ building:'<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M11 21v-3h2v3"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+ ban:'<circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ eyeoff:'<path d="M3 3l18 18M10.6 5.1A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/>',
+ ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'
+});
+const FDEF_IC={text:'note',area:'note',sel:'layers',cards:'layers',chips:'tag',money:'coin',num:'hash',date:'cal',time:'clock'};
+const META={
+ events:{icon:'cal',color:'#3b7cf5',sub:'일정을 등록하면 캘린더에 바로 표시돼요'},
+ goals:{icon:'target',color:'#3b7cf5',sub:'지금, 더 나은 내일을 위한 목표를 입력해보세요'},
+ accounts:{icon:'bank',color:'#0ea5e9',sub:'은행·증권 계좌를 등록하고 잔액을 관리해요'},
+ assets:{icon:'home',color:'#20a464',sub:'부동산·차량 등 계좌 밖의 자산을 기록해요'},
+ debts:{icon:'coin',color:'#e5484d',sub:'대출 잔액과 금리, 상환 일정을 관리해요'},
+ fixed:{icon:'list',color:'#f97316',sub:'매달 나가는 고정 비용을 정리해요'},
+ ipo:{icon:'trend',color:'#8b5cf6',sub:'청약부터 배정·비용·매도 손익까지 한 번에 기록해요'},
+ brokers:{icon:'building',color:'#64748b',sub:'증권사별 청약·출고·이체 수수료를 내 조건에 맞게 고쳐요'},
+ holdings:{icon:'chart',color:'#8b5cf6',sub:'종목과 수량을 넣으면 현재가로 자동 평가돼요'},
+ life:{icon:'map',color:'#14b8a6',sub:'생애 단계별로 이루고 싶은 목표를 적어보세요'}
+};
+function optList(o){return (o||[]).map(x=>typeof x==='string'?{v:x,l:x}:x)}
+function fieldHTML(f,v){
+  const show=f.show?' data-show="1"':'';
+  if(f.t==='sec')return `<div class="fsec" data-fk="${f.k||''}"${show}>${ic(f.ic||'layers')}<span>${esc(f.l)}</span>${f.d?`<em>${esc(f.d)}</em>`:''}</div>`;
+  if(v==null||v==='')v=f.def??'';
+  const span=f.t==='check'?'ck':(f.h?'h':'');
+  const lab=`<span class="fl">${ic(f.ic||FDEF_IC[f.t]||'note')}<span class="ft">${esc(f.l)}</span>${f.req?'<b class="rq">*</b>':''}${f.opt?'<span class="op">(선택)</span>':''}</span>`;
+  const ph=f.ph?` placeholder="${esc(f.ph)}"`:'';
+  const list=f.list?` list="${f.list}"`:'';
+  let inp;
+  switch(f.t){
+    case 'area':inp=`<div class="fwrap"><textarea name="${f.k}"${ph}${f.max?` maxlength="${f.max}" data-max="${f.max}"`:''}>${esc(v)}</textarea>${f.max?`<span class="cnt">${String(v).length}/${f.max}</span>`:''}</div>`;break;
+    case 'sel':inp=`<select name="${f.k}">${optList(f.o).map(o=>`<option value="${esc(o.v)}"${o.v===v?' selected':''}>${esc(o.l)}</option>`).join('')}</select>`;break;
+    case 'cards':inp=`<div class="cards" data-for="${f.k}">${optList(f.o).map(o=>`<button type="button" class="card-opt${o.v===v?' on':''}" data-v="${esc(o.v)}"${o.c?` style="--cc:${o.c}"`:''}>${o.ic?ic(o.ic,20):''}<b>${esc(o.l)}</b>${o.d?`<small>${esc(o.d)}</small>`:''}</button>`).join('')}</div><input type="hidden" name="${f.k}" value="${esc(v)}">`;break;
+    case 'chips':inp=`<div class="chips" data-for="${f.k}"${f.free?' data-free="1"':''}>${optList(f.o).map(o=>`<button type="button" class="chip-opt${o.v===v?' on':''}" data-v="${esc(o.v)}"${o.c?` style="--cc:${o.c}"`:''}>${o.c?'<i></i>':''}${o.e?o.e+' ':''}${esc(o.l)}</button>`).join('')}</div>${f.free?'':`<input type="hidden" name="${f.k}" value="${esc(v)}">`}`;break;
+    case 'check':return `<label class="ck tgl" data-fk="${f.k}"${show}><input type="checkbox" name="${f.k}"${v?' checked':''}><i></i><span>${esc(f.l)}${f.hint?`<small>${esc(f.hint)}</small>`:''}</span></label>`;
+    case 'money':inp=`<input name="${f.k}" inputmode="numeric" data-money value="${v===''?'':esc(won(v))}"${ph}>`;break;
+    case 'num':inp=`<input type="number" name="${f.k}" value="${esc(v)}"${f.min!=null?` min="${f.min}"`:''}${f.max!=null?` max="${f.max}"`:''} step="${f.step||'any'}"${ph}>`;break;
+    case 'html':return `<div class="fhtml ${f.h?'h':''}" data-fk="${f.k}"${show}>${f.html||''}</div>`;
+    default:inp=`<div class="fwrap"><input type="${f.t}" name="${f.k}" value="${esc(v)}"${ph}${list}${f.max?` maxlength="${f.max}" data-max="${f.max}"`:''} autocomplete="off">${f.max?`<span class="cnt">${String(v).length}/${f.max}</span>`:''}</div>`;
+  }
+  return `<label class="${span}" data-fk="${f.k}"${show}>${lab}${inp}${f.hint?`<span class="hint">${esc(f.hint)}</span>`:''}</label>`;
+}
+function readForm(root,fields){
+  const o={};
+  for(const f of fields){
+    if(f.t==='sec'||f.t==='html'||f.free)continue;
+    const el=root.querySelector(`[name="${f.k}"]`);if(!el)continue;
+    if(f.t==='check')o[f.k]=el.checked;
+    else if(f.t==='money'||f.t==='num'){const s=String(el.value).replace(/[^0-9.\-]/g,'');o[f.k]=s===''||s==='-'?null:Number(s)}
+    else o[f.k]=el.value.trim();
+  }
+  return o;
+}
+function modalHead(title,o={}){
+  const c=o.color||'#3b7cf5';
+  return `<div class="mh" style="--c:${c}"><div class="mi">${ic(o.icon||'note',26)}</div><div class="mt"><h2>${esc(title)}</h2>${o.sub?`<p>${esc(o.sub)}</p>`:''}</div><button class="x" data-act="close" title="닫기">${ic('x',20)}</button></div>`;
+}
+function openModal(title,html,mount,o={}){
+  const box=$('#mbox');box.style.setProperty('--c',o.color||'#3b7cf5');
+  box.innerHTML=modalHead(title,o)+html;
+  $('#modal').classList.add('on');
+  box.querySelectorAll('[data-money]').forEach(el=>el.addEventListener('input',()=>{const neg=el.value.trim().startsWith('-');const d=el.value.replace(/[^0-9]/g,'');el.value=d?(neg?'-':'')+Number(d).toLocaleString('ko-KR'):(neg?'-':'')}));
+  box.querySelectorAll('[data-max]').forEach(el=>el.addEventListener('input',()=>{const c=el.parentElement.querySelector('.cnt');if(c)c.textContent=el.value.length+'/'+el.dataset.max}));
+  mount&&mount(box);
+  if(!o.noFocus&&!(window.matchMedia&&matchMedia('(pointer: coarse)').matches)){const first=box.querySelector('.form input:not([type=hidden]):not([type=checkbox]),.form textarea');first&&setTimeout(()=>first.focus(),40)}
+}
+function openForm({title,sub,icon,color,fields,data={},onSave,onDelete,onDup,mount,saveLabel}){
+  openModal(title,`<form class="form" id="mform" novalidate>${fields.map(f=>fieldHTML(f,data[f.k])).join('')}</form>
+  <div class="mfoot">${onDelete?`<button class="btn d" id="mdel">${ic('x',15)} 삭제</button>`:''}${onDup?'<button class="btn" id="mdup">복제</button>':''}<span class="sp"></span><button class="btn cancel" data-act="close">취소</button><button class="btn p" id="msave">${ic('ok',16)} ${saveLabel||'저장하기'}</button></div>`,root=>{
+    const form=$('#mform',root);
+    const vals=()=>readForm(form,fields);
+    const applyShow=()=>{const v=vals();fields.forEach(f=>{if(!f.show)return;const el=form.querySelector(`[data-fk="${f.k}"]`);if(el)el.classList.toggle('hide',!f.show(v))})};
+    form.addEventListener('click',e=>{
+      const b=e.target.closest('.card-opt,.chip-opt');if(!b)return;
+      const grp=b.parentElement;if(grp.dataset.free)return;
+      grp.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+      const inp=form.querySelector(`[name="${grp.dataset.for}"]`);if(inp){inp.value=b.dataset.v;inp.dispatchEvent(new Event('change',{bubbles:true}))}
+    });
+    form.addEventListener('change',applyShow);form.addEventListener('input',applyShow);
+    const submit=()=>{
+      const v=vals();
+      for(const f of fields){if(!f.req)continue;if(f.show&&!f.show(v))continue;if(v[f.k]===''||v[f.k]==null){toast(`'${f.l}'을(를) 입력해 주세요`);const el=form.querySelector(`[name="${f.k}"]`);el&&el.focus&&el.focus();return}}
+      if(onSave(v)===false)return;closeModal();
+    };
+    $('#msave',root).onclick=submit;
+    form.addEventListener('submit',e=>{e.preventDefault();submit()});
+    form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&!e.target.closest('.sugg-wrap')){e.preventDefault();submit()}});
+    const del=$('#mdel',root);
+    if(del)del.onclick=()=>{if(del.dataset.c){onDelete();closeModal()}else{del.dataset.c=1;del.innerHTML='정말 삭제할까요?';del.classList.add('danger')}};
+    const dup=$('#mdup',root);if(dup)dup.onclick=()=>{const v=vals();closeModal();onDup(v)};
+    mount&&mount(root,form);
+    applyShow();
+  },{icon,color,sub});
+}
+function setField(form,k,val){const el=form.querySelector(`[name="${k}"]`);if(!el)return;if(el.type==='checkbox')el.checked=!!val;else if(el.dataset.money!=null)el.value=val==null||val===''?'':Number(val).toLocaleString('ko-KR');else el.value=val??'';const grp=form.querySelector(`[data-for="${k}"]`);if(grp)grp.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===String(val??'')));el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))}
+
+/* 공통 필드 정의 */
+F.event=[{k:'title',l:'일정 제목',t:'text',req:1,ic:'flag',max:60,ph:'예: 주간회의'},
+ {k:'cat',l:'분류',t:'chips',ic:'tag',o:Object.entries(CATS).map(([k,c])=>({v:k,l:k,c})),def:'업무'},
+ {k:'date',l:'날짜',t:'date',req:1,h:1},{k:'end',l:'종료일',t:'date',h:1,opt:1},
+ {k:'time',l:'시작 시간',t:'time',h:1},{k:'endTime',l:'종료 시간',t:'time',h:1},
+ {k:'memo',l:'메모',t:'area',opt:1,ph:'장소, 참석자, 준비물 등'},
+ {k:'done',l:'완료한 일정',t:'check'}];
+F.asset=[{k:'name',l:'자산명',t:'text',req:1,h:1,ic:'flag',ph:'예: 김포 아파트'},{k:'cat',l:'분류',t:'sel',o:['부동산','주식','펀드·ETF','채권','현금성','가상자산','차량','기타'],h:1},{k:'value',l:'평가금액 (원)',t:'money',h:1},{k:'cost',l:'취득가 (원)',t:'money',h:1,opt:1},{k:'date',l:'평가 기준일',t:'date',h:1},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner',ic:'user'},{k:'memo',l:'메모',t:'area',opt:1}];
+F.debt=[{k:'name',l:'부채명',t:'text',req:1,h:1,ic:'flag',ph:'예: 주택담보대출'},{k:'inst',l:'금융기관',t:'text',h:1,list:'dl-inst',ic:'bank'},{k:'type',l:'유형',t:'sel',o:['주택담보','전세대출','신용대출','마이너스통장','학자금','카드할부','기타'],h:1,hint:'마이너스통장은 계좌에서 등록하면 자동으로 부채에 잡혀요'},{k:'bal',l:'잔액 (원)',t:'money',h:1},{k:'rate',l:'금리 (%)',t:'num',h:1,step:'0.01',ic:'percent'},{k:'pay',l:'월 상환액 (원)',t:'money',h:1},{k:'payday',l:'상환일 (매월 n일)',t:'num',h:1,min:1,max:31,ic:'cal'},{k:'due',l:'만기일',t:'date',h:1},{k:'memo',l:'메모',t:'area',opt:1}];
+F.fixed=[{k:'name',l:'항목',t:'text',req:1,h:1,ic:'flag',ph:'예: 관리비'},{k:'cat',l:'분류',t:'sel',o:['주거·관리비','공과금','통신','보험','구독','교통','육아','교육','대출상환','용돈','기부','기타'],h:1},{k:'amt',l:'금액 (원)',t:'money',req:1,h:1},{k:'day',l:'결제일 (매월 n일)',t:'num',h:1,min:1,max:31,ic:'cal'},{k:'method',l:'결제수단',t:'text',ph:'예: 국민카드, 자동이체',ic:'coin'},{k:'active',l:'사용 중인 항목',t:'check',def:true},{k:'memo',l:'메모',t:'area',opt:1}];
+
+const LISTS2={accounts:1,goals:1,holdings:1};
+function edit(listKey,id,preset={},extra={}){
+  if(listKey==='goals')return editGoal(id,preset,extra);
+  if(listKey==='accounts')return editAccount(id,preset);
+  if(listKey==='brokers')return editBroker(id,preset);
+  const L=LISTS[listKey],arr=L.get(),item=id?arr.find(x=>x.id===id):null;
+  if(id&&!item)return;
+  const m=META[listKey]||{};
+  openForm({
+    title:L.t+(item?' 수정':' 추가'),sub:m.sub,icon:m.icon,color:m.color,fields:F[L.f],data:item?item:preset,
+    onSave:v=>{if(listKey==='ipo'){autoStatus(v)}if(item)Object.assign(item,v);else arr.push({id:newId(),...extra,...v});save(L.doc);renderAll();toast('저장했습니다')},
+    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save(L.doc);renderAll();toast('삭제했습니다')}:null,
+    onDup:item&&listKey==='ipo'?v=>edit('ipo',null,{...v,owner:'',qty:null,deposit:null,allotted:null,fee:null,outFee:null,xferFee:null,sellPrice:null,sellDate:'',sellCost:null},{srcId:item.srcId,code:item.code}):null,
+    mount:listKey==='ipo'?ipoMount:null
+  });
+}
+
+/* ================= 자산: 계좌(은행/증권), 마이너스통장, 보유 종목 ================= */
+const BANK_TYPES=['입출금','예·적금','청약','마이너스통장','외화','기타'];
+const SEC_TYPES=['일반(위탁)','CMA','ISA','연금저축','IRP','기타'];
+const acctKind=a=>a.kind||(['증권','CMA','ISA','연금','일반(위탁)','연금저축','IRP'].includes(a.type)?'sec':'bank');
+let QUOTES={},quoteAt=0,quoteErr='',quoteLoading=false,quoteTry=0;
+try{const q=JSON.parse(localStorage.getItem('pdash_quotes')||'null');if(q){QUOTES=q.prices||{};quoteAt=q.at||0}}catch(e){}
+function holdPrice(h){const q=QUOTES[h.code];return q&&q.price?q.price:null}
+function secValue(a){return (+a.cash||0)+sum(a.holdings||[],h=>(+h.qty||0)*(holdPrice(h)??(+h.avg||0)))}
+function secCost(a){return sum(a.holdings||[],h=>(+h.qty||0)*(+h.avg||0))}
+function secStock(a){return sum(a.holdings||[],h=>(+h.qty||0)*(holdPrice(h)??(+h.avg||0)))}
+function acctValue(a){return acctKind(a)==='sec'?secValue(a):(+a.bal||0)}
+async function refreshQuotes(force){
+  const codes=[...new Set(S.finance.accounts.flatMap(a=>(a.holdings||[]).map(h=>h.code)).filter(c=>/^[0-9A-Z]{6}$/.test(c||'')))];
+  if(!codes.length||quoteLoading)return;
+  if(!force&&quoteAt&&Date.now()-quoteAt<5*60e3&&codes.every(c=>QUOTES[c]))return;
+  if(!force&&Date.now()-quoteTry<60e3)return;
+  quoteTry=Date.now();quoteLoading=true;if(curTab==='assets')renderQuoteStatus();
+  try{
+    const r=await fetch('/api/quote?codes='+codes.join(','));const j=await r.json();
+    if(!r.ok)throw new Error(j.error||('HTTP '+r.status));
+    Object.assign(QUOTES,j.prices||{});quoteAt=Date.now();quoteErr=(j.missing||[]).length?`${j.missing.length}개 종목 시세 없음`:'';
+    try{localStorage.setItem('pdash_quotes',JSON.stringify({prices:QUOTES,at:quoteAt}))}catch(e){}
+  }catch(e){quoteErr='시세 갱신 실패 — 마지막 시세(없으면 매입가)로 계산 중'}
+  quoteLoading=false;
+  if(['assets','home'].includes(curTab))renderAll(true);
+}
+function renderQuoteStatus(){const el=$('#qstat');if(el)el.innerHTML=quoteStatusHTML()}
+function quoteStatusHTML(){
+  if(quoteLoading)return `<span class="mut">시세 불러오는 중…</span>`;
+  const t=quoteAt?new Date(quoteAt):null;
+  return `${quoteErr?`<span style="color:var(--amb)">${esc(quoteErr)}</span>`:`<span class="mut">${t?`시세 ${t.getMonth()+1}/${t.getDate()} ${pad(t.getHours())}:${pad(t.getMinutes())} 기준`:'시세 없음'}</span>`} <button class="ib" data-act="quote-refresh" title="시세 새로고침">${ic('refresh',15)}</button>`;
+}
 function finTotals(){
-  const f=S.finance;
-  const acc=sum(f.accounts,a=>a.bal),ast=sum(f.assets,a=>a.value),debt=sum(f.debts,d=>d.bal);
+  const f=S.finance;let bank=0,sec=0,minus=0,minusW=0;
+  f.accounts.forEach(a=>{const v=acctValue(a);if(v<0){minus+=-v;minusW+=(-v)*(+a.rate||0)}else if(acctKind(a)==='sec')sec+=v;else bank+=v});
+  const ast=sum(f.assets,a=>a.value),manual=sum(f.debts,d=>d.bal),debt=manual+minus;
   const fixed=sum(f.fixed.filter(x=>x.active!==false),x=>x.amt),dpay=sum(f.debts,d=>d.pay);
-  return {acc,ast,total:acc+ast,debt,net:acc+ast-debt,fixed,dpay};
+  const avgRate=debt?(sum(f.debts,d=>(+d.bal||0)*(+d.rate||0))+minusW)/debt:0;
+  return {acc:bank+sec,bank,sec,ast,total:bank+sec+ast,debt,minus,manual,net:bank+sec+ast-debt,fixed,dpay,avgRate};
+}
+function editAccount(id,preset={}){
+  const arr=S.finance.accounts,item=id?arr.find(x=>x.id===id):null;if(id&&!item)return;
+  const kind=item?acctKind(item):(preset.kind||'bank');
+  const data=item?{...item,kind,typeB:BANK_TYPES.includes(item.type)?item.type:'입출금',typeS:SEC_TYPES.includes(item.type)?item.type:(item.type==='연금'?'연금저축':'일반(위탁)')}:{kind,typeB:'입출금',typeS:'일반(위탁)',owner:'본인',...preset};
+  const isB=v=>v.kind==='bank',isS=v=>v.kind==='sec',isM=v=>v.kind==='bank'&&v.typeB==='마이너스통장';
+  const fields=[
+    {k:'kind',l:'계좌 종류',t:'cards',ic:'layers',o:[{v:'bank',l:'은행 계좌',d:'입출금 · 예적금 · 마이너스통장',ic:'bank'},{v:'sec',l:'증권 계좌',d:'주식 · CMA · ISA · 연금',ic:'trend'}]},
+    {k:'inst',l:'금융기관',t:'text',req:1,h:1,ic:'building',list:'dl-inst-bank',ph:'예: 국민은행'},
+    {k:'typeB',l:'유형',t:'sel',o:BANK_TYPES,h:1,show:isB},
+    {k:'typeS',l:'유형',t:'sel',o:SEC_TYPES,h:1,show:isS},
+    {k:'name',l:'계좌명 / 용도',t:'text',h:1,ic:'tag',ph:'예: 생활비, 공모주용'},
+    {k:'no',l:'계좌번호 뒷자리',t:'text',h:1,ic:'hash',ph:'예: 1234',max:8},
+    {k:'owner',l:'명의',t:'text',h:1,ic:'user',list:'dl-owner'},
+    {k:'bal',l:'잔액 (원)',t:'money',h:1,show:isB,hint:'마이너스통장은 앞에 - 를 붙여 입력하면 부채로 계산돼요'},
+    {k:'limit',l:'한도 (원)',t:'money',h:1,show:isM,opt:1},
+    {k:'rate',l:'금리 (%)',t:'num',h:1,step:'0.01',ic:'percent',show:isM,opt:1},
+    {k:'cash',l:'예수금 (원)',t:'money',h:1,show:isS,hint:'보유 종목은 저장 후 계좌 카드의 [+ 종목]으로 추가해요'},
+    {k:'memo',l:'메모',t:'area',opt:1}
+  ];
+  const m=META.accounts;
+  openForm({title:'계좌'+(item?' 수정':' 추가'),sub:m.sub,icon:m.icon,color:m.color,fields,data,
+    onSave:v=>{
+      const o={kind:v.kind,inst:v.inst,type:v.kind==='bank'?v.typeB:v.typeS,name:v.name,no:v.no,owner:v.owner,memo:v.memo};
+      if(v.kind==='bank'){o.bal=v.bal;o.limit=o.type==='마이너스통장'?v.limit:null;o.rate=o.type==='마이너스통장'?v.rate:null}else{o.cash=v.cash}
+      if(item)Object.assign(item,o);else arr.push({id:newId(),holdings:[],...o});
+      save('finance');renderAll();toast(o.kind==='bank'&&o.type==='마이너스통장'&&(+o.bal||0)<0?'저장했습니다 — 마이너스 잔액은 부채로 계산돼요':'저장했습니다');
+    },
+    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save('finance');renderAll();toast('삭제했습니다')}:null,
+    mount:(root,form)=>{const inst=form.querySelector('[name=inst]');const sync=()=>{const k=form.querySelector('[name=kind]').value;inst.setAttribute('list',k==='sec'?'dl-broker':'dl-inst-bank');inst.placeholder=k==='sec'?'예: 키움증권':'예: 국민은행'};form.addEventListener('change',sync);sync()}
+  });
+}
+let suggT=null;
+function editHolding(accId,hid){
+  const acc=S.finance.accounts.find(a=>a.id===accId);if(!acc)return;
+  acc.holdings=acc.holdings||[];const item=hid?acc.holdings.find(h=>h.id===hid):null;
+  const fields=[
+    {k:'name',l:'종목명',t:'text',req:1,ic:'search',ph:'종목명을 입력하면 자동으로 찾아요 (예: 삼성전자)'},
+    {k:'sugg',t:'html',html:'<div class="sugg" id="sugg"></div>'},
+    {k:'code',l:'종목코드',t:'text',req:1,h:1,ic:'hash',ph:'예: 005930',max:6},
+    {k:'qty',l:'보유 수량 (주)',t:'num',req:1,h:1,min:0},
+    {k:'avg',l:'평균 매입가 (원)',t:'money',h:1,hint:'수익률 계산에 쓰여요'},
+    {k:'memo',l:'메모',t:'text',h:1,opt:1}
+  ];
+  const m=META.holdings;
+  openForm({title:(item?'보유 종목 수정':'보유 종목 추가')+' · '+(acc.inst||''),sub:m.sub,icon:m.icon,color:m.color,fields,data:item||{},
+    onSave:v=>{v.code=String(v.code||'').toUpperCase();if(!/^[0-9A-Z]{6}$/.test(v.code)){toast('종목코드 6자리를 확인해 주세요');return false}
+      if(item)Object.assign(item,v);else acc.holdings.push({id:newId(),...v});save('finance');renderAll();refreshQuotes(true);toast('저장했습니다')},
+    onDelete:item?()=>{acc.holdings.splice(acc.holdings.indexOf(item),1);save('finance');renderAll()}:null,
+    mount:(root,form)=>{
+      const nm=form.querySelector('[name=name]'),box=$('#sugg',root);nm.parentElement.classList.add('sugg-wrap');
+      nm.addEventListener('input',()=>{clearTimeout(suggT);const q=nm.value.trim();if(q.length<1){box.innerHTML='';return}
+        suggT=setTimeout(async()=>{try{const r=await fetch('/api/search?q='+encodeURIComponent(q));const j=await r.json();
+          box.innerHTML=(j.items||[]).map(it=>`<button type="button" class="sg" data-code="${esc(it.code)}" data-name="${esc(it.name)}"><b>${esc(it.name)}</b><span>${esc(it.code)} · ${esc(it.market||'')}</span></button>`).join('')||'<div class="mut" style="padding:6px 4px;font-size:12px">검색 결과가 없어요. 종목코드를 직접 입력해도 돼요.</div>'}catch(e){box.innerHTML='<div class="mut" style="padding:6px 4px;font-size:12px">검색에 실패했어요. 종목코드를 직접 입력해 주세요.</div>'}},250)});
+      box.addEventListener('click',e=>{const b=e.target.closest('.sg');if(!b)return;setField(form,'name',b.dataset.name);setField(form,'code',b.dataset.code);box.innerHTML='';form.querySelector('[name=qty]').focus()});
+    }});
+}
+function bankTable(list){
+  if(!list.length)return '<div class="empty">은행 계좌를 추가해 보세요</div>';
+  return `<div class="tw"><table><thead><tr><th>금융기관</th><th>유형</th><th>계좌명/용도</th><th>번호</th><th>명의</th><th class="num">잔액</th></tr></thead><tbody>
+  ${list.map(r=>{const v=+r.bal||0,m=r.type==='마이너스통장';return `<tr class="click" data-act="edit" data-l="accounts" data-id="${r.id}"><td><b>${esc(r.inst)}</b></td><td><span class="tag"${m?' style="background:#fde8e8;color:#c0392b"':''}>${esc(r.type)}</span></td><td>${esc(r.name)}${m&&(r.limit||r.rate!=null)?`<div class="mut" style="font-size:11px">${r.limit?'한도 '+short(r.limit)+'원':''}${r.rate!=null?' · 금리 '+r.rate+'%':''}</div>`:''}</td><td>${r.no?'…'+esc(r.no):''}</td><td>${esc(r.owner)}</td><td class="num">${v<0?`<b class="pos">${won(v)}</b><div style="font-size:11px" class="mut">부채로 계산</div>`:won(v)}</td></tr>`}).join('')}
+  </tbody></table></div>`;
+}
+function secBlocks(list){
+  if(!list.length)return '<div class="empty">증권 계좌를 추가하고 보유 종목을 넣어 보세요</div>';
+  return list.map(a=>{
+    const val=secValue(a),stock=secStock(a),cost=secCost(a),pl=stock-cost,rate=cost?pl/cost*100:null;
+    const hs=a.holdings||[];
+    return `<div class="secacc">
+      <div class="sa-h"><div class="sa-t" data-act="edit" data-l="accounts" data-id="${a.id}"><b>${esc(a.inst)}</b> <span class="tag">${esc(a.type||'')}</span>${a.name?` <span class="mut">${esc(a.name)}</span>`:''}${a.owner?` <span class="tag">${esc(a.owner)}</span>`:''}</div>
+      <div class="sa-v"><b>${won(val)}원</b>${cost?`<span class="${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${won(pl)} (${rate>=0?'+':''}${rate.toFixed(2)}%)</span>`:''}</div></div>
+      ${hs.length?`<div class="tw"><table class="htbl"><thead><tr><th>종목</th><th class="num">수량</th><th class="num">평균단가</th><th class="num">현재가</th><th class="num">평가금액</th><th class="num">손익</th></tr></thead><tbody>
+      ${hs.map(h=>{const q=QUOTES[h.code],p=holdPrice(h),ev=(+h.qty||0)*(p??(+h.avg||0)),hc=(+h.qty||0)*(+h.avg||0),hp=p!=null&&h.avg?ev-hc:null;
+        return `<tr class="click" data-act="hold-edit" data-acc="${a.id}" data-id="${h.id}"><td><b>${esc(h.name||h.code)}</b><div class="mut" style="font-size:11px">${esc(h.code)}</div></td><td class="num">${won(h.qty)}</td><td class="num">${won(h.avg)}</td><td class="num">${p!=null?won(p):'<span class="mut">-</span>'}${q&&q.rate!=null?`<div style="font-size:11px" class="${q.rate>=0?'pos':'neg'}">${q.rate>=0?'+':''}${q.rate}%</div>`:''}</td><td class="num">${won(ev)}</td><td class="num">${hp==null?'-':`<span class="${hp>=0?'pos':'neg'}">${hp>=0?'+':''}${won(hp)}<div style="font-size:11px">${hc?((hp/hc*100)>=0?'+':'')+(hp/hc*100).toFixed(2)+'%':''}</div></span>`}</td></tr>`}).join('')}
+      </tbody></table></div>`:'<div class="mut" style="font-size:13px;padding:6px 2px">보유 종목이 없어요.</div>'}
+      <div class="sa-f"><span>예수금 <b>${won(a.cash||0)}원</b></span><span class="sp"></span><button class="btn s" data-act="hold-add" data-acc="${a.id}">${ic('plus',13)} 종목</button><button class="btn s ghost" data-act="edit" data-l="accounts" data-id="${a.id}">계좌 수정</button></div>
+    </div>`}).join('');
 }
 function renderAssets(){
   const f=S.finance,T=finTotals();
-  // 구성
+  refreshQuotes();
   const comp={};
-  f.accounts.forEach(a=>{const k='계좌·'+(a.type||'기타');comp[k]=(comp[k]||0)+(+a.bal||0)});
+  f.accounts.forEach(a=>{if(acctKind(a)==='sec'){const st=secStock(a);if(st>0)comp['주식(증권계좌)']=(comp['주식(증권계좌)']||0)+st;if(+a.cash>0)comp['예수금·CMA']=(comp['예수금·CMA']||0)+(+a.cash)}else{const v=+a.bal||0;if(v>0){const k='은행·'+(a.type||'기타');comp[k]=(comp[k]||0)+v}}});
   f.assets.forEach(a=>{const k=a.cat||'기타';comp[k]=(comp[k]||0)+(+a.value||0)});
   const ce=Object.entries(comp).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
   const ctot=ce.reduce((t,[,v])=>t+v,0);
   const fixedByCat={};f.fixed.filter(x=>x.active!==false).forEach(x=>{fixedByCat[x.cat||'기타']=(fixedByCat[x.cat||'기타']||0)+(+x.amt||0)});
   const snaps=[...f.snapshots].sort((a,b)=>a.month.localeCompare(b.month)).slice(-12);
   const smax=Math.max(1,...snaps.map(s=>Math.abs(s.net)));
-  const avgRate=T.debt?sum(f.debts,d=>(+d.bal||0)*(+d.rate||0))/T.debt:0;
+  const banks=f.accounts.filter(a=>acctKind(a)==='bank'),secs=f.accounts.filter(a=>acctKind(a)==='sec');
+  const minusAccts=banks.filter(a=>(+a.bal||0)<0);
+  const dupWarn=minusAccts.length&&f.debts.some(d=>d.type==='마이너스통장');
+  const debtRows=[...minusAccts.map(a=>({auto:1,id:a.id,name:(a.name||'마이너스통장'),inst:a.inst,type:'마이너스통장',bal:-(+a.bal),rate:a.rate,pay:null,due:''})),...f.debts];
   $('#page').innerHTML=`
   <div class="kpis">
-    <div class="kpi"><div class="l">총자산</div><div class="v">${short(T.total)}원</div><div class="s">${wonU(T.total)}</div></div>
-    <div class="kpi"><div class="l">총부채</div><div class="v" style="color:var(--red)">${short(T.debt)}원</div><div class="s">평균금리 ${avgRate?avgRate.toFixed(2)+'%':'-'}</div></div>
+    <div class="kpi"><div class="l">총자산</div><div class="v">${short(T.total)}원</div><div class="s">은행 ${short(T.bank)} · 증권 ${short(T.sec)} · 기타 ${short(T.ast)}</div></div>
+    <div class="kpi"><div class="l">총부채</div><div class="v" style="color:var(--red)">${short(T.debt)}원</div><div class="s">평균금리 ${T.avgRate?T.avgRate.toFixed(2)+'%':'-'}${T.minus?` · 마이너스통장 ${short(T.minus)}`:''}</div></div>
     <div class="kpi"><div class="l">순자산</div><div class="v" style="color:var(--pri)">${short(T.net)}원</div><div class="s">${wonU(T.net)}</div></div>
     <div class="kpi"><div class="l">월 고정지출</div><div class="v">${short(T.fixed)}원</div><div class="s">+ 대출상환 ${short(T.dpay)}원/월</div></div>
-    <div class="kpi"><div class="l">부채비율 (부채/자산)</div><div class="v">${T.total?(T.debt/T.total*100).toFixed(1)+'%':'-'}</div><div class="s">계좌 ${f.accounts.length} · 자산 ${f.assets.length} · 부채 ${f.debts.length}</div></div>
+    <div class="kpi"><div class="l">부채비율 (부채/자산)</div><div class="v">${T.total?(T.debt/T.total*100).toFixed(1)+'%':'-'}</div><div class="s">계좌 ${f.accounts.length} · 자산 ${f.assets.length} · 부채 ${debtRows.length}</div></div>
   </div>
   <div class="card"><h3>🧩 자산 구성</h3>
     ${ctot?`<div class="stack">${ce.map(([k,v],i)=>`<i title="${esc(k)} ${wonU(v)}" style="width:${v/ctot*100}%;background:${PAL[i%PAL.length]}"></i>`).join('')}</div>
     <div class="legend">${ce.map(([k,v],i)=>`<span><i class="dot" style="background:${PAL[i%PAL.length]}"></i>${esc(k)} <b>${short(v)}</b> <span class="mut">${(v/ctot*100).toFixed(1)}%</span></span>`).join('')}</div>`:'<div class="empty">계좌나 자산을 등록하면 구성이 표시됩니다</div>'}
   </div>
-  <div class="card"><h3>🏦 보유 계좌 <span class="tag">${wonU(T.acc)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="accounts">+ 계좌 추가</button></h3>
-    ${tableHTML('accounts',[{l:'금융기관',f:r=>esc(r.inst)},{l:'유형',f:r=>`<span class="tag">${esc(r.type)}</span>`},{l:'계좌명/용도',f:r=>esc(r.name)},{l:'번호',f:r=>r.no?'…'+esc(r.no):''},{l:'명의',f:r=>esc(r.owner)},{l:'잔액',n:1,f:r=>won(r.bal)},{l:'메모',f:r=>`<span class="mut">${esc(r.memo)}</span>`}],f.accounts,`<td colspan="5">합계</td><td class="num">${won(T.acc)}</td><td></td>`)}
+  <div class="fgrid">
+    <div class="card"><h3><span class="hic" style="--c:#0ea5e9">${ic('bank',16)}</span>은행 계좌 <span class="tag">${wonU(T.bank)}</span><span class="sp"></span><button class="btn p s" data-act="acc-add" data-k="bank">${ic('plus',13)} 은행 계좌</button></h3>${bankTable(banks)}</div>
+    <div class="card"><h3><span class="hic" style="--c:#8b5cf6">${ic('trend',16)}</span>증권 계좌 <span class="tag">${wonU(T.sec)}</span><span class="sp"></span><span id="qstat" class="qstat">${secs.some(a=>(a.holdings||[]).length)?quoteStatusHTML():''}</span><button class="btn p s" data-act="acc-add" data-k="sec">${ic('plus',13)} 증권 계좌</button></h3>${secBlocks(secs)}</div>
   </div>
   <div class="fgrid">
     <div class="card"><h3>🏠 기타 자산 <span class="tag">${wonU(T.ast)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="assets">+ 자산 추가</button></h3>
       ${tableHTML('assets',[{l:'자산명',f:r=>esc(r.name)},{l:'분류',f:r=>`<span class="tag">${esc(r.cat)}</span>`},{l:'평가금액',n:1,f:r=>won(r.value)},{l:'평가손익',n:1,f:r=>r.cost?`<span class="${r.value-r.cost>=0?'pos':'neg'}">${won(r.value-r.cost)}</span>`:'-'},{l:'기준일',f:r=>`<span class="mut">${esc(r.date)}</span>`}],f.assets,`<td colspan="2">합계</td><td class="num">${won(T.ast)}</td><td colspan="2"></td>`)}
     </div>
     <div class="card"><h3>💳 부채 <span class="tag">${wonU(T.debt)}</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="debts">+ 부채 추가</button></h3>
-      ${tableHTML('debts',[{l:'부채명',f:r=>esc(r.name)+(r.inst?`<div class="mut" style="font-size:11px">${esc(r.inst)}</div>`:'')},{l:'유형',f:r=>`<span class="tag">${esc(r.type)}</span>`},{l:'잔액',n:1,f:r=>won(r.bal)},{l:'금리',n:1,f:r=>r.rate!=null?r.rate+'%':'-'},{l:'월상환',n:1,f:r=>won(r.pay)},{l:'만기',f:r=>`<span class="mut">${esc(r.due)}</span>`}],f.debts,`<td colspan="2">합계</td><td class="num">${won(T.debt)}</td><td></td><td class="num">${won(T.dpay)}</td><td></td>`)}
+      ${dupWarn?`<div class="warn">${ic('ban',15)} 부채에 직접 등록한 ‘마이너스통장’이 있어요. 같은 통장이 계좌에도 있다면 두 번 계산되니 한 곳에서만 관리해 주세요.</div>`:''}
+      ${debtRows.length?`<div class="tw"><table><thead><tr><th>부채명</th><th>유형</th><th class="num">잔액</th><th class="num">금리</th><th class="num">월상환</th><th>만기</th></tr></thead><tbody>
+      ${debtRows.map(r=>`<tr class="click" data-act="edit" data-l="${r.auto?'accounts':'debts'}" data-id="${r.id}"><td>${esc(r.name)}${r.inst?`<div class="mut" style="font-size:11px">${esc(r.inst)}</div>`:''}</td><td><span class="tag">${esc(r.type)}</span>${r.auto?' <span class="tag" style="background:#eaf1fe;color:var(--pri)">계좌에서 자동</span>':''}</td><td class="num">${won(r.bal)}</td><td class="num">${r.rate!=null&&r.rate!==''?r.rate+'%':'-'}</td><td class="num">${won(r.pay)}</td><td><span class="mut">${esc(r.due||'')}</span></td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="2">합계</td><td class="num">${won(T.debt)}</td><td></td><td class="num">${won(T.dpay)}</td><td></td></tr></tfoot></table></div>`:'<div class="empty">아직 등록된 부채가 없습니다</div>'}
     </div>
   </div>
   <div class="card"><h3>🧾 월별 고정지출 <span class="tag">월 ${wonU(T.fixed)}</span><span class="tag">연 ${short(T.fixed*12)}원</span><span class="sp"></span><button class="btn p s" data-act="add" data-l="fixed">+ 고정지출 추가</button></h3>
@@ -827,54 +1081,203 @@ function renderAssets(){
   </div>`;
 }
 
-/* ================= 4. 공모주 ================= */
-let ipoF={st:'전체',y:String(now.getFullYear())};
+/* ================= 공모주: 수수료·비용, 자동 수집 일정 ================= */
+// 기본 수수료(온라인, 일반 등급 기준). 2026-11 웹 조사 — 등급·이벤트에 따라 다를 수 있어 직접 고칠 수 있음.
+// ok:1 = 증권사 공식 안내에서 확인, 나머지는 비교 자료 기준 추정
+const FEE_DATE='2026-11';
+const FEE_DEF={
+ 'KB증권':{fee:1500,cond:'배정',out:2000,xfer:0},
+ 'NH투자증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '한국투자증권':{fee:2000,cond:'배정',out:2000,xfer:0,ok:1},
+ '미래에셋증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '삼성증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '신한투자증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '키움증권':{fee:0,cond:'면제',out:2000,xfer:0},
+ '대신증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '하나증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '메리츠증권':{fee:2000,cond:'배정',out:2000,xfer:0,ok:1},
+ '한화투자증권':{fee:2000,cond:'항상',out:5000,xfer:0,ok:1,note:'상장 1개월 이내 공모주 타사대체 5,000원'},
+ 'SK증권':{fee:1500,cond:'항상',out:2000,xfer:0},
+ '다올투자증권':{fee:0,cond:'면제',out:2000,xfer:300,ok:1},
+ '교보증권':{fee:1000,cond:'배정',out:2000,xfer:0},
+ '신영증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ 'IBK투자증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '유진투자증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '유안타증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '현대차증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ 'DB금융투자':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '하이투자증권':{fee:1000,cond:'배정',out:2000,xfer:0},
+ 'LS증권':{fee:1000,cond:'배정',out:2000,xfer:0},
+ 'BNK투자증권':{fee:2000,cond:'배정',out:2000,xfer:0},
+ '토스증권':{fee:0,cond:'면제',out:0,xfer:0}
+};
+const FEE_GENERIC={fee:2000,cond:'배정',out:2000,xfer:0};
+const COND_L={'배정':'배정 시에만','항상':'항상 부과','면제':'면제'};
+function brokerInfo(name){
+  const n=(name||'').trim();const u=S.ipo.brokers.find(b=>b.name===n);const d=FEE_DEF[n];const base=d||FEE_GENERIC;
+  return {name:n,fee:u&&u.fee!=null?u.fee:base.fee,cond:u&&u.cond&&COND_L[u.cond]?u.cond:base.cond,out:u&&u.outFee!=null?u.outFee:base.out,xfer:u&&u.xferFee!=null?u.xferFee:base.xfer,src:u?'내 설정':(d?(d.ok?'공식 안내':'비교 자료'):'일반값'),note:(u&&u.memo)||(d&&d.note)||'',user:u||null};
+}
+function ipoCosts(i){
+  const b=brokerInfo(i.broker),al=+i.allotted||0,decided=i.allotted!=null&&i.allotted!=='';
+  const subAuto=b.cond==='면제'?0:b.cond==='배정'?(decided?(al>0?b.fee:0):b.fee):b.fee;
+  const sub=i.fee!=null&&i.fee!==''?+i.fee:(i.broker?subAuto:0);
+  const out=!i.outOn?0:(i.outFee!=null&&i.outFee!==''?+i.outFee:(decided&&al===0?0:(b.out||0)));
+  const xfer=!i.xferOn?0:(i.xferFee!=null&&i.xferFee!==''?+i.xferFee:(b.xfer||0));
+  return {sub,out,xfer,total:sub+out+xfer,b};
+}
+function ipoProfit(i){if(i.sellPrice==null||i.price==null||!i.allotted)return null;return (i.sellPrice-i.price)*i.allotted-ipoCosts(i).total-(+i.sellCost||0)}
+function moveFlags(broker){const mb=S.settings.mainBroker||'';const need=!!(mb&&broker&&broker.trim()!==mb);return {outOn:need,xferOn:need}}
+F.ipo=[
+ {k:'s1',t:'sec',l:'기본 정보',ic:'flag'},
+ {k:'name',l:'종목명',t:'text',req:1,h:1,ic:'flag'},{k:'market',l:'시장',t:'sel',o:['코스닥','코스피','코넥스'],h:1},
+ {k:'leads',l:'주관사 (쉼표로 구분)',t:'text',ic:'building',ph:'예: 한국투자증권, KB증권'},
+ {k:'status',l:'상태',t:'chips',ic:'tag',o:Object.entries(IPO_ST).map(([k,c])=>({v:k,l:k,c:c[1]})),def:'청약예정'},
+ {k:'s2',t:'sec',l:'일정',ic:'cal',d:'상장일을 넣으면 캘린더에 자동 표시돼요'},
+ {k:'subStart',l:'청약 시작일',t:'date',req:1,h:1},{k:'subEnd',l:'청약 종료일',t:'date',h:1},
+ {k:'refundDate',l:'환불일',t:'date',h:1},{k:'listDate',l:'상장일',t:'date',h:1},
+ {k:'s3',t:'sec',l:'청약',ic:'coin'},
+ {k:'broker',l:'청약 증권사',t:'text',h:1,list:'dl-broker',ic:'building',hint:''},{k:'owner',l:'명의',t:'text',h:1,list:'dl-owner',ic:'user'},
+ {k:'price',l:'확정 공모가 (원)',t:'money',h:1},{k:'qty',l:'청약 주수',t:'num',h:1,min:0},
+ {k:'deposit',l:'청약 증거금 (원)',t:'money',h:1,opt:1},{k:'allotted',l:'배정 주수',t:'num',h:1,min:0},
+ {k:'s4',t:'sec',l:'비용',ic:'swap',d:'비워두면 증권사 수수료표로 자동 계산돼요'},
+ {k:'fee',l:'청약 수수료 (원)',t:'money',h:1},{k:'cbox',t:'html',h:1,html:'<div class="costbox" id="costbox"></div>'},
+ {k:'outOn',l:'주식 출고 (주거래 계좌로 타사 대체)',t:'check'},{k:'outFee',l:'출고 수수료 (원)',t:'money',h:1,show:v=>v.outOn},
+ {k:'xferOn',l:'환불금·매도대금 이체 (타행)',t:'check'},{k:'xferFee',l:'이체 수수료 (원)',t:'money',h:1,show:v=>v.xferOn},
+ {k:'s5',t:'sec',l:'매도',ic:'trend'},
+ {k:'sellPrice',l:'매도 단가 (원)',t:'money',h:1},{k:'sellDate',l:'매도일',t:'date',h:1},
+ {k:'sellCost',l:'매도 비용 (세금·수수료)',t:'money',h:1,opt:1},
+ {k:'memo',l:'메모',t:'area',opt:1}
+];
+function ipoMount(root,form){
+  const g=n=>form.querySelector(`[name="${n}"]`);
+  let touched=false;['outOn','xferOn'].forEach(n=>g(n).addEventListener('change',e=>{if(e.isTrusted)touched=true}));
+  const brokerLab=form.querySelector('[data-fk="broker"]');
+  const leadBox=document.createElement('div');leadBox.className='leadpick';brokerLab.appendChild(leadBox);
+  const drawLeads=()=>{const ls=g('leads').value.split(',').map(s=>s.trim()).filter(Boolean);leadBox.innerHTML=ls.map(l=>`<button type="button" class="chip-opt${l===g('broker').value.trim()?' on':''}" data-lead="${esc(l)}">${esc(l)}</button>`).join('')};
+  leadBox.addEventListener('click',e=>{const b=e.target.closest('[data-lead]');if(!b)return;g('broker').value=b.dataset.lead;g('broker').dispatchEvent(new Event('input',{bubbles:true}));upd()});
+  const upd=()=>{
+    const v=readForm(form,F.ipo);
+    if(!touched&&v.broker){const f=moveFlags(v.broker);let ch=false;if(g('outOn').checked!==f.outOn){g('outOn').checked=f.outOn;ch=true}if(g('xferOn').checked!==f.xferOn){g('xferOn').checked=f.xferOn;ch=true}if(ch){form.dispatchEvent(new Event('change'));return}}
+    const c=ipoCosts({...v,outOn:g('outOn').checked,xferOn:g('xferOn').checked}),b=c.b;
+    g('fee').placeholder=v.broker?`자동: ${won(c.b.cond==='면제'?0:b.fee)}원 (${COND_L[b.cond]})`:'증권사를 고르면 자동 계산';
+    g('outFee').placeholder=`자동: ${won(b.out)}원/종목`;g('xferFee').placeholder=`자동: ${won(b.xfer)}원`;
+    const p=+String(g('price').value).replace(/[^0-9]/g,''),q=+g('qty').value;g('deposit').placeholder=p&&q?`자동: ${won(p*q*0.5)} (50%)`:'';
+    $('#costbox',root).innerHTML=v.broker?`<div class="cb-t">예상 비용 <b>${won(c.total)}원</b></div><div class="cb-d">청약 ${won(c.sub)} · 출고 ${won(c.out)} · 이체 ${won(c.xfer)}</div><div class="cb-s">${esc(b.name)} 기준 · ${esc(b.src)}${S.settings.mainBroker?` · 주거래 ${esc(S.settings.mainBroker)}`:' · 주거래 증권사 미설정'}</div>`:'<div class="cb-s">청약 증권사를 고르면 비용이 계산돼요</div>';
+    drawLeads();
+  };
+  form.addEventListener('input',upd);form.addEventListener('change',upd);upd();
+}
 function autoStatus(v){
   const order=['관심','청약예정','청약완료','배정완료','매도완료'];
   const cur=order.indexOf(v.status);if(v.status==='미청약')return;
   let want=cur;
-  if(v.sellPrice!=null&&v.allotted)want=4;else if(v.allotted!=null)want=3;
+  if(v.sellPrice!=null&&v.allotted)want=4;else if(v.allotted!=null)want=3;else if(v.qty&&v.subEnd&&v.subEnd<todayS())want=Math.max(want,2);
   if(want>cur){v.status=order[want];toast('상태를 ‘'+v.status+'’(으)로 바꿨습니다')}
 }
-function ipoProfit(i){if(i.sellPrice==null||i.price==null||!i.allotted)return null;return (i.sellPrice-i.price)*i.allotted-(+i.fee||0)-(+i.sellCost||0)}
-function ipoMount(root){
-  const g=n=>root.querySelector(`[name="${n}"]`);
-  const fill=()=>{const b=S.ipo.brokers.find(x=>x.name===g('broker').value.trim());if(b&&b.fee!=null&&!g('fee').value){g('fee').value=Number(b.fee).toLocaleString('ko-KR')}};
-  g('broker').addEventListener('change',fill);g('broker').addEventListener('blur',fill);
-  const dep=()=>{const p=Number(g('price').value.replace(/[^0-9]/g,'')),q=Number(g('qty').value);g('deposit').placeholder=p&&q?`자동: ${Math.round(p*q*0.5).toLocaleString('ko-KR')}`:''};
-  g('price').addEventListener('input',dep);g('qty').addEventListener('input',dep);dep();
+function editBroker(id,preset={}){
+  const arr=S.ipo.brokers;let item=id?arr.find(x=>x.id===id):null;
+  if(!item&&preset.name)item=arr.find(x=>x.name===preset.name)||null;
+  const info=brokerInfo((item&&item.name)||preset.name);
+  const data=item?{...item,fee:item.fee??info.fee,cond:item.cond||info.cond,outFee:item.outFee??info.out,xferFee:item.xferFee??info.xfer}:{name:preset.name||'',fee:info.fee,cond:info.cond,outFee:info.out,xferFee:info.xfer,memo:info.note};
+  const fields=[{k:'name',l:'증권사',t:'text',req:1,list:'dl-broker',ic:'building'},
+    {k:'fee',l:'청약 수수료 (원/건)',t:'money',h:1},{k:'cond',l:'청약 수수료 부과',t:'chips',h:1,o:[{v:'배정',l:'배정 시에만'},{v:'항상',l:'항상 부과'},{v:'면제',l:'면제'}]},
+    {k:'outFee',l:'주식 출고 수수료 (원/종목)',t:'money',h:1,ic:'swap',hint:'타사 대체 출고 기준'},{k:'xferFee',l:'타행 이체 수수료 (원/건)',t:'money',h:1,ic:'swap'},
+    {k:'memo',l:'메모 · 우대 조건',t:'area',opt:1,ph:'예: 우대 등급이면 면제'}];
+  const m=META.brokers;
+  openForm({title:(info.name||'증권사')+' 수수료',sub:m.sub,icon:m.icon,color:m.color,fields,data,
+    onSave:v=>{const ex=item||arr.find(x=>x.name===v.name);if(ex)Object.assign(ex,v);else arr.push({id:newId(),...v});save('ipo');renderAll();toast('저장했습니다')},
+    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save('ipo');renderAll();toast('기본값으로 되돌렸습니다')}:null});
+}
+let IPOCAL={items:null,at:0,err:'',loading:false,src:''},ipoTry=0;
+try{const c=JSON.parse(localStorage.getItem('pdash_ipocal')||'null');if(c&&c.items)IPOCAL={...IPOCAL,...c}}catch(e){}
+async function loadIpoCal(force){
+  if(IPOCAL.loading)return;
+  if(!force&&IPOCAL.items&&Date.now()-IPOCAL.at<3*3600e3){syncIpoItems();return}
+  if(!force&&Date.now()-ipoTry<120e3)return;
+  ipoTry=Date.now();IPOCAL.loading=true;IPOCAL.err='';if(curTab==='ipo')renderAll(true);
+  try{
+    const r=await fetch('/api/ipo'+(force?'?t='+Date.now():''));const j=await r.json();
+    if(!r.ok||!j.items)throw new Error(j.error||('HTTP '+r.status));
+    IPOCAL={items:j.items,at:Date.now(),err:'',loading:false,src:j.source||''};
+    try{localStorage.setItem('pdash_ipocal',JSON.stringify({items:IPOCAL.items,at:IPOCAL.at,src:IPOCAL.src}))}catch(e){}
+    syncIpoItems();
+  }catch(e){IPOCAL.err='공모주 일정을 가져오지 못했어요. 잠시 후 새로고침해 주세요.'}
+  IPOCAL.loading=false;
+  if(curTab==='ipo')renderAll(true);
+}
+function syncIpoItems(){
+  if(!IPOCAL.items||mode!=='db')return;let changed=false;
+  S.ipo.items.forEach(it=>{if(!it.srcId)return;const s=IPOCAL.items.find(x=>x.id===it.srcId);if(!s)return;
+    [['listDate','listDate'],['price','price'],['code','code']].forEach(([a,b])=>{if((it[a]==null||it[a]==='')&&s[b]){it[a]=s[b];changed=true}});
+    if((!it.refundDate)&&s.refundDate){it.refundDate=s.refundDate;changed=true}
+    if(s.refundDate&&!s.refundEst&&it.refundDate!==s.refundDate&&it.refundAuto){it.refundDate=s.refundDate;changed=true}
+  });
+  if(changed)save('ipo');
+}
+function subscribeIpo(id){
+  const s=(IPOCAL.items||[]).find(x=>x.id===id);if(!s)return;
+  const mb=S.settings.mainBroker||'';const broker=s.leads.includes(mb)?mb:(s.leads[0]||'');
+  edit('ipo',null,{name:s.name,market:s.market,leads:s.leads.join(', '),status:'청약예정',owner:'본인',subStart:s.subStart,subEnd:s.subEnd,refundDate:s.refundDate,listDate:s.listDate,price:s.price,broker,...moveFlags(broker)},{srcId:s.id,code:s.code,refundAuto:!!s.refundEst});
+}
+function ipoCalCard(){
+  const t=todayS(),hidden=new Set(S.ipo.hidden||[]);
+  const mine=new Map();S.ipo.items.forEach(i=>{if(i.srcId){if(!mine.has(i.srcId))mine.set(i.srcId,[]);mine.get(i.srcId).push(i)}});
+  const base=(IPOCAL.items||[]).filter(x=>x.subEnd>=fmtD(addDays(new Date(),-3)));
+  const list=base.filter(x=>ipoF.showHidden||!hidden.has(x.id));
+  const nHidden=base.filter(x=>hidden.has(x.id)).length;
+  const upd=IPOCAL.at?new Date(IPOCAL.at):null;
+  return `<div class="card ipocal"><div class="ch"><h3><span class="hic" style="--c:#8b5cf6">${ic('cal',16)}</span>다가오는 공모주 <span class="tag">${list.length}개</span></h3>
+    <span class="mut" style="font-size:12px">${IPOCAL.loading?'불러오는 중…':upd?`${esc(IPOCAL.src||'')} · ${upd.getMonth()+1}/${upd.getDate()} ${pad(upd.getHours())}:${pad(upd.getMinutes())} 갱신`:''}</span>
+    <button class="ib" data-act="ipo-refresh" title="새로고침">${ic('refresh',15)}</button>
+    ${nHidden?`<button class="btn s ghost" data-act="ipo-showhidden">${ic(ipoF.showHidden?'eyeoff':'eye',14)} 숨긴 종목 ${nHidden}</button>`:''}</div>
+    ${IPOCAL.err?`<div class="warn">${esc(IPOCAL.err)}</div>`:''}
+    ${!IPOCAL.items&&IPOCAL.loading?'<div class="empty">공모주 일정을 불러오는 중이에요…</div>':''}
+    ${IPOCAL.items&&!list.length?'<div class="empty">예정된 공모주가 없어요</div>':''}
+    <div class="iplist">${list.map(x=>{
+      const dd=dday(x.subStart),st=x.subStart>t?(dd<=7?`<span class="badge-d">D-${dd}</span>`:`<span class="tag">D-${dd}</span>`):x.subEnd>=t?'<span class="badge-on">청약중</span>':'<span class="tag">마감</span>';
+      const my=mine.get(x.id)||[];const hid=hidden.has(x.id);
+      return `<div class="iprow${hid?' hid':''}${my.length?' mine':''}">
+        <div class="ip-a"><div class="ip-n"><b>${esc(x.name)}</b> <span class="tag">${esc(x.market||'')}</span>${x.industry?` <span class="mut ip-ind">${esc(x.industry)}</span>`:''}</div>
+          <div class="ip-m">${ic('cal',13)} 청약 <b>${mdw(x.subStart)}${x.subEnd!==x.subStart?'~'+md(x.subEnd):''}</b> ${st}
+          <span class="ip-sep">·</span>환불 ${md(x.refundDate)||'-'}${x.refundEst?'<span class="mut">(예상)</span>':''}<span class="ip-sep">·</span>상장 ${x.listDate?`<b>${md(x.listDate)}</b>`:'<span class="mut">미정</span>'}</div>
+          <div class="ip-m">${ic('coin',13)} ${x.price?`확정 <b>${won(x.price)}원</b>`:x.bandLow?`희망 ${won(x.bandLow)}~${won(x.bandHigh)}원`:'-'}${x.instComp?`<span class="ip-sep">·</span>기관 ${esc(x.instComp)}`:''}${x.lockup&&x.lockup!=='0.00%'?`<span class="ip-sep">·</span>확약 ${esc(x.lockup)}`:''}${x.subComp?`<span class="ip-sep">·</span>청약 ${esc(x.subComp)}`:''}</div>
+          <div class="ip-l">${x.leads.map(l=>{const b=brokerInfo(l);return `<span class="lead${l===S.settings.mainBroker?' main':''}" title="청약 ${won(b.fee)}원(${COND_L[b.cond]}) · 출고 ${won(b.out)}원">${esc(l)}</span>`}).join('')}</div></div>
+        <div class="ip-b">${my.length?`<button class="btn s" data-act="edit" data-l="ipo" data-id="${my[0].id}">${ic('ok',13)} 청약 내역${my.length>1?' '+my.length:''}</button><button class="btn s ghost" data-act="ipo-sub" data-id="${esc(x.id)}" title="다른 계좌로 추가">${ic('plus',13)}</button>`:`<button class="btn p s" data-act="ipo-sub" data-id="${esc(x.id)}">${ic('plus',13)} 청약함</button>`}
+          <button class="btn s ghost" data-act="${hid?'ipo-unhide':'ipo-hide'}" data-id="${esc(x.id)}">${hid?'다시 보기':'숨기기'}</button></div>
+      </div>`}).join('')}</div>
+    <div class="mut" style="font-size:11.5px;margin-top:8px">일정은 38커뮤니케이션 공개 페이지에서 자동으로 모아요. 변경될 수 있으니 청약 전 증권사 공지를 꼭 확인하세요.</div></div>`;
+}
+function feeCard(){
+  const used=new Set(S.ipo.items.map(i=>i.broker).filter(Boolean));
+  const order=Object.keys(FEE_DEF);const oi=n=>{const i=order.indexOf(n);return i<0?999:i};const names=[...new Set([...S.ipo.brokers.map(b=>b.name),...order])].sort((a,b)=>(used.has(b)-used.has(a))||(oi(a)-oi(b))||a.localeCompare(b));
+  const mb=S.settings.mainBroker||'';
+  return `<div class="card"><div class="ch"><h3><span class="hic" style="--c:#64748b">${ic('building',16)}</span>증권사별 수수료</h3>
+    <label class="mbsel">주거래(매도) 증권사 <select data-act="mainbroker"><option value="">선택 안 함</option>${[...new Set([...BROKERS,...names])].map(n=>`<option${n===mb?' selected':''}>${esc(n)}</option>`).join('')}</select></label></div>
+    <div class="tw" style="max-height:330px;overflow:auto"><table><thead><tr><th>증권사</th><th class="num">청약</th><th>부과</th><th class="num">출고/종목</th><th class="num">이체</th><th>기준</th></tr></thead><tbody>
+    ${names.map(n=>{const b=brokerInfo(n);return `<tr class="click" data-act="broker-edit" data-name="${esc(n)}"><td><b>${esc(n)}</b>${n===mb?' <span class="tag" style="background:#eaf1fe;color:var(--pri)">주거래</span>':''}${used.has(n)?' <span class="dot" style="background:#8b5cf6"></span>':''}</td><td class="num">${won(b.fee)}</td><td><span class="mut">${COND_L[b.cond]}</span></td><td class="num">${won(b.out)}</td><td class="num">${won(b.xfer)}</td><td><span class="tag"${b.user?' style="background:#e3f6ee;color:#067647"':''}>${esc(b.src)}</span></td></tr>`}).join('')}
+    </tbody></table></div>
+    <div class="mut" style="font-size:11.5px;margin-top:6px">온라인·일반 등급 기준(${FEE_DATE} 조사). 등급·이벤트에 따라 다를 수 있어요 — 줄을 눌러 내 조건으로 고치면 ‘내 설정’으로 저장돼요.</div></div>`;
 }
 function renderIpo(){
+  loadIpoCal();
   const all=S.ipo.items;
   const years=[...new Set(all.map(i=>(i.subStart||'').slice(0,4)).filter(Boolean).concat(String(now.getFullYear())))].sort().reverse();
   const inY=all.filter(i=>ipoF.y==='전체'||(i.subStart||'').startsWith(ipoF.y));
   const rows=inY.filter(i=>ipoF.st==='전체'||i.status===ipoF.st).sort((a,b)=>(b.subStart||'').localeCompare(a.subStart||''));
   const subbed=inY.filter(i=>!['관심','청약예정','미청약'].includes(i.status));
-  const prof=sum(inY,i=>ipoProfit(i)||0),fees=sum(subbed,i=>i.fee),allot=sum(inY,i=>i.allotted);
+  const prof=sum(inY,i=>ipoProfit(i)||0),costs=sum(subbed,i=>ipoCosts(i).total),allot=sum(inY,i=>i.allotted);
   const sold=inY.filter(i=>ipoProfit(i)!=null);
-  const t=todayS();
-  const up=[];all.forEach(i=>{[['subStart','청약 시작'],['subEnd','청약 마감'],['refundDate','환불'],['listDate','상장']].forEach(([k,l])=>{const d=i[k];if(d&&d>=t&&dday(d)<=21&&!(k==='subEnd'&&i.subEnd===i.subStart))up.push({d,l,i})})});
-  up.sort((a,b)=>a.d.localeCompare(b.d));
-  const byBroker={};subbed.forEach(i=>{const k=i.broker||'미지정';byBroker[k]=byBroker[k]||{n:0,a:0,fee:0,p:0};byBroker[k].n++;byBroker[k].a+=+i.allotted||0;byBroker[k].fee+=+i.fee||0;byBroker[k].p+=ipoProfit(i)||0});
   const deposit=i=>i.deposit!=null?i.deposit:(i.price&&i.qty?i.price*i.qty*0.5:null);
   $('#page').innerHTML=`
   <div class="kpis">
     <div class="kpi"><div class="l">${ipoF.y==='전체'?'전체':ipoF.y+'년'} 청약 건수</div><div class="v">${subbed.length}건</div><div class="s">관심·예정 포함 ${inY.length}건</div></div>
     <div class="kpi"><div class="l">배정 주수 합계</div><div class="v">${won(allot)}주</div><div class="s">배정 받은 건 ${inY.filter(i=>i.allotted>0).length}건</div></div>
     <div class="kpi"><div class="l">실현 손익</div><div class="v ${prof>0?'pos':prof<0?'neg':''}">${prof>0?'+':''}${won(prof)}원</div><div class="s">매도 완료 ${sold.length}건 · 건당 ${sold.length?won(prof/sold.length):'-'}원</div></div>
-    <div class="kpi"><div class="l">청약 수수료 합계</div><div class="v">${won(fees)}원</div><div class="s">손익에 반영됨</div></div>
+    <div class="kpi"><div class="l">수수료·이체 비용 합계</div><div class="v">${won(costs)}원</div><div class="s">청약·출고·이체 · 손익에 반영됨</div></div>
   </div>
-  <div class="fgrid">
-    <div class="card"><h3>⏰ 다가오는 공모주 일정 (3주)</h3>
-      ${up.length?`<ul class="list">${up.map(u=>`<li style="cursor:pointer" data-act="edit" data-l="ipo" data-id="${u.i.id}"><span style="width:74px" class="mut">${mdw(u.d)}</span><span class="tag">${u.l}</span><span style="flex:1">${esc(u.i.name)} <span class="mut" style="font-size:12px">${esc(u.i.broker||'')}${u.i.owner?' · '+esc(u.i.owner):''}</span></span>${dday(u.d)===0?'<span class="tag" style="background:var(--pri);color:#fff">오늘</span>':`<span class="tag">D-${dday(u.d)}</span>`}</li>`).join('')}</ul>`:'<div class="empty">3주 내 일정이 없습니다</div>'}
-    </div>
-    <div class="card"><h3>🏢 증권사별 청약 수수료<span class="sp"></span><button class="btn p s" data-act="add" data-l="brokers">+ 증권사 추가</button></h3>
-      ${tableHTML('brokers',[{l:'증권사',f:r=>esc(r.name)},{l:'수수료/건',n:1,f:r=>r.fee==null?'-':won(r.fee)+'원'},{l:'면제·우대 조건',f:r=>`<span class="mut">${esc(r.cond)}</span>`},{l:'청약',n:1,f:r=>byBroker[r.name]?byBroker[r.name].n+'건':'-'}],[...S.ipo.brokers].sort((a,b)=>a.name.localeCompare(b.name)))}
-      <div class="mut" style="font-size:12px;margin-top:6px">여기 등록한 수수료는 공모주 입력 시 ‘청약 수수료’ 칸에 자동으로 채워집니다.</div>
-    </div>
-  </div>
+  ${ipoCalCard()}
   <div class="card">
-    <h3>📈 청약 내역<span class="sp"></span><button class="btn p" data-act="add" data-l="ipo">+ 공모주 추가</button></h3>
+    <h3><span class="hic" style="--c:#8b5cf6">${ic('trend',16)}</span>내 청약 내역<span class="sp"></span><button class="btn p" data-act="add" data-l="ipo">${ic('plus',14)} 직접 추가</button></h3>
     <div class="filters">
       ${['전체',...years].map(y=>`<button data-act="ipoy" data-v="${y}" class="${ipoF.y===y?'on':''}">${y==='전체'?'전체 연도':y+'년'}</button>`).join('')}
       <span style="width:10px"></span>
@@ -890,15 +1293,185 @@ function renderIpo(){
       {l:'청약주수',n:1,f:r=>won(r.qty)},
       {l:'증거금',n:1,f:r=>{const d=deposit(r);return d==null?'-':(r.deposit==null?`<span class="mut">${won(d)}</span>`:won(d))}},
       {l:'배정',n:1,f:r=>r.allotted!=null?`<b>${won(r.allotted)}주</b>`:'-'},
-      {l:'수수료',n:1,f:r=>won(r.fee)},
+      {l:'비용',n:1,f:r=>{const c=ipoCosts(r);return r.broker?`<span title="청약 ${won(c.sub)} · 출고 ${won(c.out)} · 이체 ${won(c.xfer)}">${won(c.total)}</span><div class="mut" style="font-size:10.5px">${[c.sub?'청약':'',c.out?'출고':'',c.xfer?'이체':''].filter(Boolean).join('·')||'없음'}</div>`:'-'}},
       {l:'매도가',n:1,f:r=>won(r.sellPrice)+(r.sellPrice&&r.price?`<div style="font-size:11px" class="${r.sellPrice>=r.price?'pos':'neg'}">${((r.sellPrice/r.price-1)*100).toFixed(1)}%</div>`:'')},
       {l:'손익',n:1,f:r=>{const p=ipoProfit(r);return p==null?'-':`<b class="${p>0?'pos':p<0?'neg':''}">${p>0?'+':''}${won(p)}</b>`}}
-    ],rows,rows.length?`<td colspan="8">합계 (${rows.length}건)</td><td class="num">${won(sum(rows,r=>r.allotted))}주</td><td class="num">${won(sum(rows,r=>r.fee))}</td><td></td><td class="num">${won(sum(rows,r=>ipoProfit(r)||0))}</td>`:'')}
-    <div class="mut" style="font-size:12px;margin-top:8px">손익 = (매도가 − 공모가) × 배정주수 − 청약수수료 − 매도비용. 같은 종목을 여러 계좌(본인·배우자 등)로 청약했다면 행을 열어 <b>복제</b>하면 편합니다.</div>
+    ],rows,rows.length?`<td colspan="8">합계 (${rows.length}건)</td><td class="num">${won(sum(rows,r=>r.allotted))}주</td><td class="num">${won(sum(rows,r=>r.broker?ipoCosts(r).total:0))}</td><td></td><td class="num">${won(sum(rows,r=>ipoProfit(r)||0))}</td>`:'')}
+    <div class="mut" style="font-size:12px;margin-top:8px">손익 = (매도가 − 공모가) × 배정주수 − 청약·출고·이체 비용 − 매도 비용. 주거래 증권사와 다른 곳에서 청약하면 출고·이체 비용이 자동으로 들어가요.</div>
   </div>
-  ${Object.keys(byBroker).length?`<div class="card"><h3>📊 증권사별 성과 (${ipoF.y==='전체'?'전체':ipoF.y+'년'})</h3><div class="tw"><table><thead><tr><th>증권사</th><th class="num">청약</th><th class="num">배정 주수</th><th class="num">수수료</th><th class="num">실현 손익</th></tr></thead><tbody>
-  ${Object.entries(byBroker).sort((a,b)=>b[1].p-a[1].p).map(([k,v])=>`<tr><td>${esc(k)}</td><td class="num">${v.n}건</td><td class="num">${won(v.a)}</td><td class="num">${won(v.fee)}</td><td class="num ${v.p>0?'pos':v.p<0?'neg':''}">${won(v.p)}</td></tr>`).join('')}
-  </tbody></table></div></div>`:''}`;
+  ${feeCard()}`;
+}
+
+/* ================= 수치형 목표 ================= */
+const GTYPES=[{v:'check',l:'체크형',d:'달성 / 미달성',ic:'check'},{v:'dec',l:'줄이기',d:'체중 · 지출 감소',ic:'down'},{v:'inc',l:'늘리기',d:'저축 · 독서 · 공부',ic:'trend'},{v:'limit',l:'횟수 제한',d:'금주 · 금연 · 야식',ic:'ban'},{v:'count',l:'횟수 달성',d:'운동 주 3회',ic:'flame'}];
+const GTPL=[
+ {l:'체중 감량',e:'⚖️',set:{gtype:'dec',unit:'kg',cat:'건강',text:'체중 감량'}},
+ {l:'체지방 감량',e:'💪',set:{gtype:'dec',unit:'%',cat:'건강',text:'체지방률 낮추기'}},
+ {l:'금주',e:'🍺',set:{gtype:'limit',unit:'회',per:'week',cnt:1,cat:'건강',text:'술 줄이기'}},
+ {l:'금연',e:'🚭',set:{gtype:'limit',unit:'회',per:'week',cnt:0,cat:'건강',text:'금연'}},
+ {l:'운동',e:'🏃',set:{gtype:'count',unit:'회',per:'week',cnt:3,cat:'건강',text:'운동 주 3회'}},
+ {l:'독서',e:'📚',set:{gtype:'inc',unit:'권',agg:'sum',startVal:0,cat:'자기계발',text:'책 읽기'}},
+ {l:'공부 시간',e:'✏️',set:{gtype:'inc',unit:'시간',agg:'sum',startVal:0,cat:'자기계발',text:'공부하기'}},
+ {l:'저축',e:'💰',set:{gtype:'inc',unit:'원',agg:'latest',cat:'재무',text:'저축하기'}},
+ {l:'투자자산',e:'📈',set:{gtype:'inc',unit:'원',agg:'latest',cat:'재무',text:'투자자산 늘리기'}},
+ {l:'지출 줄이기',e:'🧾',set:{gtype:'dec',unit:'원',cat:'재무',text:'월 지출 줄이기'}}
+];
+function keyBounds(key){
+  if(!key)return null;const k=key.slice(2);
+  if(key[0]==='Y')return {s:k+'-01-01',e:k+'-12-31'};
+  if(key[0]==='M'){const[y,m]=k.split('-').map(Number);return {s:`${k}-01`,e:fmtD(new Date(y,m,0))}}
+  if(key[0]==='W')return {s:k,e:fmtD(addDays(parseD(k),6))};
+  return null;
+}
+function scopeBounds(scope,a){const P=periodOf(scope,a);return keyBounds(P.key)}
+function goalRange(g){const b=keyBounds(g.period)||{s:todayS(),e:todayS()};return {s:g.start||b.s,e:g.end||g.due||b.e}}
+const fmtN=n=>n==null||isNaN(n)?'-':Math.abs(n)>=10000?won(n):(Math.round(n*100)/100).toLocaleString('ko-KR');
+function buckets(g){
+  const {s,e}=goalRange(g),per=g.per||'week',out=[];
+  if(per==='all'){out.push({s,e});return out}
+  let cur=per==='week'?monday(parseD(s)):new Date(parseD(s).getFullYear(),parseD(s).getMonth(),1);
+  while(fmtD(cur)<=e&&out.length<200){const bs=fmtD(cur);let be;if(per==='week')be=fmtD(addDays(cur,6));else be=fmtD(new Date(cur.getFullYear(),cur.getMonth()+1,0));
+    out.push({s:bs<s?s:bs,e:be>e?e:be});cur=per==='week'?addDays(cur,7):new Date(cur.getFullYear(),cur.getMonth()+1,1)}
+  return out;
+}
+function goalStats(g){
+  const t=g.gtype||'check',u=g.unit||'';
+  if(t==='check'){const p=g.done?100:Math.max(0,Math.min(100,+g.progress||0));return {pct:p,label:''}}
+  const logs=(g.logs||[]).slice().sort((a,b)=>a.d.localeCompare(b.d));
+  if(t==='dec'||t==='inc'){
+    const s=g.startVal!=null&&g.startVal!==''?+g.startVal:null,tg=+g.targetVal;
+    let cur=t==='inc'&&g.agg==='sum'?(s||0)+sum(logs,l=>l.v):(logs.length?+logs[logs.length-1].v:s);
+    let pct=0;if(s!=null&&cur!=null&&tg!==s)pct=(cur-s)/(tg-s)*100;else if(s==null&&cur!=null&&tg)pct=t==='inc'?cur/tg*100:0;
+    pct=Math.max(0,Math.min(100,Math.round(pct)));
+    const left=cur!=null?(t==='dec'?cur-tg:tg-cur):null;
+    return {pct,cur,label:`현재 <b>${fmtN(cur)}${u}</b> · 목표 ${fmtN(tg)}${u}${left!=null&&left>0?` · ${fmtN(left)}${u} 남음`:left!=null?' · 목표 달성!':''}`,spark:logs.map(l=>+l.v),s,tg};
+  }
+  const bs=buckets(g),td=todayS(),cnt=+g.cnt||0,{s:rs,e:re}=goalRange(g);
+  const cnts=bs.map(b=>sum(logs.filter(l=>l.d>=b.s&&l.d<=b.e&&l.d>=rs&&l.d<=re),l=>l.n||1));
+  const curI=bs.findIndex(b=>b.s<=td&&td<=b.e),curC=curI>=0?cnts[curI]:0;
+  const perL={week:'이번 주',month:'이번 달',all:'전체'}[g.per||'week'];
+  if(t==='limit'){
+    const el=bs.map((b,i)=>({b,i})).filter(x=>x.b.s<=td);
+    const ok=el.filter(x=>cnts[x.i]<=cnt).length;const pct=el.length?Math.round(ok/el.length*100):0;
+    return {pct,label:el.length?`${perL} <b>${curC}/${cnt}${u}</b> 이하 · ${ok}/${el.length}${g.per==='month'?'개월':g.per==='all'?'':'주'} 지킴`:'시작 전',curC};
+  }
+  const need=cnt*bs.length,done=sum(cnts,c=>Math.min(c,cnt));const pct=need?Math.round(done/need*100):0;
+  return {pct:Math.min(100,pct),label:`${perL} <b>${curC}/${cnt}${u}</b> · 누적 ${sum(cnts,c=>c)}${u}`,curC};
+}
+const gPct=g=>goalStats(g).pct;
+function gDone(g){const t=g.gtype||'check';if(t==='check')return !!g.done;const p=gPct(g);if(t==='limit')return p>=100&&goalRange(g).e<todayS();return p>=100}
+function sparkSVG(vals,tg){if(!vals||vals.length<2)return '';const all=vals.concat(tg!=null&&!isNaN(tg)?[tg]:[]);const mn=Math.min(...all),mx=Math.max(...all),W=120,H=34,r=mx-mn||1;const pts=vals.map((v,i)=>`${(i/(vals.length-1)*W).toFixed(1)},${(H-3-(v-mn)/r*(H-6)).toFixed(1)}`).join(' ');const ty=tg!=null&&!isNaN(tg)?(H-3-(tg-mn)/r*(H-6)).toFixed(1):null;return `<svg class="spark" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${ty?`<line x1="0" x2="${W}" y1="${ty}" y2="${ty}" stroke="#20a464" stroke-dasharray="3 3" stroke-width="1"/>`:''}<polyline points="${pts}" fill="none" stroke="var(--pri)" stroke-width="2" stroke-linejoin="round"/></svg>`}
+function goalRow(g,ro){
+  const t=g.gtype||'check',st=goalStats(g),p=st.pct,done=gDone(g),{s,e}=goalRange(g);
+  const gi=GICON[g.cat]||GICON['기타'],typ=GTYPES.find(x=>x.v===t);
+  return `<div class="goal${done?' done':''}">
+    ${t==='check'?`<input type="checkbox" data-act="gdone" data-id="${g.id}"${g.done?' checked':''}${ro?' disabled':''} style="margin-top:4px">`:`<span class="gico" style="background:${gi[1]}">${gi[0]}</span>`}
+    <div class="body">
+      <div class="row"><span class="t">${esc(g.text)}</span>${g.cat?`<span class="tag">${esc(g.cat)}</span>`:''}${t!=='check'?`<span class="tag" style="background:#eef2ff;color:#4f46e5">${esc(typ.l)}</span>`:''}${g.start||g.end||g.due?`<span class="tag">${md(s)}~${md(e)}</span>`:''}${done&&t!=='check'?'<span class="tag" style="background:#d1fadf;color:#067647">달성</span>':''}</div>
+      ${st.label?`<div class="glab">${st.label}</div>`:''}
+      ${t==='check'&&!ro?`<div class="row" style="margin-top:4px;flex-wrap:nowrap"><input type="range" min="0" max="100" step="5" value="${p}" data-act="gprog" data-id="${g.id}"><span class="mut num" style="width:38px">${p}%</span></div>`:`<div class="row" style="margin-top:6px;flex-wrap:nowrap;gap:10px"><div class="bar" style="flex:1"><i style="width:${p}%;${t==='limit'?'background:#f97316':''}"></i></div><span class="num" style="width:40px;font-size:12.5px;font-weight:700">${p}%</span>${st.spark?sparkSVG(st.spark,st.tg):''}</div>`}
+      ${g.memo?`<div class="mut" style="font-size:12px;white-space:pre-wrap">${esc(g.memo)}</div>`:''}
+    </div>
+    ${ro?'':`<div class="gbtns">${t==='limit'||t==='count'?`<button class="btn s ${t==='count'?'p':''}" data-act="grec1" data-id="${g.id}" title="오늘 1회 기록">+1</button>`:''}${t!=='check'?`<button class="btn s" data-act="grec" data-id="${g.id}">${ic('plus',13)} 기록</button>`:''}<button class="btn s ghost" data-act="edit" data-l="goals" data-id="${g.id}">수정</button></div>`}
+  </div>`;
+}
+function editGoal(id,preset={},extra={}){
+  const arr=S.goals.items,item=id?arr.find(x=>x.id===id):null;if(id&&!item)return;
+  const scope0=(item&&item.scope)||extra.scope||preset.scope||gp.scope;
+  const b0=item?goalRange(item):scopeBounds(scope0,gp.anchor);
+  const data=item?{...item,start:b0.s,end:b0.e,gtype:item.gtype||'check'}:{scope:scope0,start:b0.s,end:b0.e,gtype:'check',cat:'업무',progress:0,per:'week',agg:'latest',...preset};
+  const isT=(...ts)=>v=>ts.includes(v.gtype);
+  const fields=[
+    {k:'scope',l:'목표 구분',t:'cards',ic:'layers',o:[{v:'year',l:'연간 목표',d:'인생 로드맵을 설계해요',ic:'cal'},{v:'month',l:'월간 목표',d:'한 달의 목표를 세워요',ic:'calcheck'},{v:'week',l:'주간 목표',d:'이번 주 할 일을 정해요',ic:'trophy'}]},
+    {k:'text',l:'목표 내용',t:'text',req:1,ic:'flag',max:100,ph:'예) 40세까지 투자자산 10억원 달성하기'},
+    {k:'start',l:'목표 기간 · 시작일',t:'date',h:1},{k:'end',l:'종료일',t:'date',h:1},
+    {k:'cat',l:'카테고리',t:'chips',ic:'tag',o:GCATS.map(c=>({v:c,l:c,c:(GICON[c]||GICON['기타'])[2],e:(GICON[c]||GICON['기타'])[0]}))},
+    {k:'gtype',l:'목표 유형',t:'cards',ic:'chart',o:GTYPES},
+    {k:'tpl',l:'빠른 템플릿',t:'chips',ic:'flame',free:1,o:GTPL.map((x,i)=>({v:String(i),l:x.l,e:x.e}))},
+    {k:'progress',l:'진행률 (%)',t:'num',h:1,min:0,max:100,ic:'percent',show:isT('check')},
+    {k:'unit',l:'단위',t:'text',h:1,ic:'hash',ph:'예: kg, 권, 원, 회',show:isT('dec','inc','limit','count')},
+    {k:'startVal',l:'시작값',t:'num',h:1,ic:'flag',ph:'예: 78',show:isT('dec','inc')},
+    {k:'targetVal',l:'목표값',t:'num',h:1,ic:'target',req:1,ph:'예: 72',show:isT('dec','inc')},
+    {k:'agg',l:'기록 방식',t:'chips',h:1,show:isT('inc'),o:[{v:'latest',l:'최신값 (잔액·체중)'},{v:'sum',l:'누적 합계 (권수·시간)'}]},
+    {k:'per',l:'기준 기간',t:'chips',h:1,show:isT('limit','count'),o:[{v:'week',l:'주마다'},{v:'month',l:'달마다'},{v:'all',l:'전체 기간'}]},
+    {k:'cnt',l:'기준 횟수',t:'num',h:1,min:0,ic:'hash',req:1,show:isT('limit','count'),hint:''},
+    {k:'memo',l:'메모',t:'area',opt:1,ph:'목표에 대한 추가 설명을 입력하세요'},
+    {k:'done',l:'달성 완료',t:'check',show:isT('check')}
+  ];
+  const m=META.goals;
+  openForm({title:item?'목표 수정':'목표 추가',sub:m.sub,icon:m.icon,color:m.color,fields,data,
+    onSave:v=>{
+      if(v.start&&v.end&&v.end<v.start){toast('종료일이 시작일보다 빨라요');return false}
+      const st=v.start?parseD(v.start):gp.anchor;const P=periodOf(v.scope,st);
+      const o={scope:v.scope,period:P.key,text:v.text,start:v.start,end:v.end,cat:v.cat,gtype:v.gtype,memo:v.memo};
+      if(v.gtype==='check'){o.progress=v.progress||0;o.done=v.done;if(v.done&&!(item&&item.doneAt))o.doneAt=todayS()}
+      else{o.unit=v.unit;if(['dec','inc'].includes(v.gtype)){o.startVal=v.startVal;o.targetVal=v.targetVal;o.agg=v.agg||'latest'}else{o.per=v.per||'week';o.cnt=v.cnt}}
+      if(item)Object.assign(item,o);else arr.push({id:newId(),logs:[],...o});
+      save('goals');renderAll();toast('저장했습니다');
+    },
+    onDelete:item?()=>{arr.splice(arr.indexOf(item),1);save('goals');renderAll();toast('삭제했습니다')}:null,
+    mount:(root,form)=>{
+      let datesTouched=!!item;['start','end'].forEach(k=>form.querySelector(`[name=${k}]`).addEventListener('input',()=>datesTouched=true));
+      form.querySelector('[name=scope]').addEventListener('change',e=>{if(datesTouched)return;const b=scopeBounds(e.target.value,gp.anchor);setField(form,'start',b.s);setField(form,'end',b.e)});
+      const cntLab=()=>{const t=form.querySelector('[name=gtype]').value;const l=form.querySelector('[data-fk="cnt"] .ft');const h=form.querySelector('[data-fk="cnt"] .hint');if(l)l.textContent=t==='limit'?'허용 횟수 (이하)':'목표 횟수 (이상)';if(h)h.textContent=t==='limit'?'기간마다 이 횟수 이하로 지키면 성공':'기간마다 이 횟수 이상 하면 성공'};
+      if(!form.querySelector('[data-fk="cnt"] .hint')){const lab=form.querySelector('[data-fk="cnt"]');const sp=document.createElement('span');sp.className='hint';lab.appendChild(sp)}
+      form.addEventListener('change',cntLab);cntLab();
+      form.querySelector('[data-for="tpl"]').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;const tp=GTPL[+b.dataset.v];if(!tp)return;
+        Object.entries(tp.set).forEach(([k,val])=>{if(k==='text'&&form.querySelector('[name=text]').value.trim())return;setField(form,k,val)});
+        b.parentElement.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast(`‘${tp.l}’ 템플릿을 적용했어요`)});
+    }});
+}
+function openRecord(gid){
+  const g=S.goals.items.find(x=>x.id===gid);if(!g)return;const t=g.gtype,u=g.unit||'';const isV=t==='dec'||t==='inc';
+  g.logs=g.logs||[];
+  const last=g.logs.slice().sort((a,b)=>b.d.localeCompare(a.d)).slice(0,12);
+  const fields=[{k:'d',l:'날짜',t:'date',req:1,h:1},isV?{k:'v',l:`${t==='inc'&&g.agg==='sum'?'이번에 더한 값':'현재 값'}${u?' ('+u+')':''}`,t:'num',req:1,h:1,ic:'hash'}:{k:'n',l:`횟수${u?' ('+u+')':''}`,t:'num',req:1,h:1,min:1,ic:'hash'},
+    {k:'list',t:'html',html:last.length?`<div class="loglist"><div class="mut" style="font-size:12px;margin-bottom:4px">최근 기록</div>${last.map(l=>`<div class="logrow"><span>${mdw(l.d)}</span><b>${isV?fmtN(l.v)+u:(l.n||1)+'회'}</b><button type="button" class="tx" data-act="glog-del" data-g="${g.id}" data-id="${l.id}" title="삭제">×</button></div>`).join('')}</div>`:'<div class="mut" style="font-size:12.5px">아직 기록이 없어요.</div>'}];
+  const st=goalStats(g);
+  openForm({title:'기록 추가 · '+g.text,sub:st.label.replace(/<[^>]+>/g,'')||'',icon:'chart',color:'#3b7cf5',fields,data:{d:todayS(),n:1,v:isV&&st.cur!=null&&!(t==='inc'&&g.agg==='sum')?st.cur:''},saveLabel:'기록하기',
+    onSave:v=>{g.logs.push(isV?{id:newId(),d:v.d,v:v.v}:{id:newId(),d:v.d,n:v.n||1});save('goals');renderAll();const ns=goalStats(g);toast(`기록했어요 · 성공률 ${ns.pct}%`)}});
+}
+function renderGoals(){
+  const P=periodOf(gp.scope,gp.anchor);
+  const items=S.goals.items.filter(g=>g.period===P.key);
+  const doneN=items.filter(gDone).length,avg=items.length?Math.round(sum(items,gPct)/items.length):0;
+  const par=P.parent?periodOf(P.parent.scope,P.parent.a):null;
+  const parItems=par?S.goals.items.filter(g=>g.period===par.key):[];
+  const prevKey=periodOf(gp.scope,shiftAnchor(gp.scope,gp.anchor,-1)).key;
+  const prevUndone=S.goals.items.filter(g=>g.period===prevKey&&!gDone(g)).length;
+  const y=gp.anchor.getFullYear();
+  const yrStats=['week','month','year'].map(sc=>{const it=S.goals.items.filter(g=>g.scope===sc&&(g.period||'').includes(String(y)));return {sc,n:it.length,d:it.filter(gDone).length,avg:it.length?Math.round(sum(it,gPct)/it.length):0}});
+  $('#page').innerHTML=`
+  <div class="card">
+    <div class="calhead">
+      <div class="seg">${Object.entries(SC).map(([k,v])=>`<button data-act="gscope" data-v="${k}" class="${gp.scope===k?'on':''}">${v}</button>`).join('')}</div>
+      <span style="width:8px"></span>
+      <button class="ib" data-act="gnav" data-v="-1">${ic('chevL')}</button>
+      <div style="text-align:center;min-width:180px"><div style="font-weight:700;font-size:17px">${P.label}</div>${P.sub?`<div class="mut" style="font-size:12px">${P.sub}</div>`:''}</div>
+      <button class="ib" data-act="gnav" data-v="1">${ic('chevR')}</button>
+      <button class="btn s" data-act="gnav" data-v="0">현재</button>
+    </div>
+  </div>
+  <div class="ggrid">
+    <div>
+      <div class="card">
+        <h3>🎯 ${SC[gp.scope]} 목표 <span class="tag">${doneN}/${items.length} 달성</span><span class="sp"></span>${prevUndone?`<button class="btn s" data-act="gcarry">지난 기간 미완료 ${prevUndone}개 가져오기</button>`:''}<button class="btn p s" data-act="add-goal">${ic('plus',13)} 목표 추가</button></h3>
+        ${items.length?`<div class="bar" style="height:8px;margin-bottom:6px"><i style="width:${avg}%"></i></div><div class="mut" style="font-size:12px;margin-bottom:6px">평균 성공률 ${avg}%</div>`+items.map(g=>goalRow(g)).join(''):'<div class="empty">이 기간의 목표가 없습니다. ‘목표 추가’에서 체중 감량·금주·운동 같은 템플릿으로 시작해 보세요.</div>'}
+      </div>
+      <div class="card">
+        <h3>📝 ${SC[gp.scope]} 메모 · 회고</h3>
+        <textarea class="note" data-act="gnote" data-k="${P.key}" placeholder="이번 ${gp.scope==='week'?'주':gp.scope==='month'?'달':'해'}의 계획, 회고, 배운 점을 자유롭게 적어 보세요.">${esc(S.goals.notes[P.key]||'')}</textarea>
+      </div>
+    </div>
+    <div>
+      ${par?`<div class="card"><h3>⬆ 상위 목표 · ${par.label}</h3>${parItems.length?parItems.map(g=>goalRow(g,true)).join(''):`<div class="empty">${SC[par.key[0]==='M'?'month':'year']} 목표가 아직 없습니다</div>`}</div>`:''}
+      <div class="card"><h3>📊 ${y}년 목표 현황</h3>
+        <table><thead><tr><th>구분</th><th class="num">목표 수</th><th class="num">달성</th><th class="num">평균 성공률</th></tr></thead><tbody>
+        ${yrStats.map(s=>`<tr><td>${SC[s.sc]}</td><td class="num">${s.n}</td><td class="num">${s.d}</td><td class="num">${s.n?s.avg+'%':'-'}</td></tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>
+  </div>`;
 }
 
 /* ================= 백업 ================= */
@@ -1037,6 +1610,7 @@ function doneDates(){
   S.schedule.todos.forEach(t=>t.done&&add(t.date));
   S.schedule.events.forEach(e=>e.done&&add(e.date));
   S.goals.items.forEach(g=>g.done&&add(g.doneAt));
+  S.goals.items.forEach(g=>{if(g.gtype&&g.gtype!=='limit'&&g.gtype!=='check')(g.logs||[]).forEach(l=>add(l.d))});
   return s;
 }
 function streaks(){
@@ -1064,7 +1638,7 @@ function heroHTML(){
 function donut(p){const r=50,c=2*Math.PI*r;return `<svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="${r}" fill="none" stroke="#e3e9f5" stroke-width="20"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--pri)" stroke-width="20" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 75 75)" stroke-linecap="${p>0&&p<100?'round':'butt'}"/><text x="75" y="76" text-anchor="middle" font-size="24" font-weight="800" fill="#1a2233">${p}%</text><text x="75" y="97" text-anchor="middle" font-size="12" fill="#7a8499">완료율</text></svg>`}
 function renderHome(){
   const t=todayS(),ym=t.slice(0,7);
-  const mg=goalsOfMonth(ym),mgd=mg.filter(g=>g.done).length,mgp=mg.length?Math.round(mgd/mg.length*100):0;
+  const mg=goalsOfMonth(ym),mgd=mg.filter(gDone).length,mgp=mg.length?Math.round(mgd/mg.length*100):0;
   const su=sunday(new Date()),wk=[...Array(7)].map((_,i)=>fmtD(addDays(su,i)));
   const wev=S.schedule.events.filter(e=>wk.includes(e.date)),wd=wev.filter(e=>e.done).length;
   const sk=streaks();
@@ -1076,7 +1650,7 @@ function renderHome(){
   let yg=S.goals.items.filter(g=>g.period==='Y:'+t.slice(0,4));let gsrc='올해';
   if(!yg.length){yg=S.goals.items.filter(g=>g.period==='M:'+ym);gsrc='이번 달'}
   const myGoals=`<div class="card"><div class="ch"><h3>나의 목표</h3><a data-act="go" data-v="goals">더보기 ›</a></div>
-   ${yg.length?yg.slice(0,5).map(g=>{const gi=GICON[g.cat]||GICON['기타'];const p=g.done?100:Math.max(0,Math.min(100,+g.progress||0));const due=g.due||(g.period[0]==='Y'?g.period.slice(2)+'-12-31':'');
+   ${yg.length?yg.slice(0,5).map(g=>{const gi=GICON[g.cat]||GICON['기타'];const p=gPct(g);const due=g.end||g.due||(g.period[0]==='Y'?g.period.slice(2)+'-12-31':'');
      return `<div class="mg" data-act="edit" data-l="goals" data-id="${g.id}"><div class="gi" style="background:${gi[1]}">${gi[0]}</div><div class="gb"><div class="gt">${esc(g.text)}</div>${due?`<div class="gd">(${due.replace(/-/g,'.')}까지)</div>`:''}<div class="gp"><div class="bar"><i style="width:${p}%;background:${gi[2]}"></i></div><span>${p}%</span></div></div></div>`}).join(''):`<div class="empty" style="padding:10px">연간 목표를 추가해 보세요<br><button class="btn s" style="margin-top:8px" data-act="goal-year">+ 올해 목표 추가</button></div>`}
    ${yg.length?`<div class="mut" style="font-size:11px;margin-top:4px">${gsrc} 목표 ${yg.length}개</div>`:''}</div>`;
   // 이번 달 요약
@@ -1117,7 +1691,7 @@ function barChart(rows,{fmt=v=>v,unit=''}={}){
 }
 function renderStats(){
   const months=[...Array(6)].map((_,i)=>{const d=new Date(now.getFullYear(),new Date().getMonth()-5+i,1);return `${d.getFullYear()}-${pad(d.getMonth()+1)}`});
-  const gRows=months.map(ym=>{const g=goalsOfMonth(ym);return {l:+ym.slice(5)+'월',v:g.length?Math.round(g.filter(x=>x.done).length/g.length*100):null}});
+  const gRows=months.map(ym=>{const g=goalsOfMonth(ym);return {l:+ym.slice(5)+'월',v:g.length?Math.round(g.filter(gDone).length/g.length*100):null}});
   const eRows=months.map(ym=>{const e=S.schedule.events.filter(x=>(x.date||'').startsWith(ym));return {l:+ym.slice(5)+'월',v:e.length?Math.round(e.filter(x=>x.done).length/e.length*100):null,n:e.length}});
   const tRows=months.map(ym=>{const e=S.schedule.todos.filter(x=>(x.date||'').startsWith(ym));return {l:+ym.slice(5)+'월',v:e.filter(x=>x.done).length}});
   const y=String(new Date().getFullYear());
@@ -1130,7 +1704,7 @@ function renderStats(){
   <div class="kpis">
     <div class="kpi"><div class="l">현재 연속 실천</div><div class="v">${sk.cur}일</div><div class="s">최고 기록 ${sk.best}일</div></div>
     <div class="kpi"><div class="l">누적 완료한 할 일</div><div class="v">${S.schedule.todos.filter(x=>x.done).length}개</div><div class="s">전체 ${S.schedule.todos.length}개</div></div>
-    <div class="kpi"><div class="l">누적 달성 목표</div><div class="v">${S.goals.items.filter(x=>x.done).length}개</div><div class="s">전체 ${S.goals.items.length}개</div></div>
+    <div class="kpi"><div class="l">누적 달성 목표</div><div class="v">${S.goals.items.filter(gDone).length}개</div><div class="s">전체 ${S.goals.items.length}개</div></div>
     <div class="kpi"><div class="l">${y}년 공모주 실현손익</div><div class="v">${won(sum(pRows,r=>r.v||0))}원</div><div class="s">매도일 기준</div></div>
   </div>
   <div class="card"><h3>🔥 실천 기록 (최근 20주)</h3><div class="heat">${heat}</div><div class="mut" style="font-size:11.5px;margin-top:6px">할 일·일정·목표를 완료로 체크한 날이 진하게 표시됩니다.</div></div>
@@ -1211,6 +1785,7 @@ function renderAll(fromSnap){
   const SUB={goals:'주간·월간·연간 목표를 세우고 진행률을 관리해요.',schedule:'일정과 할 일을 한눈에 관리해요.',assets:'계좌·자산·부채와 고정지출을 정리해요.',ipo:'공모주 청약부터 배정·매도 손익까지 기록해요.',stats:'꾸준함과 성과를 숫자로 돌아봐요.',settings:'이름과 문구, 로그인 비밀번호, 표시 옵션을 바꿀 수 있어요.',life:'생애 단계별 목표로 인생의 큰 그림을 그려요.'};
   $('#tbl').innerHTML=curTab==='home'?`<h1>${esc(st.name)}님, 오늘도 힘내세요! 💪</h1><p>${esc(st.greet)}</p>`:`<h1>${P[1]}</h1><p>${SUB[curTab]}</p>`;
   $('#dl-broker').innerHTML=[...new Set([...S.ipo.brokers.map(b=>b.name),...BROKERS])].map(b=>`<option value="${esc(b)}">`).join('');
+  $('#dl-inst-bank').innerHTML=[...new Set([...S.finance.accounts.filter(a=>acctKind(a)==='bank').map(a=>a.inst).filter(Boolean),...BANKS])].map(b=>`<option value="${esc(b)}">`).join('');
   $('#dl-inst').innerHTML=[...new Set([...S.finance.accounts.map(a=>a.inst).filter(Boolean),...BANKS,...BROKERS])].map(b=>`<option value="${esc(b)}">`).join('');
   const owners=new Set(['본인','배우자']);S.ipo.items.concat(S.finance.accounts).forEach(x=>x.owner&&owners.add(x.owner));$('#dl-owner').innerHTML=[...owners].map(o=>`<option value="${esc(o)}">`).join('');
   $('#logout').style.display='block';
@@ -1241,6 +1816,7 @@ document.addEventListener('change',e=>{
   if(a==='evdone'){const ev=S.schedule.events.find(x=>x.id===el.dataset.id);if(ev){ev.done=el.checked;save('schedule');renderAll()}}
   if(a==='life-by'){const v=+el.value;S.life.birthYear=v>1900&&v<2100?v:null;save('life');renderAll()}
   if(a==='lgoal-done'){const g=S.life.goals.find(x=>x.id===el.dataset.id);if(g){g.done=el.checked;if(g.done)g.doneAt=todayS();save('life');renderAll()}}
+  if(a==='mainbroker'){S.settings.mainBroker=el.value;save('settings');renderAll();toast(el.value?`주거래 증권사를 ${el.value}(으)로 정했어요`:'주거래 증권사를 해제했어요')}
   if(a==='opt'){S.settings[el.dataset.k]=el.checked;save('settings');renderAll()}
 });
 document.addEventListener('click',e=>{
@@ -1276,8 +1852,8 @@ document.addEventListener('click',e=>{
     case 'gnav':{const v=+el.dataset.v;gp.anchor=v===0?new Date():shiftAnchor(gp.scope,gp.anchor,v);renderAll();break}
     case 'add-goal':{const P=periodOf(gp.scope,gp.anchor);edit('goals',null,{progress:0,cat:'업무'},{scope:gp.scope,period:P.key});break}
     case 'gcarry':{const P=periodOf(gp.scope,gp.anchor),pk=periodOf(gp.scope,shiftAnchor(gp.scope,gp.anchor,-1)).key;
-      const src=S.goals.items.filter(g=>g.period===pk&&!g.done);let n=0;
-      src.forEach(g=>{if(!S.goals.items.some(x=>x.period===P.key&&x.text===g.text)){S.goals.items.push({...clone(g),id:newId(),period:P.key});n++}});
+      const src=S.goals.items.filter(g=>g.period===pk&&!gDone(g));let n=0;
+      src.forEach(g=>{if(!S.goals.items.some(x=>x.period===P.key&&x.text===g.text)){{const b=keyBounds(P.key);S.goals.items.push({...clone(g),id:newId(),period:P.key,start:b.s,end:b.e,logs:[],done:false})};n++}});
       save('goals');renderAll();toast(n?`${n}개를 가져왔습니다`:'이미 모두 가져왔습니다');break}
     case 'snap':{const T=finTotals(),m=todayS().slice(0,7);const s=S.finance.snapshots;const ex=s.find(x=>x.month===m);const v={month:m,assets:T.total,debts:T.debt,net:T.net,at:todayS()};if(ex)Object.assign(ex,v);else s.push(v);save('finance');renderAll();toast(`${m} 순자산을 기록했습니다`);break}
     case 'delsnap':{e.stopPropagation();if(!el.dataset.c){el.dataset.c=1;el.textContent='확인';return}const s=S.finance.snapshots;const i=s.findIndex(x=>x.month===el.dataset.m);if(i>=0){s.splice(i,1);save('finance');renderAll()}break}
@@ -1295,6 +1871,18 @@ document.addEventListener('click',e=>{
     case 'lgoal-edit':e.stopPropagation();editLGoal(el.dataset.id);break;
     case 'fam-add':editFamily(null);break;
     case 'fam-edit':editFamily(el.dataset.id);break;
+    case 'acc-add':editAccount(null,{kind:el.dataset.k});break;
+    case 'hold-add':editHolding(el.dataset.acc,null);break;
+    case 'hold-edit':editHolding(el.dataset.acc,el.dataset.id);break;
+    case 'quote-refresh':refreshQuotes(true);break;
+    case 'ipo-sub':subscribeIpo(el.dataset.id);break;
+    case 'ipo-hide':case 'ipo-unhide':{const h=new Set(S.ipo.hidden||[]);a==='ipo-hide'?h.add(el.dataset.id):h.delete(el.dataset.id);S.ipo.hidden=[...h];save('ipo');renderAll();if(a==='ipo-hide')toast('숨겼어요. 상단 ‘숨긴 종목’에서 다시 볼 수 있어요');break}
+    case 'ipo-showhidden':ipoF.showHidden=!ipoF.showHidden;renderAll();break;
+    case 'ipo-refresh':loadIpoCal(true);break;
+    case 'broker-edit':editBroker(null,{name:el.dataset.name});break;
+    case 'grec':openRecord(el.dataset.id);break;
+    case 'grec1':{const g=S.goals.items.find(x=>x.id===el.dataset.id);if(g){g.logs=g.logs||[];g.logs.push({id:newId(),d:todayS(),n:1});save('goals');renderAll();toast(`오늘 1${g.unit||'회'} 기록 · 성공률 ${gPct(g)}%`)}break}
+    case 'glog-del':{const g=S.goals.items.find(x=>x.id===el.dataset.g);if(g){g.logs=(g.logs||[]).filter(l=>l.id!==el.dataset.id);save('goals');closeModal();renderAll();openRecord(g.id)}break}
     case 'ipoy':ipoF.y=el.dataset.v;renderAll();break;
     case 'ipos':ipoF.st=el.dataset.v;renderAll();break;
   }
@@ -1310,20 +1898,20 @@ function editLGoal(id,stageId){
   const L=S.life,item=id?L.goals.find(g=>g.id===id):null;if(id&&!item)return;
   const st=L.stages.find(s=>s.id===(item?item.stageId:stageId));
   const data=item?{...item,stage:st&&st.name}:{stage:st&&st.name,cat:'재무',targetAge:st?st.from:null};
-  openForm({title:'라이프 목표'+(item?' 수정':' 추가'),fields:lgoalFields(),data,
+  openForm({title:'라이프 목표'+(item?' 수정':' 추가'),sub:META.life.sub,icon:'map',color:'#14b8a6',fields:lgoalFields(),data,
     onSave:v=>{const s=L.stages.find(x=>x.name===v.stage);v.stageId=s?s.id:(st&&st.id);delete v.stage;if(v.done&&!(item&&item.doneAt))v.doneAt=todayS();if(item)Object.assign(item,v);else L.goals.push({id:newId(),...v});save('life');renderAll();toast('저장했습니다')},
     onDelete:item?()=>{L.goals.splice(L.goals.indexOf(item),1);save('life');renderAll()}:null});
 }
 function editStage(id){
   const L=S.life,item=id?L.stages.find(s=>s.id===id):null;
   const last=L.stages.reduce((m,s)=>Math.max(m,+s.to||0),0);
-  openForm({title:'생애 단계'+(item?' 수정':' 추가'),fields:F.stage,data:item||{from:last?last+1:(lifeAge()||30),to:(last?last+10:(lifeAge()||30)+9)},
+  openForm({title:'생애 단계'+(item?' 수정':' 추가'),sub:'나이 구간과 이 시기의 핵심 테마를 정해요',icon:'layers',color:'#14b8a6',fields:F.stage,data:item||{from:last?last+1:(lifeAge()||30),to:(last?last+10:(lifeAge()||30)+9)},
     onSave:v=>{if(v.to<v.from){toast('끝 나이가 시작 나이보다 작아요');return}if(item)Object.assign(item,v);else L.stages.push({id:newId(),color:STAGE_COLORS[L.stages.length%STAGE_COLORS.length],...v});save('life');renderAll()},
     onDelete:item?()=>{const n=L.goals.filter(g=>g.stageId===item.id).length;L.stages.splice(L.stages.indexOf(item),1);L.goals=L.goals.filter(g=>g.stageId!==item.id);save('life');renderAll();if(n)toast(`단계와 목표 ${n}개를 삭제했습니다`)}:null});
 }
 function editFamily(id){
   const L=S.life,item=id?L.family.find(f=>f.id===id):null;
-  openForm({title:'가족'+(item?' 수정':' 추가'),fields:F.family,data:item||{},
+  openForm({title:'가족'+(item?' 수정':' 추가'),sub:'단계별로 가족의 나이가 함께 표시돼요',icon:'user',color:'#f97316',fields:F.family,data:item||{},
     onSave:v=>{if(item)Object.assign(item,v);else L.family.push({id:newId(),...v});save('life');renderAll()},
     onDelete:item?()=>{L.family.splice(L.family.indexOf(item),1);save('life');renderAll()}:null});
 }

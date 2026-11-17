@@ -1,0 +1,6 @@
+{
+  "name": "myplan",
+  "private": true,
+  "type": "module",
+  "description": "MyPlan 개인 대시보드 — 정적 페이지 + Vercel 함수(시세·종목검색·공모주 일정)"
+}
