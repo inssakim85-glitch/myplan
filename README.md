@@ -14,9 +14,14 @@ myplan/
 └── vercel.json          Vercel 배포 설정
 ```
 
+## 현재 배포 정보
+- 사이트 주소: https://myplan-theta-umber.vercel.app
+- Supabase 프로젝트: `myplan` (서울, ap-northeast-2)
+- Vercel 프로젝트: `myplan` — `main` 브랜치에 커밋하면 자동 배포
+
 ---
 
-## 설치 순서 (약 15분)
+## 처음부터 새로 설치할 때 (약 15분)
 
 ### 1단계. Supabase 프로젝트 만들기
 1. https://supabase.com 에 가입·로그인한 뒤 **New project**를 누릅니다.
