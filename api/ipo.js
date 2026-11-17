@@ -35,7 +35,7 @@ export function parseList(html) {
     if (cells.length < 6) continue;
     const range = parseRange(cells[1]);
     if (!range) continue;
-    const no = (r.match(/[?&]no=(\d+)/) || [])[1] || null;
+    const no = (r.match(/[?&;]no=(\d+)/) || [])[1] || null;
     let name = cells[0];
     let market = '코스닥';
     if (/\(유가\)/.test(name)) { market = '코스피'; name = name.replace(/\(유가\)/, '').trim(); }
