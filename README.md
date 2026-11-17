@@ -30,7 +30,7 @@ myplan/
 
 ### 3단계. config.js에 키 넣기
 1. Supabase에서 **Project Settings → API**(또는 **Data API / API Keys**)로 갑니다.
-2. **Project URL**과 **anon public** 키를 복사합니다.
+2. **Publishable key**(sb_publishable_…)와 프로젝트 주소(https://프로젝트ID.supabase.co)를 복사합니다.
 3. GitHub에서 `config.js` 파일을 열고 연필(Edit) 아이콘을 누른 뒤 두 값을 바꿔 넣고 **Commit changes**를 누릅니다.
    ```js
    SUPABASE_URL: 'https://abcdefgh.supabase.co',
