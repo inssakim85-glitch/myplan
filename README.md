@@ -60,7 +60,7 @@ myplan/
 ---
 
 ## 인증 메일을 한국어로 바꾸기 (선택)
-Supabase → **Authentication → Emails(Email Templates)** 에서 바꿀 수 있습니다.
+현재 Supabase는 **외부 메일 서버(SMTP)를 연결해야** 메일 제목·본문을 바꿀 수 있습니다. 먼저 **Authentication → Emails → SMTP Settings**에서 Resend나 Gmail SMTP 같은 메일 서버를 연결한 뒤, **Templates** 탭에서 아래처럼 바꾸세요. SMTP를 연결하지 않아도 기본 영문 메일로 가입과 비밀번호 재설정은 정상적으로 됩니다.
 
 **Confirm signup**
 - Subject: `[MyPlan] 이메일 인증을 완료해 주세요`
